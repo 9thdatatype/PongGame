@@ -17,11 +17,12 @@ Socket comm = null;
 DataOutputStream dOut;
 InputStreamReader dIn;
 BufferedReader buffIn;
+double x=0, y=0;
 
 
 
 /**
- * Method Name: intro()
+ * Method Name: Communication()
  * Date Added: 26/1/2016
  * Purpose: creates object and initilizes connection
  * Accepts: ip address as string
@@ -44,7 +45,7 @@ Communication(String IP){
 
 
 /**
- * Method Name: intro()
+ * Method Name: Communication()
  * Date Added: 26/1/2016
  * Purpose: creates object and waits for connection
  * Accepts: null
@@ -69,11 +70,11 @@ Communication(){
 
 
 /**
- * Method Name: intro()
+ * Method Name: send()
  * Date Added: 26/1/2016
  * Purpose: tries to send 2 doubles representing xpos and ypos
  * Accepts: doubles represinting x and y
- * Returns: communication object
+ * Returns: null
  * Coder: Daniel Thertell
  */
 public void send(double x, double y){
@@ -91,15 +92,18 @@ public void send(double x, double y){
 }
 
 /**
- * Method Name: intro()
+ * Method Name: check()
  * Date Added: 26/1/2016
- * Purpose: checks to see if a x and y pos exist
+ * Purpose: checks to see if a x and y pos exist and stores them
  * Accepts: null
- * Returns: communication object
+ * Returns: true if there is more in the buffer
  * Coder: Daniel Thertell
  */
 public boolean check(){
 	try {
+		x = buffIn.read();
+		y = buffIn.read();
+		System.out.println("X: " + x + ", Y: " + y);
 		return buffIn.ready();
 	} catch (IOException e) {
 		
@@ -109,6 +113,30 @@ public boolean check(){
 }
 
 
+/**
+ * Method Name: getX()
+ * Date Added: 26/1/2016
+ * Purpose: returns the last x value read
+ * Accepts: null
+ * Returns: communication object
+ * Coder: Daniel Thertell
+ */
+public double getX(){
+	return x;
+}
+
+
+/**
+ * Method Name: getY()
+ * Date Added: 26/1/2016
+ * Purpose: checks to see if a x and y pos exist and stores them
+ * Accepts: null
+ * Returns: communication object
+ * Coder: Daniel Thertell
+ */
+public double getY(){
+	return y;
+}
 
 
 }
