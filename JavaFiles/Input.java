@@ -92,6 +92,19 @@ public String getInput(){
 	return output;
 }
 
+/**
+ * Method Name: clearInput()
+ * Date Added: 31/1/2016
+ * Purpose: clears the string buffer
+ * Accepts: null
+ * Returns: null
+ * Coder: Daniel Thertell
+ */	
+
+public void clearInput(){
+	output = "";
+}
+
 
 }
 
