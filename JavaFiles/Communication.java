@@ -6,6 +6,7 @@
  */
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,11 +14,12 @@ import java.net.*;
 
 
 public class Communication {
-Socket comm = null;
-DataOutputStream dOut;
-InputStreamReader dIn;
-BufferedReader buffIn;
-double x=0, y=0;
+private Socket comm = null;
+private DataOutputStream dOut;
+private DataInputStream daIn;
+private InputStreamReader dIn;
+private BufferedReader buffIn;
+private double x=0, y=0;
 
 
 
@@ -33,6 +35,7 @@ Communication(String IP){
 	try {
 		comm = new Socket(IP,8800);
 		dOut = new DataOutputStream(comm.getOutputStream());
+		daIn = new DataInputStream(comm.getInputStream());
 		dIn = new InputStreamReader (comm.getInputStream());
 		buffIn = new BufferedReader(dIn);
 		System.out.println("Connected to: " + comm.getInetAddress());
@@ -57,6 +60,7 @@ Communication(){
 		ServerSocket in = new ServerSocket(8800);
 		comm = in.accept();
 		dOut = new DataOutputStream(comm.getOutputStream());
+		daIn = new DataInputStream(comm.getInputStream());
 		dIn = new InputStreamReader (comm.getInputStream());
 		buffIn = new BufferedReader(dIn);
 		System.out.println("Connected to: " + comm.getInetAddress());
@@ -80,8 +84,10 @@ Communication(){
 public void send(double x, double y){
 	try {
 		dOut.writeDouble(x);
+		//dOut.writeChar(10);
 		dOut.flush();
 		dOut.writeDouble(y);
+		//dOut.writeChar(10);
 		dOut.flush();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -101,12 +107,19 @@ public void send(double x, double y){
  */
 public boolean check(){
 	try {
-		x = buffIn.read();
-		y = buffIn.read();
+		System.out.println("Reading");
+		//System.out.println(buffIn.readLine());
+		//System.out.println(buffIn.readLine());
+		
+		x = daIn.readDouble();
+		y = daIn.readDouble();
+		
+		//x = Double.parseDouble(buffIn.readLine());
+		//y = Double.parseDouble(buffIn.readLine());
 		System.out.println("X: " + x + ", Y: " + y);
 		return buffIn.ready();
 	} catch (IOException e) {
-		
+		System.out.println("Failed to read");
 		e.printStackTrace();
 		return false;
 	}
