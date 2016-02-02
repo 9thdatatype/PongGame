@@ -1,16 +1,16 @@
+import static java.lang.Math.*;
+
+/* *	Physics.java 
+ *	Calculates the positions and movements of the player 1 
+ *	and player 2 paddles as well as of the pong ball.
+ *
+ *	Last Rev. Date: 2016-02-02*/
+
 /**
  * 	@author Murilo Trigo
  *  @version 1.0a
  * 	@since 2016-01-26
- * 	<p>
-	Physics.java 
-	Calculates the positions and movements of the player 1 
-	and player 2 paddles as well as of the pong ball.
-
-	Last Rev. Date: 2016-02-02
-*/
-
-import static java.lang.Math.*;
+ */
 
 public class Physics
 { 
@@ -68,13 +68,9 @@ public class Physics
 	
 
 	/**
-	 * 	@param void
-	 * 	@returns void
-	 * 	getReleaseAngle()
-	 * 	A static method that returns a random int value within the range
-	 * 	of plus or minus a range. The returned int is a angle in degrees.
+	 * 	@return a random int value within the range
+	 * 	of plus or minus a given range. The returned value is an angle in degrees.
 	 * 	Accepts nothing.
-	 * 	Returns an int value.
 	 */
 	
 	public static int getReleaseAngle()
@@ -82,15 +78,6 @@ public class Physics
 		final int MAX_ANGLE = 30; // in degrees		
 		return (int)(random()*(2*MAX_ANGLE + 1)) - MAX_ANGLE;	
 	}
-	
-	/**
-	 * 	getReleaseVelocity()
-	 * 	@param void
-	 * 	A static method that returns a random velocity vector within
-	 * 	a given range.
-	 * 	Accepts nothing.
-	 * 	Returns an array of two double values: x , y
-	 */
 	
 	public static double[] getReleaseVelocity()
 	{
@@ -132,14 +119,6 @@ public class Physics
 		return releaseVelocity;
 	}
 	
-	/**
-	 * 	updateBallPos()
-	 * 	A static method that calculates the new position of the ball according
-	 *  to current position and current velocity
-	 *  Accepts nothing
-	 *  Returns nothing
-	 */
-	
 	public static void updateBallPos()
 	{
 		double[] dPos = {ballVelocity[0]*TIME_UNIT , ballVelocity[1]*TIME_UNIT};
@@ -147,38 +126,12 @@ public class Physics
 		ballPos[1] = ballPos[1] + dPos[1];	
 	}
 	
-	/**
-	 * 	releaseBall()
-	 * 	Static method that resets the position of the ball to the default
-	 * 	one in the middle of the 'net' and sets if off at a random angle 
-	 * 	within an interval in the direction of the last player who scored.
-	 * 	If no player has scored yet, the one player is chosen at random.
-	 * 	Accepts nothing
-	 * 	@returns nothing
-	 */
-	
 	public static void releaseBall()
 	{
 		ballPos[0] = NET_CENTER[0];
 		ballPos[1] = NET_CENTER[1];
 		ballVelocity = getReleaseVelocity();
 	}
-
-	/**
-	 * 	checkColision()
-	 * 	An instanc method that checks if the ball has collided
-	 * 			with a solid surface
-	 * 	Accepts nothing
-	 * 	Returns a boolean value - true for collision has occured
-	 */
-	
-	//TODO - checkCollision
-	
-	/**
-	 * 	getHurtBox
-	 * 
-	 * 
-	 */
 }
 
 
