@@ -3,6 +3,10 @@
  * Purpose: communicate over the internet with another device
  * Author: Dan Thertell
  * Date: Jan 26, 2016
+ *
+ * @author Dan Thertell
+ *  @version 1.0c
+ * 	@since 2016-01-26
  */
 
 import java.io.DataInputStream;
@@ -25,6 +29,10 @@ protected static int LEFT_PADDLE = 1, RIGHT_PADDLE = 2, BALL = 3;
 
 
 /**
+ *
+ *
+ *  @param String IP
+ * 	@returns Communication
  * Method Name: Communication()
  * Date Added: 26/1/2016
  * Purpose: creates object and initilizes connection
@@ -49,6 +57,8 @@ Communication(String IP){
 
 
 /**
+ *@param void
+ *@returns Communication
  * Method Name: Communication()
  * Date Added: 26/1/2016
  * Purpose: creates object and waits for connection
