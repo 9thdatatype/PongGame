@@ -1,1 +1,2 @@
-javadoc -d \JavaFiles\javadocs \JavaFiles\*.java
+javadoc -d JavaFiles\javadocs JavaFiles\*.java
+pause
