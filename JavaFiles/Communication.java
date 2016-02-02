@@ -18,6 +18,7 @@ private Socket comm = null;
 private DataOutputStream dOut;
 private DataInputStream daIn;
 private double x=0, y=0;
+private int type = 0;
 
 
 
@@ -79,13 +80,17 @@ Communication(){
  * Returns: null
  * Coder: Daniel Thertell
  */
-public void send(double x, double y){
+public void send(double x, double y, int type){
 	try {
 		dOut.writeDouble(x);
 		dOut.flush();
 		
 		dOut.writeDouble(y);
 		dOut.flush();
+		
+		dOut.writeInt(type);
+		dOut.flush();
+		
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		System.out.println("error sending doubles");
@@ -108,6 +113,7 @@ public boolean check(){
 		
 		x = daIn.readDouble();
 		y = daIn.readDouble();
+		type = daIn.readInt();
 		
 		//System.out.println("X: " + x + ", Y: " + y);
 		return true;
@@ -124,7 +130,7 @@ public boolean check(){
  * Date Added: 26/1/2016
  * Purpose: returns the last x value read
  * Accepts: null
- * Returns: communication object
+ * Returns: double represint x pos
  * Coder: Daniel Thertell
  */
 public double getX(){
@@ -135,14 +141,26 @@ public double getX(){
 /**
  * Method Name: getY()
  * Date Added: 26/1/2016
- * Purpose: checks to see if a x and y pos exist and stores them
+ * Purpose: returns the last y value read
  * Accepts: null
- * Returns: communication object
+ * Returns: double representing y pos
  * Coder: Daniel Thertell
  */
 public double getY(){
 	return y;
 }
 
+/**
+ * Method Name: getType()
+ * Date Added: 26/1/2016
+ * Purpose: gets Object type
+ * Accepts: null
+ * Returns: int represinting type
+ * Coder: Daniel Thertell
+ */
+
+public int getType(){
+	return type;
+}
 
 }
