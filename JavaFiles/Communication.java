@@ -5,11 +5,9 @@
  * Date: Jan 26, 2016
  */
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.*;
 
 
@@ -17,8 +15,6 @@ public class Communication {
 private Socket comm = null;
 private DataOutputStream dOut;
 private DataInputStream daIn;
-private InputStreamReader dIn;
-private BufferedReader buffIn;
 private double x=0, y=0;
 
 
@@ -36,8 +32,7 @@ Communication(String IP){
 		comm = new Socket(IP,8800);
 		dOut = new DataOutputStream(comm.getOutputStream());
 		daIn = new DataInputStream(comm.getInputStream());
-		dIn = new InputStreamReader (comm.getInputStream());
-		buffIn = new BufferedReader(dIn);
+
 		System.out.println("Connected to: " + comm.getInetAddress());
 	} catch (IOException e) {
 		System.out.println("Failed to connect");
@@ -61,8 +56,7 @@ Communication(){
 		comm = in.accept();
 		dOut = new DataOutputStream(comm.getOutputStream());
 		daIn = new DataInputStream(comm.getInputStream());
-		dIn = new InputStreamReader (comm.getInputStream());
-		buffIn = new BufferedReader(dIn);
+		
 		System.out.println("Connected to: " + comm.getInetAddress());
 		in.close();
 	} catch (IOException e) {
@@ -84,10 +78,9 @@ Communication(){
 public void send(double x, double y){
 	try {
 		dOut.writeDouble(x);
-		//dOut.writeChar(10);
 		dOut.flush();
+		
 		dOut.writeDouble(y);
-		//dOut.writeChar(10);
 		dOut.flush();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -102,22 +95,18 @@ public void send(double x, double y){
  * Date Added: 26/1/2016
  * Purpose: checks to see if a x and y pos exist and stores them
  * Accepts: null
- * Returns: true if there is more in the buffer
+ * Returns: true if sucessfull
  * Coder: Daniel Thertell
  */
 public boolean check(){
 	try {
-		System.out.println("Reading");
-		//System.out.println(buffIn.readLine());
-		//System.out.println(buffIn.readLine());
+		//System.out.println("Reading");
 		
 		x = daIn.readDouble();
 		y = daIn.readDouble();
 		
-		//x = Double.parseDouble(buffIn.readLine());
-		//y = Double.parseDouble(buffIn.readLine());
-		System.out.println("X: " + x + ", Y: " + y);
-		return buffIn.ready();
+		//System.out.println("X: " + x + ", Y: " + y);
+		return true;
 	} catch (IOException e) {
 		System.out.println("Failed to read");
 		e.printStackTrace();
