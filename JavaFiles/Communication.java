@@ -10,6 +10,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
+import javax.swing.JOptionPane;
+
 
 public class Communication {
 private Socket comm = null;
@@ -29,6 +31,7 @@ private double x=0, y=0;
  */
 Communication(String IP){
 	try {
+		JOptionPane.showMessageDialog(null, "Connecting to: " + IP);
 		comm = new Socket(IP,8800);
 		dOut = new DataOutputStream(comm.getOutputStream());
 		daIn = new DataInputStream(comm.getInputStream());
@@ -52,6 +55,7 @@ Communication(String IP){
  */
 Communication(){
 	try {
+		JOptionPane.showMessageDialog(null, "Awaiting connection");
 		ServerSocket in = new ServerSocket(8800);
 		comm = in.accept();
 		dOut = new DataOutputStream(comm.getOutputStream());
