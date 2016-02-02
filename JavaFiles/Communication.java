@@ -19,6 +19,8 @@ private DataOutputStream dOut;
 private DataInputStream daIn;
 private double x=0, y=0;
 private int type = 0;
+protected static int LEFT_PADDLE = 1, RIGHT_PADDLE = 2, BALL = 3;
+
 
 
 
@@ -116,7 +118,15 @@ public boolean check(){
 		type = daIn.readInt();
 		
 		//System.out.println("X: " + x + ", Y: " + y);
-		return true;
+		
+		if (type == -1){
+			comm.close();
+			System.out.println("Disconnected");
+			return false;
+		}else{
+			return true;
+		}
+		
 	} catch (IOException e) {
 		System.out.println("Failed to read");
 		e.printStackTrace();
@@ -161,6 +171,31 @@ public double getY(){
 
 public int getType(){
 	return type;
+}
+
+/**
+ * Method Name: close()
+ * Date Added: 2/2/2016
+ * Purpose: trys to close connection. has buggs 
+ * Accepts: null
+ * Returns: boolean represinting sucess
+ * Coder: Daniel Thertell
+ */
+public boolean close(){
+	try {
+		dOut.writeDouble(0);
+		dOut.flush();
+		dOut.writeDouble(0);
+		dOut.flush();
+		dOut.writeInt(-1);
+		dOut.flush();
+		comm.close();
+		//closes local socket but crashes remote socket.  TODO FIX THE DAM BUG!!
+		return true;
+	} catch (IOException e) {
+		e.printStackTrace();
+		return false;
+	}
 }
 
 }
