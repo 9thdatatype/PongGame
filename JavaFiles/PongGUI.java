@@ -44,6 +44,9 @@ public class PongGUI {
 		for(int i = 0; i < jframe.getWidth(); ++i)
 			for(int j = 0; j < jframe.getHeight(); ++j)
 				background.setRGB(i, j, Color.white.getRGB());
+
+		Physics engine = new Physics(width, height, 5, 50, 0, 0);
+		engine.startSimulation();
 		
 		while(running){
 			startTime = System.currentTimeMillis();
@@ -55,11 +58,15 @@ public class PongGUI {
 			for(int i = 0; i < array.length; ++i)
 				array[i] = Color.black.getRGB();
 			
-			img.setRGB(x, y, 50, 50, array, 0, 0);
+			engine.updateStates();
 			
+			x = (int)(engine.getBallPos().x);
+			y = (int)(engine.getBallPos().y);
+			
+			img.setRGB(x, y, 50, 50, array, 0, 0);
+
 			g2d.drawImage(img, 0, 0, this.jframe);
 			
-			x++; y++;
 			
 			endTime = System.currentTimeMillis();
 
