@@ -14,8 +14,8 @@ public class Physics
 { 
 	private int screenWidth;
 	private int screenHeight;
-	private int margin;
-	private Point middle;
+	private int margin = 5;
+	private Point screenCenter;
 	
 	private Rectangle paddle1;
 	private Rectangle paddle2;
@@ -27,10 +27,10 @@ public class Physics
 	private int lastToScore = 0; // 0, 1 or 2 - TODO change to Enumerated Type	
 	private int angleWidth = 30;
 
-	private Point paddle1Start = new Point((int)(screenWidth /(double)4), (int)(screenHeight/(double)4));
-	private Point paddle2Start = new Point((int)(screenWidth*(double)3/4), (int)(screenHeight/(double)4));
+	private Point paddle1StartPos = new Point((int)(screenWidth /(double)4), (int)(screenHeight/(double)4));
+	private Point paddle2StartPos = new Point((int)(screenWidth*(double)3/4), (int)(screenHeight/(double)4));
 	
-	private Rectangle[] solids = new Rectangle[6]; 
+	private Rectangle[] solids = new Rectangle[7]; 
 	
 	/* [0] null
 	 * [1] top edge
@@ -52,24 +52,24 @@ public class Physics
 	 * @param paddleSize An int value - only the height
 	 */
 	
-	public Physics(int screenWidth, int screenHeight, int margin, double ballSpeed, 
+	public Physics(int screenWidth, int screenHeight, double ballSpeed, 
 				   int ballSize, double paddleSpeed, int paddleSize)
 	{
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
-		this.margin = margin;
 		
-		middle = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
-		ball = new Ball(middle, ballSize, ballSpeed);
+		screenCenter = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
+		ball = new Ball(screenCenter, ballSize, ballSpeed);
 		
 		Rectangle empty = new Rectangle(0, 0, 0, 0);
 		Rectangle topEdge = new Rectangle(margin, margin, screenWidth, 1);
 		Rectangle bottomEdge = new Rectangle(screenHeight - margin, margin, screenWidth, 1);
-		Rectangle paddle1 = new Rectangle(paddle1Start, new Dimension(1, paddleSize)); // left paddle
-		Rectangle paddle2 = new Rectangle(paddle2Start, new Dimension(1, paddleSize)); // right paddle
+		Rectangle paddle1 = new Rectangle(paddle1StartPos, new Dimension(1, paddleSize)); // left paddle
+		Rectangle paddle2 = new Rectangle(paddle2StartPos, new Dimension(1, paddleSize)); // right paddle
 		Rectangle leftEdge = new Rectangle (margin, margin, 1, screenHeight);
 		Rectangle rightEdge = new Rectangle (screenWidth - margin, margin, 1, screenHeight);
 		
+		solids[0] = empty; 
 		solids[1] = topEdge;
 		solids[2] = paddle2;
 		solids[3] = bottomEdge;
@@ -105,7 +105,7 @@ public class Physics
 
 	/**
 	 *  A int value for how wide the angle deviation should be from a straight
-	 *  		when relesing the ball from the middle horizontal toss.
+	 *  	when relesing the ball from the middle horizontal toss.
 	 *  @return A int value within a given range that represents and angle in degrees
 	 */
 	
@@ -159,6 +159,30 @@ public class Physics
 	}
 	
 	/**
+	 * Resets the ball to the center of the screen and gives it
+	 * a random start direction within a pre-defined margin 
+	 */
+	
+	private void reset(Ball ball)
+	{
+		ball.setDirection(getReleaseVectr());
+		ball.setLocation(screenCenter);
+	}
+	
+	/**
+	 * Call to start the Physics simulation
+	 */
+	
+	public void startSimulation()
+	{
+		reset(ball);
+		p1Score = 0;
+		p2Score = 0;
+		lastToScore = 0;
+	}
+	
+	
+	/**
 	 * @param The ball object and an array with all game's solid objects
 	 * 			in a particular order.
 	 * @return an int value indicating either that no collision has occurred 
@@ -176,17 +200,6 @@ public class Physics
 			}
 		}
 		return 0; // no collision occurred
-	}
-	
-	/**
-	 * Resets the ball to the center of the screen and gives it
-	 * a random start direction within a pre-defined margin 
-	 */
-	
-	private void reset(Ball ball)
-	{
-		ball.setDirection(getReleaseVectr());
-		ball.setLocation(middle);
 	}
 	
 	/**
