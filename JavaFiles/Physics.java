@@ -1,104 +1,60 @@
+import java.lang.Math.*;
+import java.awt.Rectangle;
+import java.awt.Point;
+
 /**
  * 	@author Murilo Trigo
  *  @version 1.0a
  * 	@since 2016-01-26
  * 	<p>
-	Physics.java 
-	Calculates the positions and movements of the player 1 
-	and player 2 paddles as well as of the pong ball.
-
-	Last Rev. Date: 2016-02-02
-*/
-
-import static java.lang.Math.*;
+ * 	Test - Will this be actually in the javadocs?
+ */
 
 public class Physics
 { 
-	final private static double TIME_UNIT = 2;
-	final private static double[] SCREEN_DIMENSIONS = {1000, 10000};
-	final private static double MARGIN = 5;
-	final private static double[] NET_CENTER = {SCREEN_DIMENSIONS[0]/2, SCREEN_DIMENSIONS[0]/2};
-	final private static double[] PADDLE_DIMENSIONS = new double[2];
-	final private static double[] BALL_DIMENSIONS = new double[2];
-	final private static double BALL_SPEED = 5,
-	  							PADDLE_SPEED = 100;
-
-	private static int p1Score = 0,
-					   p2Score = 0;
+	final private double TIME_UNIT = 1;
+	private int screenWidth;
+	private int screenHeight;
+	private int margin;
+	private Point middle;
 	
-	private static int lastToScore = 0; // 0, 1 or 2 - TODO change to Enumerated Type
+	private Movable paddle1;
+	private Movable paddle2;
+	private Movable ball;
 	
-	private static double[] ballPos = new double[2],
-							p1Pos = new double[2], 
-							p2Pos = new double[2];
+	private double ballSpeed;
+	private double paddleSpeed;
 	
-	private static double[] ballVelocity = new double[2],
-						    p1Velocity = new double[2],
-						    p2Velocity = new double[2];
+	private int p1Score = 0,
+				p2Score = 0;
 	
-	public static int getP1Score()
-	{
-		return p1Score;
-	}
-
-	public static int getP2Score()
-	{
-		return p2Score;
-	}
-
-	public static double[] getBallPos()
-	{
-		return ballPos;
-	}
-
-	public static double[] getP1Pos()
-	{
-		return p1Pos;
-	}
-
-	public static double[] getP2Pos()
-	{
-		return p2Pos;
-	}
+	private int lastToScore = 0; // 0, 1 or 2 - TODO change to Enumerated Type
 	
-	public static String getBallPosString()
-	{
-		return "(" + ballPos[0] + ", " + ballPos[1] +")";
-	}
-	
+	private int angleWidth;
 
 	/**
-	 * 	@param void
-	 * 	@returns void
-	 * 	getReleaseAngle()
-	 * 	A static method that returns a random int value within the range
-	 * 	of plus or minus a range. The returned int is a angle in degrees.
-	 * 	Accepts nothing.
-	 * 	Returns an int value.
+	 *  @return A int value within a given range that represents and angle in degrees
+	 *  @accept A int value for how wide the angle deviation should be from 
+	 * 			a straight horizontal toss.
 	 */
 	
-	public static int getReleaseAngle()
+	public int getReleaseAngle(int angle)
 	{	
-		final int MAX_ANGLE = 30; // in degrees		
-		return (int)(random()*(2*MAX_ANGLE + 1)) - MAX_ANGLE;	
+		return (int)(Math.random()*(2*angle + 1)) - angle;	// in degrees	
 	}
 	
 	/**
-	 * 	getReleaseVelocity()
-	 * 	@param void
-	 * 	A static method that returns a random velocity vector within
-	 * 	a given range.
-	 * 	Accepts nothing.
-	 * 	Returns an array of two double values: x , y
+	 * @return A UVector object that holds the value for the direction
+	 * 
 	 */
 	
-	public static double[] getReleaseVelocity()
+	public Vectr getReleaseVectr()
 	{
 		// First decide in which player's directio to release the ball
 		int direction = 0;
 		if (lastToScore == 0)
 		{
-			int coinFlip = (int)(random() + 0.5);
+			int coinFlip = (int)(Math.random() + 0.5);
 			if (coinFlip == 0)
 			{
 				direction = 1; // to the right
@@ -124,61 +80,52 @@ public class Physics
 			System.out.println("ERROR: lastToScore value was invalid");
 		}
 		
-		int releaseAngle = getReleaseAngle();
-		double[] releaseVelocity = {
-									direction*cos(toRadians(releaseAngle))*BALL_SPEED, 
-									sin(toRadians(releaseAngle))*BALL_SPEED 
-								   };
-		return releaseVelocity;
+		int releaseAngle = getReleaseAngle(angleWidth);
+		
+		return new Vectr(
+						  direction*Math.cos(Math.toRadians(releaseAngle)), 
+						  Math.sin(Math.toRadians(releaseAngle)) 
+						);
 	}
-	
-	/**
-	 * 	updateBallPos()
-	 * 	A static method that calculates the new position of the ball according
-	 *  to current position and current velocity
-	 *  Accepts nothing
-	 *  Returns nothing
-	 */
-	
-	public static void updateBallPos()
-	{
-		double[] dPos = {ballVelocity[0]*TIME_UNIT , ballVelocity[1]*TIME_UNIT};
-		ballPos[0] = ballPos[0] + dPos[0];
-		ballPos[1] = ballPos[1] + dPos[1];	
-	}
-	
-	/**
-	 * 	releaseBall()
-	 * 	Static method that resets the position of the ball to the default
-	 * 	one in the middle of the 'net' and sets if off at a random angle 
-	 * 	within an interval in the direction of the last player who scored.
-	 * 	If no player has scored yet, the one player is chosen at random.
-	 * 	Accepts nothing
-	 * 	@returns nothing
-	 */
-	
-	public static void releaseBall()
-	{
-		ballPos[0] = NET_CENTER[0];
-		ballPos[1] = NET_CENTER[1];
-		ballVelocity = getReleaseVelocity();
-	}
+}
 
-	/**
-	 * 	checkColision()
-	 * 	An instanc method that checks if the ball has collided
-	 * 			with a solid surface
-	 * 	Accepts nothing
-	 * 	Returns a boolean value - true for collision has occured
-	 */
+class Vectr
+{
+	public double x;
+	public double y;
 	
-	//TODO - checkCollision
+	Vectr()
+	{
+		x = 0;
+		y = 0;
+	}
 	
-	/**
-	 * 	getHurtBox
-	 * 
-	 * 
-	 */
+	Vectr(double x, double y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+}
+
+class Movable extends Rectangle
+{
+	private Vectr direction;
+	private double speed;
+
+	Movable(Point position, int size, double speed)
+	{
+		super(position.x, position.y, size, size);
+		direction = new Vectr(0, 0);
+		this.speed = speed;
+	}
+	
+	public void move(Vectr direction, double speed)
+	{
+		translate(
+					(int)(direction.x*speed),
+					(int)(direction.y*speed)
+				 );
+	}
 }
 
 
