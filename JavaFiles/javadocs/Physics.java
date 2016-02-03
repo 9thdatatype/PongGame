@@ -43,6 +43,13 @@ public class Physics
 	
 	/**
 	 * Class constructor
+	 * @param screenWidth An int value
+	 * @param screenHeight An int value
+	 * @param margin Int value - all around margin of the edge of the screen
+	 * @param ballSpeed An double value - pixels moved per frame
+	 * @param ballSize A int value - size of the side of the ball
+	 * @param paddleSpeed An double value - pixels moved per frame
+	 * @param paddleSize An int value - only the height
 	 */
 	
 	public Physics(int screenWidth, int screenHeight, int margin, double ballSpeed, 
@@ -55,6 +62,7 @@ public class Physics
 		middle = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
 		ball = new Ball(middle, ballSize, ballSpeed);
 		
+		Rectangle empty = new Rectangle(0, 0, 0, 0);
 		Rectangle topEdge = new Rectangle(margin, margin, screenWidth, 1);
 		Rectangle bottomEdge = new Rectangle(screenHeight - margin, margin, screenWidth, 1);
 		Rectangle paddle1 = new Rectangle(paddle1Start, new Dimension(1, paddleSize)); // left paddle
@@ -70,6 +78,21 @@ public class Physics
 		solids[6] = rightEdge;
 	}
 	
+	public Point getPaddle1()
+	{
+		return paddle1.getLocation();
+	}
+
+	public Point getPaddle2Pos()
+	{
+		return paddle2.getLocation();
+	}
+
+	public Point getBallPos()
+	{
+		return ball.getLocation();
+	}
+
 	public int getP1Score()
 	{
 		return p1Score;
