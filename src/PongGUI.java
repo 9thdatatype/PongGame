@@ -51,6 +51,8 @@ public class PongGUI {
 		Physics engine = new Physics(width, height, 5, 50, 0, 0);
 		engine.startSimulation();
 		
+		
+		Input in = new Input(jframe);
 		while(running){
 			startTime = System.currentTimeMillis();
 			
@@ -71,6 +73,8 @@ public class PongGUI {
 
 			g2d.drawImage(img, 0, 0, this.jframe);
 			
+			
+			System.out.println(in.getInput());
 			
 			endTime = System.currentTimeMillis();
 

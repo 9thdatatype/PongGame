@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 
 
 public class Input {
-	String output = "";
+	private String output = "";
 	
 	
 	
@@ -55,7 +55,9 @@ public class Input {
 	 * Coder: Daniel Thertell
 	 */	
 private void InputKeyPress(java.awt.event.KeyEvent evt){
-		output = output + evt.getKeyChar();
+	if(!output.contains(""+evt.getKeyChar())){	
+	output = output + evt.getKeyChar();
+	}
 	}
 
 /**
@@ -74,7 +76,7 @@ private void InputKeyRelease(java.awt.event.KeyEvent evt){
 			String tmp2 = output.substring(0, i);
 			
 			//for debuging
-			System.out.println(tmp+tmp2);
+			//System.out.println(tmp+tmp2);
 			output = tmp + tmp2;
 			
 		}
