@@ -1,3 +1,4 @@
+package Communication;
 /**
  * Program Name: Communication.java 
  * Purpose: communicate over the internet with another device
@@ -5,11 +6,11 @@
  * Date: Jan 26, 2016
  */
 
+import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
-
 import javax.swing.JOptionPane;
 
 
@@ -19,7 +20,8 @@ private DataOutputStream dOut;
 private DataInputStream daIn;
 private double x=0, y=0;
 private int type = 0;
-protected static int LEFT_PADDLE = 1, RIGHT_PADDLE = 2, BALL = 3;
+private Point[] Objects = new Point[3];
+protected static int LEFT_PADDLE = 0, RIGHT_PADDLE = 1, BALL = 2;
 
 
 
@@ -38,7 +40,9 @@ Communication(String IP){
 		comm = new Socket(IP,8800);
 		dOut = new DataOutputStream(comm.getOutputStream());
 		daIn = new DataInputStream(comm.getInputStream());
-
+		
+		initilize();
+		
 		System.out.println("Connected to: " + comm.getInetAddress());
 	} catch (IOException e) {
 		System.out.println("Failed to connect");
@@ -65,6 +69,9 @@ Communication(){
 		daIn = new DataInputStream(comm.getInputStream());
 		
 		System.out.println("Connected to: " + comm.getInetAddress());
+		
+		initilize();
+		
 		in.close();
 	} catch (IOException e) {
 		System.out.println("Failed to start Server");
@@ -73,6 +80,12 @@ Communication(){
 	}
 }
 
+
+private void initilize(){
+	Objects[0] = new Point(0,0);
+	Objects[1] = new Point(0,0);
+	Objects[2] = new Point(0,0);
+}
 
 /**
  * Method Name: send()
@@ -112,11 +125,18 @@ public void send(double x, double y, int type){
 public boolean check(){
 	try {
 		//System.out.println("Reading");
-		
-		x = daIn.readDouble();
-		y = daIn.readDouble();
-		type = daIn.readInt();
-		
+		int overflow = 0;
+		while(overflow < 3){
+		try {
+			x = daIn.readDouble();
+			y = daIn.readDouble();
+			type = daIn.readInt();
+			overflow++;
+			Objects[type] = new Point((int)x,(int)y);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
 		//System.out.println("X: " + x + ", Y: " + y);
 		
 		if (type == -1){
@@ -196,6 +216,18 @@ public boolean close(){
 		e.printStackTrace();
 		return false;
 	}
+}
+
+/**
+ * Method Name: getObjects()
+ * Date Added: 03/2/2016
+ * Purpose: grabbs as many objects as it can and puts them in a rectangle array
+ * Accepts: null
+ * Returns: rectangle array
+ * Coder: Daniel Thertell
+ */
+public Point[] getObjects() {
+	return Objects;
 }
 
 }

@@ -1,3 +1,4 @@
+package EngineComponents;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Dimension;
@@ -25,7 +26,7 @@ public class Physics
 				p2Score = 0;
 
 	private int lastToScore = 0; // 0, 1 or 2 - TODO change to Enumerated Type	
-	private int angleWidth = 30;
+	private int angleWidth = 180;
 
 	private Point paddle1StartPos = new Point((int)(screenWidth /(double)4), (int)(screenHeight/(double)4));
 	private Point paddle2StartPos = new Point((int)(screenWidth*(double)3/4), (int)(screenHeight/(double)4));
@@ -62,8 +63,8 @@ public class Physics
 		ball = new Ball(screenCenter, ballSize, ballSpeed);
 		
 		Rectangle empty = new Rectangle(0, 0, 0, 0);
-		Rectangle topEdge = new Rectangle(margin, margin, screenWidth, 1);
-		Rectangle bottomEdge = new Rectangle(screenHeight - margin, margin, screenWidth, 1);
+		Rectangle topEdge = new Rectangle(0, 0, screenWidth, margin);
+		Rectangle bottomEdge = new Rectangle(0, screenHeight - margin, screenWidth, margin);
 		Rectangle paddle1 = new Rectangle(paddle1StartPos, new Dimension(1, paddleSize)); // left paddle
 		Rectangle paddle2 = new Rectangle(paddle2StartPos, new Dimension(1, paddleSize)); // right paddle
 		Rectangle leftEdge = new Rectangle (margin, margin, 1, screenHeight);
@@ -219,7 +220,7 @@ public class Physics
 			{
 				case 1: // top edge
 				case 3: // bottom edge
-					ball.getDirection().y *= -1;
+					ball.getDirection().y *= -1; // using get direction. //debuging
 					break; 
 				case 2: // right paddle
 				case 4: // left paddle
@@ -267,6 +268,7 @@ class Vectr
 		this.y = y;
 	}
 }
+
 
 @SuppressWarnings("serial")
 class Ball extends Rectangle
