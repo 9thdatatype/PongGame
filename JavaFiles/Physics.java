@@ -62,8 +62,8 @@ public class Physics
 		ball = new Ball(screenCenter, ballSize, ballSpeed);
 		
 		Rectangle empty = new Rectangle(0, 0, 0, 0);
-		Rectangle topEdge = new Rectangle(margin, margin, screenWidth, 1);
-		Rectangle bottomEdge = new Rectangle(screenHeight - margin, margin, screenWidth, 1);
+		Rectangle topEdge = new Rectangle(0, 0, screenWidth, margin);
+		Rectangle bottomEdge = new Rectangle(0, screenHeight - margin, screenWidth, margin);
 		Rectangle paddle1 = new Rectangle(paddle1StartPos, new Dimension(1, paddleSize)); // left paddle
 		Rectangle paddle2 = new Rectangle(paddle2StartPos, new Dimension(1, paddleSize)); // right paddle
 		Rectangle leftEdge = new Rectangle (margin, margin, 1, screenHeight);
