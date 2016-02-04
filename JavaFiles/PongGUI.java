@@ -71,7 +71,7 @@ public class PongGUI {
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
-			System.out.println(timeTaken);
+			//System.out.println(timeTaken);
 			if(timeTaken < frameTime)
 				try {
 					Thread.sleep((long) (frameTime - timeTaken));
