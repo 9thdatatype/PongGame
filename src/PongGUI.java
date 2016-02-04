@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
 import EngineComponents.Physics;
+import EngineComponents.Renderer;
 
 /**
  * @author Jonathan Spaulding
