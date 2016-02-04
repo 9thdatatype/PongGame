@@ -14,7 +14,7 @@ public class Physics
 { 
 	private int screenWidth;
 	private int screenHeight;
-	private int margin = 50;
+	private int margin = 5;
 	private Point screenCenter;
 	
 	private Rectangle paddle1;
