@@ -63,7 +63,8 @@ public class PongGUI {
 			x = (int)(engine.getBallPos().x);
 			y = (int)(engine.getBallPos().y);
 			
-			img.setRGB(x, y, 50, 50, array, 0, 0);
+			if(y > 0 && y < height - 50)
+				img.setRGB(x, y, 50, 50, array, 0, 0);
 
 			g2d.drawImage(img, 0, 0, this.jframe);
 			
