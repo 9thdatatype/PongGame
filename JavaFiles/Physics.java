@@ -219,7 +219,7 @@ public class Physics
 			{
 				case 1: // top edge
 				case 3: // bottom edge
-					ball.getDirection().y *= -1;
+					ball.getDirection().y *= -1; // using get direction. //debuging
 					break; 
 				case 2: // right paddle
 				case 4: // left paddle
@@ -267,6 +267,7 @@ class Vectr
 		this.y = y;
 	}
 }
+
 
 @SuppressWarnings("serial")
 class Ball extends Rectangle
