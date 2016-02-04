@@ -14,7 +14,7 @@ public class Physics
 { 
 	private int screenWidth;
 	private int screenHeight;
-	private int margin = 0;
+	private int margin = 50;
 	private Point screenCenter;
 	
 	private Rectangle paddle1;
@@ -25,7 +25,7 @@ public class Physics
 				p2Score = 0;
 
 	private int lastToScore = 0; // 0, 1 or 2 - TODO change to Enumerated Type	
-	private int angleWidth = 90;
+	private int angleWidth = 180;
 
 	private Point paddle1StartPos = new Point((int)(screenWidth /(double)4), (int)(screenHeight/(double)4));
 	private Point paddle2StartPos = new Point((int)(screenWidth*(double)3/4), (int)(screenHeight/(double)4));
