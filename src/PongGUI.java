@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import EngineComponents.Physics;
+
 /**
  * @author Jonathan Spaulding
  * @version 0.0001
