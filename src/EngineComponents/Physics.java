@@ -1,14 +1,16 @@
-package EngineComponents;
+
+//package EngineComponents; DE-COMMENT LATER
+
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Dimension;
 
 /**
  * 	@author Murilo Trigo
- *  @version 1.7a
+ *  @version 1.2.0a
  * 	@since 2016-01-26
  * 	<p>
- * 	Physics engine for a game of Pong
+ * 	A physics engine for a game of Pong
  */
 
 public class Physics
@@ -18,82 +20,101 @@ public class Physics
 	private int margin = 5;
 	private Point screenCenter;
 	
-	private Rectangle paddle1;
-	private Rectangle paddle2;
 	private Ball ball;
+	private double ballSpeed;
+
+	private Rectangle paddleHurtbox;
+	private Rectangle paddle1; //TODO Change to the new Paddle class that inherits from BounceSurface
+	private Rectangle paddle2; //TODO Change to the new Paddle class that inherits from BounceSurface
 	
 	private int p1Score = 0,
 				p2Score = 0;
 
-	private int lastToScore = 0; // 0, 1 or 2 - TODO change to Enumerated Type	
-	private int angleWidth = 180;
-
-	private Point paddle1StartPos = new Point((int)(screenWidth /(double)4), (int)(screenHeight/(double)4));
-	private Point paddle2StartPos = new Point((int)(screenWidth*(double)3/4), (int)(screenHeight/(double)4));
+	//TODO change to Enumerated Type?	
+	private int lastToScore = 0; // must always be either 0, 1 or 2					
+	private int angleWidth = 30; // possible value in degrees from the deviation from the horizontal
 	
-	private Rectangle[] solids = new Rectangle[7]; 
+	//TODO Import these from constructor after the new constructor is ready
+	private Point paddle1StartPos = new Point((int)(screenWidth /(double)4), (int)(screenHeight/(double)4)); // irrelevant for now
+	private Point paddle2StartPos = new Point((int)(screenWidth*(double)3/4), (int)(screenHeight/(double)4)); // irrelevant for now
 	
-	/* [0] null
-	 * [1] top edge
-	 * [2] right paddle
-	 * [3] bottom edge
-	 * [4] left paddle
-	 * [5] left edge - player 2 score zone
-	 * [6] right edge - player 1 score zone 
-	 */
+	//TODO Make this array safer. Lists perhaps.
+	private Rectangle[] solids = new Rectangle[4]; // THIS SIZE MUST MATCH ALL THE SURFACES !!
 	
 	/**
 	 * Class constructor
 	 * @param screenWidth An int value
 	 * @param screenHeight An int value
-	 * @param margin Int value - all around margin of the edge of the screen
-	 * @param ballSpeed An double value - pixels moved per frame
+	 * @param ballSpeed An double value - pixels moved per update
 	 * @param ballSize A int value - size of the side of the ball
-	 * @param paddleSpeed An double value - pixels moved per frame
+	 * @param paddleSpeed An double value - pixels moved per update
 	 * @param paddleSize An int value - only the height
 	 */
 	
 	public Physics(int screenWidth, int screenHeight, double ballSpeed, 
-				   int ballSize, double paddleSpeed, int paddleSize)
+				   int ballSize, double paddleSpeed, Dimension paddleDimensions)
 	{
 		this.screenWidth = screenWidth;
-		this.screenHeight = screenHeight;
+		this.screenHeight = screenHeight;		
+		//screenCenter = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
+		screenCenter = new Point(400, 400);
+		this.ballSpeed = ballSpeed;
+		ball = new Ball(screenCenter, ballSize);
+		//paddleHurtbox =  new Rectangle(paddle1StartPos, paddleDimensions);
 		
-		screenCenter = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
-		ball = new Ball(screenCenter, ballSize, ballSpeed);
+		BounceSurface topEdge = new BounceSurface( 
+								new Rectangle(margin, margin, screenWidth - 2*margin, 1),  'y');
+		BounceSurface bottomEdge = new BounceSurface( 
+								   new Rectangle(screenHeight - margin, margin, screenWidth - 2*margin, 1),  'y');
 		
-		Rectangle empty = new Rectangle(0, 0, 0, 0);
-		Rectangle topEdge = new Rectangle(0, 0, screenWidth, margin);
-		Rectangle bottomEdge = new Rectangle(0, screenHeight - margin, screenWidth, margin);
-		Rectangle paddle1 = new Rectangle(paddle1StartPos, new Dimension(1, paddleSize)); // left paddle
-		Rectangle paddle2 = new Rectangle(paddle2StartPos, new Dimension(1, paddleSize)); // right paddle
-		Rectangle leftEdge = new Rectangle (margin, margin, 1, screenHeight);
-		Rectangle rightEdge = new Rectangle (screenWidth - margin, margin, 1, screenHeight);
+		// TEST SURFACES
+		BounceSurface leftEdge = new BounceSurface( 
+							     new Rectangle(margin, margin, 1, screenHeight -2*margin),  'x');
+		BounceSurface rightEdge = new BounceSurface( 
+				   				  new Rectangle(screenWidth - margin, margin, 1, screenHeight -2*margin),  'x');
 		
-		solids[0] = empty; 
-		solids[1] = topEdge;
-		solids[2] = paddle2;
-		solids[3] = bottomEdge;
-		solids[4] = paddle1;
-		solids[5] = leftEdge;
-		solids[6] = rightEdge;
+		// Ghost paddles to satisfy getters
+		paddle1 = new Rectangle(0, 0, 0, 0);
+		paddle2 = new Rectangle(0, 0, 0, 0);
+		
+		solids[0] = topEdge;
+		solids[1] = bottomEdge;
+		solids[2] = leftEdge;
+		solids[3] = rightEdge;
 	}
 	
-	public Point getPaddle1()
+	//TODO New constructor that takes in all the necessary variables from one object
+	
+	public int getP1_x()
 	{
-		return paddle1.getLocation();
+		return paddle1.x;
+	}
+	
+	public int getP1_y()
+	{
+		return paddle1.y;
+	}
+	
+	public int getP2_x()
+	{
+		return paddle2.x;
+	}
+	
+	public int getP2_y()
+	{
+		return paddle2.y;
 	}
 
-	public Point getPaddle2Pos()
+	public int getBall_x()
 	{
-		return paddle2.getLocation();
+		return ball.x;
 	}
-
-	public Point getBallPos()
+	
+	public int getBall_y()
 	{
-		return ball.getLocation();
+		return ball.y;
 	}
-
+	
 	public int getP1Score()
 	{
 		return p1Score;
@@ -104,20 +125,11 @@ public class Physics
 		return p2Score;
 	}
 
-	/**
-	 *  A int value for how wide the angle deviation should be from a straight
-	 *  	when relesing the ball from the middle horizontal toss.
-	 *  @return A int value within a given range that represents and angle in degrees
-	 */
-	
-	private int getReleaseAngle(int angle)
+	private int getReleaseAngle(int variance) 
 	{	
-		return (int)(Math.random()*(2*angle + 1)) - angle;	// in degrees	
+		double rawVariance = Math.random()*(2*variance +1);
+		return (int)rawVariance - variance;
 	}
-	
-	/**
-	 * @return A Vectr object that holds the value for the relase direction of the ball
-	 */
 	
 	private Vectr getReleaseVectr()
 	{
@@ -126,6 +138,7 @@ public class Physics
 		if (lastToScore == 0)
 		{
 			int coinFlip = (int)(Math.random() + 0.5);
+			
 			if (coinFlip == 0)
 			{
 				direction = 1; // to the right
@@ -148,8 +161,12 @@ public class Physics
 		
 		else
 		{
-			System.out.println("ERROR: lastToScore value was invalid");
+			System.out.println("ERROR 05: lastToScore value was invalid");
 		}
+		
+		if (direction != 1 && direction != -1) 
+			System.out.println("ERROR 01: Direction chosen for release"
+								+ " Vectr not corrently assigned");
 		
 		int releaseAngle = getReleaseAngle(angleWidth);
 		
@@ -159,20 +176,12 @@ public class Physics
 						);
 	}
 	
-	/**
-	 * Resets the ball to the center of the screen and gives it
-	 * a random start direction within a pre-defined margin 
-	 */
-	
 	private void reset(Ball ball)
 	{
-		ball.setDirection(getReleaseVectr());
+		ball.direction = getReleaseVectr();
+		System.out.println("Ball direction is now (" + ball.direction.x + ", " + ball.direction.y + ")");
 		ball.setLocation(screenCenter);
 	}
-	
-	/**
-	 * Call to start the Physics simulation
-	 */
 	
 	public void startSimulation()
 	{
@@ -182,72 +191,64 @@ public class Physics
 		lastToScore = 0;
 	}
 	
-	
-	/**
-	 * @param The ball object and an array with all game's solid objects
-	 * 			in a particular order.
-	 * @return an int value indicating either that no collision has occurred 
-	 * 			(zero) or indicating the array index of the object with which a 
-	 * 			collision has occurred.
-	 */
-	
-	private int checkCollision(Ball ball, Rectangle[] solidsArray)
+	private void incScore(int playerNum)
 	{
-		for (int i = 0; i < solidsArray.length; i++)
+		if (playerNum == 1)
 		{
-			if (ball.intersects(solidsArray[i]))
-			{
-				return i;
-			}
+			p1Score++;
 		}
-		return 0; // no collision occurred
-	}
-	
-	/**
-	 * @param The ball object and an array with all game's solid objects
-	 * 			in a particular order.
-	 * 	Checks for a collision or lack thereof and decides how to update
-	 * 	the game objects.
-	 */
-	
-	private void bounce(Ball ball, Rectangle[] solidsArray)
-	{
-		int collision = checkCollision(ball, solidsArray);
 		
-		if (collision != 0)
+		else if (playerNum == 2)
 		{
-			switch (collision)
-			{
-				case 1: // top edge
-				case 3: // bottom edge
-					ball.getDirection().y *= -1; // using get direction. //debuging
-					break; 
-				case 2: // right paddle
-				case 4: // left paddle
-					ball.getDirection().x *= -1;
-					break;
-				case 5: // left edge
-					p2Score++;
-					lastToScore = 2;
-					reset(ball);
-					break;
-				case 6: // right edge
-					p1Score++;
-					lastToScore = 1;
-					reset(ball);
-					break;
+			p2Score++;
+		}
+		
+		else
+		{
+			System.out.println("ERROR 02: Wrong value was given to the incScore function.");
+		}
+	}
+	
+	private void checkCollision(Ball ballObj, Rectangle[] solids)
+	{
+		// get ready for poor's man polymorphism now
+		
+		for (Rectangle solid : solids)
+		{
+			if (ballObj.intersects(solid))
+			{				
+				if (solid instanceof ScoreSurface)
+				{
+					incScore(((ScoreSurface)solid).pointToPlayer);
+				}
+				
+				else if (solid instanceof BounceSurface)
+				{
+					ballObj.revertAxis(((BounceSurface) solid).axisOfReflection);
+					System.out.println("Hit a bouncable surface!");
+				}
+				
+				else
+				{
+					System.out.println("ERROR 04: A solid in the solids array wasn't bouncable or scorble");
+				}
 			}
 		}
 	}
 	
-	/**
-	 * Updates the state of the game - call this each game frame.
-	 */
-	
-	public void updateStates()
+	public void updateStates() // CHANGE TO ACCOUNT FOR EVERY SINGLE PIXEL
 	{
-		ball.move();
-		bounce(ball, solids);
+		for(int i = 0; i < ballSpeed; i++)
+		{
+			ball.move();
+			checkCollision(ball, solids);
+		}
+	}
+	
+	public static int roundToInt(double value)
+	{
+		double result = value + 0.5;
+		return ((int)(result*10))/10;
 	}
 }
 
@@ -269,42 +270,79 @@ class Vectr
 	}
 }
 
-
 @SuppressWarnings("serial")
 class Ball extends Rectangle
 {
-	private Vectr direction;
-	private double speed;
+	public Vectr direction;
+	public double xfloat;
+	public double yfloat;
 
-	Ball(Point position, int size, double speed)
+	Ball(Point position, int size)
 	{
 		super(position.x, position.y, size, size);
+		xfloat = position.x;
+		yfloat = position.y;
 		direction = new Vectr(0, 0);
-		this.speed = speed;
 	}
 	
-	public Vectr getDirection()
+	public void revertAxis(char axis)
 	{
-		return direction;
+		if(axis == 'x')
+		{
+			direction.x *= -1;
+		}
+		
+		else if (axis == 'y')
+		{
+			direction.y *= -1;
+		}
+		
+		else
+		{
+			System.out.println("ERROR 03: Invalid axis provided for revertAxis functon");
+		}
 	}
-
-	public void setDirection(Vectr direction)
+	
+	public void translate(double dx, double dy)
 	{
-		this.direction = direction;
+		xfloat += dx;
+		x = Physics.roundToInt(xfloat);
+		
+		yfloat += dy;
+		y = Physics.roundToInt(yfloat);
 	}
-
-	public double getSpeed()
-	{
-		return speed;
-	}
-
-	/**
-	 * Moves the ball according to a pre-established speed in
-	 * conjunction with the current velocity direction.
-	 */
 	
 	public void move()
 	{
-		translate((int)(direction.x*speed), (int)(direction.y*speed));
-	}	
+		translate(direction.x, direction.y);
+	}
+}
+
+@SuppressWarnings("serial")
+class ScoreSurface extends Rectangle 
+{
+	public int pointToPlayer; // 1 or 2
+	public double x = super.x;
+	public double y = super.y;
+	
+	public ScoreSurface(Rectangle hurtbox, int pointToPlayer)
+	{
+		super(hurtbox);
+		this.pointToPlayer = pointToPlayer;
+	}
+}
+
+@SuppressWarnings("serial")
+class BounceSurface extends Rectangle 
+{	
+	public boolean bounciness;
+	public char axisOfReflection; // x or y
+	public double x = super.x;
+	public double y = super.y;
+	
+	public BounceSurface(Rectangle hurtbox, char axis)
+	{
+		super(hurtbox);
+		this.axisOfReflection = axis;
+	}
 }
