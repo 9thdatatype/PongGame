@@ -1,5 +1,4 @@
-
-//package EngineComponents; DE-COMMENT LATER
+package EngineComponents;
 
 import java.awt.Rectangle;
 import java.awt.Point;
@@ -265,7 +264,7 @@ public class Physics
 	
 	private void checkCollision(Ball ballObj, Rectangle[] solids)
 	{
-		// POOR'S MAN POLYMORPHISM ACTION
+		// POOR'S MAN POLYMORPHISM ACTION - funny - Jonathan
 		
 		for (Rectangle solid : solids)
 		{

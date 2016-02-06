@@ -1,11 +1,14 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
 import EngineComponents.Physics;
 import EngineComponents.Renderer;
+import gameObject.GameObject;
 
 /**
  * @author Jonathan Spaulding
@@ -34,58 +37,43 @@ public class PongGUI {
 	}
 
 	public void run(){
-		g2d = (Graphics2D) jframe.getGraphics();
-
-		BufferedImage img = new BufferedImage(jframe.getWidth(), jframe.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		BufferedImage background = new BufferedImage(jframe.getWidth(), jframe.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
 		long startTime, endTime, timeTaken;
 		double frameTime = 1000/MAX_FPS;
 
-		int x = 50, y = 50;
+		Renderer renderer = new Renderer((Graphics2D)jframe.getGraphics(), width, height, Color.black);
 		
-		for(int i = 0; i < jframe.getWidth(); ++i)
-			for(int j = 0; j < jframe.getHeight(); ++j)
-				background.setRGB(i, j, Color.white.getRGB());
+		ArrayList<GameObject> objs = new ArrayList<GameObject>();
+				
+		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ball.png"));
+		
+		//Creates a physics object
+		Physics physics = new Physics(width, height, 25, null, 1);
+		physics.startSimulation();
 
-		Physics engine = new Physics(width, height, 5, 50, 0, 0);
-		engine.startSimulation();
-		
-		
+		//Creates an Input object
 		Input in = new Input(jframe);
+
+		//Main game loop
 		while(running){
 			startTime = System.currentTimeMillis();
 			
-			img.setData(background.getRaster());
+			objs.get(0).setCenter(new Point(physics.getBall_x(), physics.getBall_y()));
 			
-			int array[] = new int[50*50];
+			physics.updateStates();
 			
-			for(int i = 0; i < array.length; ++i)
-				array[i] = Color.black.getRGB();
-			
-			engine.updateStates();
-			
-			x = (int)(engine.getBallPos().x);
-			y = (int)(engine.getBallPos().y);
-			
-			if(y > 0 && y < height - 50)
-				img.setRGB(x, y, 50, 50, array, 0, 0);
+			renderer.render(objs);
 
-			g2d.drawImage(img, 0, 0, this.jframe);
-			
-			
-			System.out.println(in.getInput());
-			
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
 			//System.out.println(timeTaken);
-			if(timeTaken < frameTime)
+			if(timeTaken < frameTime){
 				try {
 					Thread.sleep((long) (frameTime - timeTaken));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}	
+				}
+			}
 		}
 	}
 
@@ -96,7 +84,6 @@ public class PongGUI {
 	//Visual elements
 
 	private JFrame jframe = new JFrame();
-	private Graphics2D g2d;
 
 	// Game Variables
 
