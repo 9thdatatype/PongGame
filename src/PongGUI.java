@@ -12,17 +12,15 @@ import gameObject.GameObject;
 
 /**
  * @author Jonathan Spaulding
- * @version 0.0001
+ * @version 0.0002
  * @since 2016-02-02
  */
 public class PongGUI {
 
 	public static int MAX_FPS = 60;
 
-	public int width = 960;
-	public int height = 720;
-
-	PongGUI(){}
+	public int width;
+	public int height;
 
 	PongGUI(int width, int height){
 		this.width = width;
@@ -34,20 +32,25 @@ public class PongGUI {
 		jframe.setSize(width, height);
 		jframe.setResizable(false);
 		jframe.setVisible(true);
+
+		cWidth = jframe.getContentPane().getWidth();
+		cHeight = jframe.getContentPane().getHeight();
 	}
 
 	public void run(){
 		long startTime, endTime, timeTaken;
 		double frameTime = 1000/MAX_FPS;
 
-		Renderer renderer = new Renderer((Graphics2D)jframe.getGraphics(), width, height, Color.black);
-		
+		Renderer renderer = new Renderer((Graphics2D)jframe.getContentPane().getGraphics(), cWidth, cHeight, Color.black);
+
 		ArrayList<GameObject> objs = new ArrayList<GameObject>();
-				
+
 		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ball.png"));
-		
+		objs.add(new GameObject(new Point(50, cHeight/2-50), new Point(100, cHeight / 2 + 50), "resources\\paddle.png"));
+		objs.add(new GameObject(new Point(cWidth-100, cHeight/2-50), new Point(cWidth - 50, cHeight / 2 + 50), "resources\\paddle.png"));
+
 		//Creates a physics object
-		Physics physics = new Physics(width, height, 25, null, 1);
+		Physics physics = new Physics(cWidth, cHeight, 25, null, 1);
 		physics.startSimulation();
 
 		//Creates an Input object
@@ -56,11 +59,23 @@ public class PongGUI {
 		//Main game loop
 		while(running){
 			startTime = System.currentTimeMillis();
+
+			//TODO: add the code to move paddle one
+			if(in.getInput().contains("w"))
+				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y - 1));
+			else if(in.getInput().contains("s"))
+				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y + 1));
 			
-			objs.get(0).setCenter(new Point(physics.getBall_x(), physics.getBall_y()));
-			
+			if(in.getInput().contains("i"))
+				objs.get(2).setTLC(new Point(objs.get(2).getTopLeftCorner().x, objs.get(2).getTopLeftCorner().y - 1));
+			else if(in.getInput().contains("k"))
+				objs.get(2).setTLC(new Point(objs.get(2).getTopLeftCorner().x, objs.get(2).getTopLeftCorner().y + 1));
+
+
+			objs.get(0).setTLC(new Point(physics.getBall_x(), physics.getBall_y()));
+
 			physics.updateStates();
-			
+
 			renderer.render(objs);
 
 			endTime = System.currentTimeMillis();
@@ -84,6 +99,8 @@ public class PongGUI {
 	//Visual elements
 
 	private JFrame jframe = new JFrame();
+	private int cWidth;
+	private int cHeight;
 
 	// Game Variables
 

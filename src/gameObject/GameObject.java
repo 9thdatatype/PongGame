@@ -132,6 +132,17 @@ public class GameObject {
 
 	public void setImage(BufferedImage img){this.img = img;}
 	
+	/**
+	 * 
+	 * @deprecated
+	 */
+	public void setTLC(Point newTLC){
+		tlc = newTLC;
+		brc = new Point(tlc.x + width, tlc.y + height);
+		
+		center = new Point(tlc.x + brc.x / 2, tlc.y + brc.y /2);
+	}
+	
 	public void setCenter(Point center){
 		this.center = center;
 		
