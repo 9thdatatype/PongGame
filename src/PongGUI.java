@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import Communication.Communication;
 import EngineComponents.Physics;
 import EngineComponents.Renderer;
+import GameStateManagers.GameMenu;
 import gameObject.GameObject;
 
 /**
@@ -121,38 +122,8 @@ public class PongGUI {
 	private boolean running = true;
 
 	private void startMenu(){
-		java.awt.Rectangle button = new java.awt.Rectangle(0, 0, width, height/2);
-		java.awt.Rectangle button2 = new java.awt.Rectangle(0, height/2, width, height/2);
-		
-		Input input = new Input(jframe);
-		
-		
-		while(true){
-			Point mpos = input.getMousePos();
-			if(mpos != null){
-				if(button.contains(mpos)){
-
-					Communication comm = new Communication("192.168.43.5");
-					comm.send(15, 53, 0);
-					comm.send(45, 35, 1);
-					comm.send(10, 50, 2);
-				}else if(button2.contains(mpos)){
-					Communication comm = new Communication();
-				
-
-					while (!comm.check());
-					Point[] a = comm.getObjects();
-					for (int i = 0; i< 3; i++ ){
-					System.out.println(a[i].x + "  " + a[i].y);
-					}
-	
-				}
-				input.clearInput();
-				break;
-			}
-		}
-		
-		run();
+		GameMenu gmenu = new GameMenu((Graphics2D)(jframe.getGraphics()),width,height);
+		gmenu.drawMainMenu();
 	}
 	
 }

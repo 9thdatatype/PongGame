@@ -33,14 +33,19 @@ public class GameMenu {
 	
 	public void drawMainMenu(){
 		//getting filepaths
-		String singlePlayerPath = "/resorces/singleplayer.png";
-		String multiplayerPath = "/resorces/multiplayer.png";
-		String exitPath = "/resorces/multiplayer.png";
+		String singlePlayerPath = "resources/singleplayer.png";
+		String multiplayerPath = "resources/multiplayer.png";
+		String exitPath = "resources/exit.png";
+		
+		System.out.println(height);
 		
 		//lots of calculations and stuff. also getting images and making objects
 		GameObject singlePlayer = new GameObject (new Point(width/2,(int)(height*0.1)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),singlePlayerPath);
 		GameObject multiPlayer = new GameObject (new Point(width/2,(int)((height*0.1) + height *0.2 / 3)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),multiplayerPath);
 		GameObject exit = new GameObject (new Point(width/2,(int)((height*0.1) + (height *0.2 / 3)*2)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),exitPath);
+		
+		System.out.println(singlePlayer.getHeight());
+		
 		
 		//storing objects in array list
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();
@@ -53,9 +58,9 @@ public class GameMenu {
 	}
 	
 	public void drawMultiplayerMenu() {
-		String JoinPath = "/resorces/join.png";
-		String HostPath = "/resorces/host.png";
-		String BackPath = "/resorces/back.png";
+		String JoinPath = "/resources/join.png";
+		String HostPath = "/resources/host.png";
+		String BackPath = "/resources/back.png";
 		
 		
 		GameObject Join = new GameObject (new Point(width/2,(int)(height*0.1)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),JoinPath);
