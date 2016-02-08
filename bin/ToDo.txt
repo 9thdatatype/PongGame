@@ -12,6 +12,11 @@
 *
 ******************************************************************************************************
 
+*********************
+Known Bugs:
+	- Occasionally one or both of the paddles will randomly jump off the screen
+*********************
+
 program wide: 
 	- Please use proper javadocs formatting for the method and class documentation
 	- If editing a source file that was not originally created by you please add a comment with your name and the date you edited
@@ -22,17 +27,17 @@ program wide:
 		- Maybe handled by individual GameStates
 	- Please comment out System.out.println(); when you push.
 		- Just so that when other people are debugging it wont clutter the console.
+	- Should the maximum frames per second be read as a configuration setting?
+	- It would be nice to have all positions relative so the screen can be resized.
+	- Should the background colour be a configuration setting?
 
-GameStateManagers:
-	- A class needs to be created for the InGameState
-		- this class should hold the main game loop
-		- constructor needs to take a Graphics2D object and the width and height of the screen
-			- this is for rendering
-		- Maybe the game logic should be in this class?
+GameStateManagers.InGameManager:
+	- This class holds the main game loop but should it hold the in game logic? Dan?
 	
 GameStateManagers.GameMenu:
-	- The draw main menu should be look at by Daniel Thertell
+	- The draw main menu should be looked at by Daniel Thertell
 	- Maybe some better looking buttons :P
+	- This should decide where to go depending on which button was pressed I think - Jonathan
 	
 gameObject.GameObject:
 	- This should be made into an abstract class with methods that need to be defined in child classes.
@@ -40,3 +45,4 @@ gameObject.GameObject:
 
 EngineComponents.Physics:
 	- Murilo you know what you need to do
+	- Also if any objects points are returned it would be nice to work with the centers and not a corner

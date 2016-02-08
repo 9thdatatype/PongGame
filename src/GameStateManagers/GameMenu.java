@@ -20,7 +20,6 @@ public class GameMenu {
 	int width = 0, height = 0;
 	Renderer rend = null;
 	
-	
 	public GameMenu(Graphics2D graphics, int width, int height){
 
 		this.width = width;
@@ -38,6 +37,7 @@ public class GameMenu {
 		// Edits:
 		//		- Fixed some of the sizes and positions not exact and not final
 		// Edited By: Jonathan Spaulding
+		// Edited On: 08/02/2016
 		GameObject singlePlayer = new GameObject (new Point(width/2, 200), 175, 95, singlePlayerPath);
 		GameObject multiPlayer = new GameObject (new Point(width/2, 300), 175, 95, multiplayerPath);
 		GameObject exit = new GameObject (new Point(width/2, 400), 175, 95, exitPath);

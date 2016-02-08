@@ -1,3 +1,4 @@
+package GameStateManagers;
 import java.awt.Point;
 
 import javax.swing.JFrame;
@@ -31,7 +32,7 @@ public class Input {
 	 * Returns: Input object
 	 * Coder: Daniel Thertell
 	 */
-	Input(JFrame Main){
+	public Input(JFrame Main){
 		Main.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
             	//creates key press listener
