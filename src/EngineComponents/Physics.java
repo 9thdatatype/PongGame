@@ -36,6 +36,7 @@ public class Physics
 	
 	// Game Ruleset Variables
 	private int updatesPerRefresh; // Essentially the ball speed
+	private int refresh;
 	private int releaseAngleDelta = 15; // possible value in degrees from the deviation from the horizontal
 	private double paddleSpeedFactor = 0.5;
 	
@@ -66,6 +67,7 @@ public class Physics
 		//this.screenHeight = screenHeight;		
 		screenCenter = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
 		this.updatesPerRefresh = updatesPerRefresh;
+		this.refresh = updatesPerRefresh;
 		ball = new Ball(screenCenter, ballSize);
 		paddleHitbox =  paddleDimensions;
 		this.paddleSpeedFactor = paddleSpeedFactor;
@@ -418,11 +420,14 @@ public class Physics
 				{
 			
 					incScore(((ScoreSurface)solid).pointToPlayer);
+					updatesPerRefresh = refresh;
 					reset(ball);
 				}
 				
 				else if (solid instanceof BounceSurface)
 				{	
+					
+					updatesPerRefresh++;
 					if (solid instanceof Paddle)
 					{
 						ballObj.revertAxis(((Paddle)solid).axisOfReflection);
