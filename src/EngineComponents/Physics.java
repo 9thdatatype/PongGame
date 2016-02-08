@@ -6,7 +6,7 @@ import java.awt.Dimension;
 
 /**
  * 	@author Murilo Trigo
- *  @version 1.2.1a
+ *  @version 1.2.2a
  * 	@since 2016-01-26
  * 	<p>
  * 	A physics engine for a game of Pong
@@ -15,34 +15,89 @@ import java.awt.Dimension;
 public class Physics
 { 
 	// Screen variables
-	private int screenWidth;
-	private int screenHeight;
-	private int margin = 5;
+	//private int screenWidth; - not in use
+	//private int screenHeight; - not in use
 	private Point screenCenter;
 	
 	// Game Objects
 	private Ball ball;
-	private Rectangle paddleHurtbox;
-	private Rectangle paddle1; //TODO Change to the new Paddle class that inherits from BounceSurface
-	private Rectangle paddle2; //TODO Change to the new Paddle class that inherits from BounceSurface
-
-	//TODO Make this array safer. Lists perhaps.
-	private Rectangle[] solids = new Rectangle[4]; // THIS SIZE MUST MATCH ALL THE SURFACES !!
+	private Dimension paddleHitbox;
+	private Paddle paddle1;
+	private Paddle paddle2;
+	
+	private Rectangle[] solids = new Rectangle[6]; // THIS SIZE MUST MATCH ALL THE SURFACES !! TODO Make this array safer. Lists perhaps.
 	
 	// Game State Variables
 	private int lastToScore = 0; // must always be either 0, 1 or 2 //TODO change to Enumerated Type?		
 	private int p1Score = 0;
 	private int p2Score = 0;	
-				
+	private int p1y = 0; // 1 for moving down, -1 for moving up and 0 for no movement.			
+	private int p2y = 0; // 1 for moving down, -1 for moving up and 0 for no movement.
+	
 	// Game Ruleset Variables
-	// private double ballSpeed; - Not in use currently 
-	//TODO Set a variable for the relationship between the ball speed and the paddle speed
-	private int updatesPerFrame;
-	private int angleWidth = 30; // possible value in degrees from the deviation from the horizontal
+	private int updatesPerRefresh; // Essentially the ball speed
+	private int releaseAngleDelta = 89; // possible value in degrees from the deviation from the horizontal
+	private double paddleSpeedFactor = 0.5;
 	
 	//TODO Import these from constructor after the new constructor is ready
-	private Point paddle1StartPos = new Point((int)(screenWidth /(double)4), (int)(screenHeight/(double)4)); // irrelevant for now
-	private Point paddle2StartPos = new Point((int)(screenWidth*(double)3/4), (int)(screenHeight/(double)4)); // irrelevant for now
+	private Point paddle1StartPos = new Point(200, 200); 
+	private Point paddle2StartPos = new Point(800, 200);
+	
+	/**
+	 * Class constructor
+	 * @param screenWidth Width of the gamespace in pixels
+	 * @param screenHeight Height of the gamespace in pixels
+	 * @param ballSize Size of the side of the ball in pixels
+	 * @param paddleDimensions A Dimension object with the dimensions of the paddles in pixels
+	 * @param updatesPerRefresh Perceived game speed
+	 * @param paddleSpeedFactor Paddle's speed as a factor of the ball's.
+	 * @param releaseAngleDelta Value of the delta of difference possible between the horizontal
+	 * 			and the release angle
+	 */
+	
+	public Physics(int screenWidth, int screenHeight, int ballSize, 
+				   Dimension paddleDimensions, int updatesPerRefresh, 
+				   double paddleSpeedFactor, int releaseAngleDelta)
+	{
+		//this.screenWidth = screenWidth;
+		//this.screenHeight = screenHeight;		
+		screenCenter = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
+		this.updatesPerRefresh = updatesPerRefresh;
+		ball = new Ball(screenCenter, ballSize);
+		paddleHitbox =  paddleDimensions;
+		this.paddleSpeedFactor = paddleSpeedFactor;
+		this.releaseAngleDelta = releaseAngleDelta;
+		
+		BounceSurface topEdge = new BounceSurface( 
+								new Rectangle(0, 0, screenWidth, 1),  'y');
+		BounceSurface bottomEdge = new BounceSurface( 
+								   new Rectangle(0, screenHeight, screenWidth, 1),  'y');
+		
+		ScoreSurface leftEdge = new ScoreSurface( 
+			     				new Rectangle(0, 0, 1, screenHeight),  2);
+		ScoreSurface rightEdge = new ScoreSurface( 
+  				  				 new Rectangle(screenWidth, 0, 1, screenHeight),  1);
+		
+		Rectangle test = new Rectangle(paddle1StartPos , paddleHitbox);
+		Rectangle test2 = new Rectangle(paddle2StartPos, paddleHitbox);
+		paddle1 = new Paddle(test, 'x');
+		paddle2 = new Paddle(test2, 'x');
+		
+		// TEST SURFACES
+		/*
+		BounceSurface leftEdge = new BounceSurface( 
+							     new Rectangle(0, 0, 1, screenHeight),  'x');
+		BounceSurface rightEdge = new BounceSurface( 
+				   				  new Rectangle(screenWidth, 0, 1, screenHeight),  'x');
+		*/
+		solids[0] = topEdge;
+		solids[1] = bottomEdge;
+		solids[2] = leftEdge;
+		solids[3] = rightEdge;
+		solids[4] = paddle1;
+		solids[5] = paddle2;
+
+	}
 	
 	/**
 	 * Class constructor
@@ -54,79 +109,159 @@ public class Physics
 	 */
 	
 	public Physics(int screenWidth, int screenHeight, int ballSize, 
-				   Dimension paddleDimensions, int updatesPerFrame)
+				   Dimension paddleDimensions, int updatesPerRefresh)
 	{
-		this.screenWidth = screenWidth;
-		this.screenHeight = screenHeight;		
+		//this.screenWidth = screenWidth;
+		//this.screenHeight = screenHeight;		
 		screenCenter = new Point(screenWidth/2 - ballSize/2, screenHeight/2 - ballSize/2);
-		this.updatesPerFrame = updatesPerFrame;
+		this.updatesPerRefresh = updatesPerRefresh;
 		ball = new Ball(screenCenter, ballSize);
-		//paddleHurtbox =  new Rectangle(paddle1StartPos, paddleDimensions);
+		paddleHitbox =  paddleDimensions;
 		
 		BounceSurface topEdge = new BounceSurface( 
-								new Rectangle(0, margin, screenWidth, 1),  'y');
+								new Rectangle(0, 0, screenWidth, 1),  'y');
 		BounceSurface bottomEdge = new BounceSurface( 
-								   new Rectangle(0, screenHeight - margin, screenWidth, 1),  'y');
+								   new Rectangle(0, screenHeight, screenWidth, 1),  'y');
+		
+		ScoreSurface leftEdge = new ScoreSurface( 
+			     				new Rectangle(0, 0, 1, screenHeight),  2);
+		ScoreSurface rightEdge = new ScoreSurface( 
+  				  				 new Rectangle(screenWidth, 0, 1, screenHeight),  1);
+		
+		Rectangle test = new Rectangle(paddle1StartPos , paddleHitbox);
+		Rectangle test2 = new Rectangle(paddle2StartPos, paddleHitbox);
+		paddle1 = new Paddle(test, 'x');
+		paddle2 = new Paddle(test2, 'x');
 		
 		// TEST SURFACES
+		/*
 		BounceSurface leftEdge = new BounceSurface( 
-							     new Rectangle(margin, 0, 1, screenHeight),  'x');
+							     new Rectangle(0, 0, 1, screenHeight),  'x');
 		BounceSurface rightEdge = new BounceSurface( 
-				   				  new Rectangle(screenWidth - margin, 0, 1, screenHeight),  'x');
-		
-		// Ghost paddles to satisfy getters
-		paddle1 = new Rectangle(0, 0, 0, 0);
-		paddle2 = new Rectangle(0, 0, 0, 0);
-		
+				   				  new Rectangle(screenWidth, 0, 1, screenHeight),  'x');
+		*/
 		solids[0] = topEdge;
 		solids[1] = bottomEdge;
 		solids[2] = leftEdge;
 		solids[3] = rightEdge;
+		solids[4] = paddle1;
+		solids[5] = paddle2;
+
 	}
 	
-	//TODO New constructor that takes in all the necessary variables from one single object
+	/**
+	 * @return value of the x coordenate of the top-left corner of the player 1's paddle.
+	 */
 	
 	public int getP1_x()
 	{
 		return paddle1.x;
 	}
 	
+	/**
+	 * @return value of the y coordenate of the top-left corner of the player 1's paddle.
+	 */
+	
 	public int getP1_y()
 	{
 		return paddle1.y;
 	}
+	
+	/**
+	 * @return value of the x coordenate of the top-left corner of the player 2's paddle.
+	 */
 	
 	public int getP2_x()
 	{
 		return paddle2.x;
 	}
 	
+	/**
+	 * @return value of the y coordenate of the top-left corner of the player 2's paddle.
+	 */
+	
 	public int getP2_y()
 	{
 		return paddle2.y;
 	}
+	
+	/**
+	 * @return value of the x coordenate of the top-left corner of the ball.
+	 */
 
 	public int getBall_x()
 	{
 		return ball.x;
 	}
 	
+	/**
+	 * @return value of the y coordenate of the top-left corner of the ball.
+	 */
+	
 	public int getBall_y()
 	{
 		return ball.y;
 	}
+	
+	/**
+	 * @return current value of the player 1's score
+	 */
 	
 	public int getP1Score()
 	{
 		return p1Score;
 	}
 
+	/**
+	 * @return current value of the player 2's score
+	 */
+	
 	public int getP2Score()
 	{
 		return p2Score;
 	}
 
-	public static int roundToInt(double value)
+	/**
+	 * @param value the of the player 1's vertical direction 
+	 * Possible values are:
+	 * (+1) - downwards
+	 * (-1) - upwards
+	 * ( 0) - still
+	 */
+	
+	public void setp1y(int value)
+	{
+		if (value == 1 || value == 0 || value == -1)
+		{
+			p1y = value;
+		}
+		else
+		{
+			System.out.println("ERROR 06: Value provided for setp1y was not valid [must be 0, 1 or -1]");
+		}
+	}
+	
+	/**
+	 * @param value the of the player 2's vertical direction 
+	 * Possible values are:
+	 * (+1) - downwards
+	 * (-1) - upwards
+	 * ( 0) - still
+	 */
+	
+	public void setp2y(int value)
+	{
+		if (value == 1 || value == 0 || value == -1)
+		{
+			p2y = value;
+		}
+		else
+		{
+			System.out.println("ERROR 06: Value provided for setp2y was not valid [must be 0, 1 or -1]");
+		}
+	}
+		
+	protected static int roundToInt(double value)
 	{
 		double result = value + 0.5;
 		return ((int)(result*10))/10;
@@ -191,7 +326,7 @@ public class Physics
 								+ " Vectr not corrently assigned");
 		
 		// Then, get the release angle
-		int releaseAngle = getReleaseAngle(angleWidth);
+		int releaseAngle = getReleaseAngle(releaseAngleDelta);
 		
 		// And then return a Vectr object based on that angle
 		return new Vectr(
@@ -208,8 +343,9 @@ public class Physics
 	
 	private void reset(Ball ball)
 	{
+		ball.setXfloat(screenCenter.x);
+		ball.setYfloat(screenCenter.y);
 		ball.direction = getReleaseVectr();
-		ball.setLocation(screenCenter);
 	}
 	
 	/**
@@ -238,11 +374,13 @@ public class Physics
 		if (playerNum == 1)
 		{
 			p1Score++;
+			lastToScore = 1;
 		}
 		
 		else if (playerNum == 2)
 		{
 			p2Score++;
+			lastToScore = 2;
 		}
 		
 		else
@@ -272,12 +410,22 @@ public class Physics
 			{				
 				if (solid instanceof ScoreSurface)
 				{
+			
 					incScore(((ScoreSurface)solid).pointToPlayer);
+					reset(ball);
 				}
 				
 				else if (solid instanceof BounceSurface)
 				{	
-					ballObj.revertAxis(((BounceSurface) solid).axisOfReflection);			
+					if (solid instanceof Paddle)
+					{
+						ballObj.revertAxis(((Paddle)solid).axisOfReflection);
+					}
+					else
+					{
+						ballObj.revertAxis(((BounceSurface)solid).axisOfReflection);
+					}
+							
 				}
 				
 				else
@@ -296,10 +444,16 @@ public class Physics
 	
 	public void updateStates() 
 	{
-		for(int i = 0; i < updatesPerFrame; i++)
+		for(int i = 0; i < updatesPerRefresh; i++)
 		{
+			paddle1.direction.y = p1y*paddleSpeedFactor;
+			paddle2.direction.y = p2y*paddleSpeedFactor;
+			paddle1.move();
+			paddle2.move();
 			ball.move();
 			checkCollision(ball, solids);
+			
+			System.out.println("P1: " + p1Score + " P2: " + p2Score);
 		}
 	}
 }
@@ -347,6 +501,19 @@ class Ball extends Rectangle
 		direction = new Vectr(0, 0);
 	}
 	
+	public void setXfloat(double value)
+	{
+		xfloat = value;
+		x = Physics.roundToInt(xfloat);
+		
+	}
+
+	public void setYfloat(double value)
+	{
+		yfloat = value;
+		y = Physics.roundToInt(yfloat);
+	}
+	
 	/**
 	 * Reverses the direction of the current velocity of
 	 * the ball object in one of its axis.
@@ -392,16 +559,17 @@ class Ball extends Rectangle
 	}
 }
 
+@SuppressWarnings("serial")
 class Surface extends Rectangle
 {
-	private double xfloat;
-	private double yfloat;
+	public double xfloat;
+	public double yfloat;
 	
-	public Surface(Rectangle hurtbox)
+	public Surface(Rectangle hitbox)
 	{
-		super(hurtbox);
-		xfloat = hurtbox.x;
-		yfloat = hurtbox.y;
+		super(hitbox);
+		xfloat = hitbox.x;
+		yfloat = hitbox.y;
 	}
 
 	public double getXfloat()
@@ -433,11 +601,11 @@ class ScoreSurface extends Surface
 {
 	public int pointToPlayer; // 1 or 2
 	
-	public ScoreSurface(Rectangle hurtbox, int pointToPlayer)
+	public ScoreSurface(Rectangle hitbox, int pointToPlayer)
 	{
-		super(hurtbox);
-		setXfloat(hurtbox.x);
-		setYfloat(hurtbox.y);
+		super(hitbox);
+		setXfloat(hitbox.x);
+		setYfloat(hitbox.y);
 		this.pointToPlayer = pointToPlayer;
 	}
 }
@@ -447,11 +615,38 @@ class BounceSurface extends Surface
 {	
 	public char axisOfReflection; // x or y
 	
-	public BounceSurface(Rectangle hurtbox, char axis)
+	public BounceSurface(Rectangle hitbox, char axis)
 	{
-		super(hurtbox);
-		setXfloat(hurtbox.x);
-		setYfloat(hurtbox.y);
+		super(hitbox);
+		setXfloat(hitbox.x);
+		setYfloat(hitbox.y);
 		this.axisOfReflection = axis;
 	}
+}
+
+@SuppressWarnings("serial")
+class Paddle extends BounceSurface
+{
+	public Vectr direction;
+	
+	public Paddle(Rectangle hitbox, char axis)
+	{
+		super(hitbox, axis);
+		direction = new Vectr(0, 0);
+	}
+	
+	public void translate(double dx, double dy)
+	{
+		xfloat += dx;
+		x = Physics.roundToInt(xfloat);
+		
+		yfloat += dy;
+		y = Physics.roundToInt(yfloat);
+	}
+	
+	public void move()
+	{
+		translate(0, direction.y);
+	}
+	
 }
