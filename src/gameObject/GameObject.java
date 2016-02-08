@@ -2,6 +2,7 @@ package gameObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
@@ -13,7 +14,7 @@ import java.awt.image.BufferedImage;
  * @author Jonathan
  * @since 02/06/2016
  */
-public class GameObject {
+public class GameObject implements Serializable{
 
 	/**
 	 * Creates a GameObject
