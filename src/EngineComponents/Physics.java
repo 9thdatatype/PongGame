@@ -25,7 +25,7 @@ public class Physics
 	private Paddle paddle1;
 	private Paddle paddle2;
 	
-	private Rectangle[] solids = new Rectangle[6]; // THIS SIZE MUST MATCH ALL THE SURFACES !! TODO Make this array safer. Lists perhaps.
+	private Rectangle[] solids = new Rectangle[6]; // THIS SIZE MUST MATCH ALL THE SURFACES !! TODO Make this array safer! Parametherized ArrayList maybe
 	
 	// Game State Variables
 	private int lastToScore = 0; // must always be either 0, 1 or 2 //TODO change to Enumerated Type?		
@@ -36,12 +36,12 @@ public class Physics
 	
 	// Game Ruleset Variables
 	private int updatesPerRefresh; // Essentially the ball speed
-	private int releaseAngleDelta = 89; // possible value in degrees from the deviation from the horizontal
+	private int releaseAngleDelta = 15; // possible value in degrees from the deviation from the horizontal
 	private double paddleSpeedFactor = 0.5;
 	
 	//TODO Import these from constructor after the new constructor is ready
-	private Point paddle1StartPos = new Point(200, 200); 
-	private Point paddle2StartPos = new Point(800, 200);
+	private Point paddle1startPos = new Point(200, 200); 
+	private Point paddle2startPos = new Point(800, 200);
 	
 	/**
 	 * Class constructor
@@ -51,13 +51,16 @@ public class Physics
 	 * @param paddleDimensions A Dimension object with the dimensions of the paddles in pixels
 	 * @param updatesPerRefresh Perceived game speed
 	 * @param paddleSpeedFactor Paddle's speed as a factor of the ball's.
+	 * @param paddle1startPos Initial valu of the top left corner of the player 1's paddle
+	 * @param paddle2startPos Initial valu of the top left corner of the player 2's paddle
 	 * @param releaseAngleDelta Value of the delta of difference possible between the horizontal
 	 * 			and the release angle
 	 */
 	
 	public Physics(int screenWidth, int screenHeight, int ballSize, 
 				   Dimension paddleDimensions, int updatesPerRefresh, 
-				   double paddleSpeedFactor, int releaseAngleDelta)
+				   double paddleSpeedFactor, Point paddle1startPos, 
+				   Point paddle2startPos, int releaseAngleDelta)
 	{
 		//this.screenWidth = screenWidth;
 		//this.screenHeight = screenHeight;		
@@ -66,7 +69,10 @@ public class Physics
 		ball = new Ball(screenCenter, ballSize);
 		paddleHitbox =  paddleDimensions;
 		this.paddleSpeedFactor = paddleSpeedFactor;
+		this.paddle1startPos = paddle1startPos;
+		this.paddle2startPos = paddle2startPos;
 		this.releaseAngleDelta = releaseAngleDelta;
+		
 		
 		BounceSurface topEdge = new BounceSurface( 
 								new Rectangle(0, 0, screenWidth, 1),  'y');
@@ -78,8 +84,8 @@ public class Physics
 		ScoreSurface rightEdge = new ScoreSurface( 
   				  				 new Rectangle(screenWidth, 0, 1, screenHeight),  1);
 		
-		Rectangle test = new Rectangle(paddle1StartPos , paddleHitbox);
-		Rectangle test2 = new Rectangle(paddle2StartPos, paddleHitbox);
+		Rectangle test = new Rectangle(paddle1startPos , paddleHitbox);
+		Rectangle test2 = new Rectangle(paddle2startPos, paddleHitbox);
 		paddle1 = new Paddle(test, 'x');
 		paddle2 = new Paddle(test2, 'x');
 		
@@ -105,7 +111,7 @@ public class Physics
 	 * @param screenHeight Height of the gamespace in pixels
 	 * @param ballSize Size of the side of the ball in pixels
 	 * @param paddleDimensions A Dimension object with the dimensions of the paddles in pixels
-	 * @param updatesPerFrame Represents the perceived game speed
+	 * @param updatesPerRefresh Represents the perceived game speed
 	 */
 	
 	public Physics(int screenWidth, int screenHeight, int ballSize, 
@@ -128,8 +134,8 @@ public class Physics
 		ScoreSurface rightEdge = new ScoreSurface( 
   				  				 new Rectangle(screenWidth, 0, 1, screenHeight),  1);
 		
-		Rectangle test = new Rectangle(paddle1StartPos , paddleHitbox);
-		Rectangle test2 = new Rectangle(paddle2StartPos, paddleHitbox);
+		Rectangle test = new Rectangle(paddle1startPos , paddleHitbox);
+		Rectangle test2 = new Rectangle(paddle2startPos, paddleHitbox);
 		paddle1 = new Paddle(test, 'x');
 		paddle2 = new Paddle(test2, 'x');
 		
