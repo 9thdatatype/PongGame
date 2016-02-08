@@ -459,11 +459,6 @@ public class Physics
 			paddle2.move();
 			ball.move();
 			checkCollision(ball, solids);
-<<<<<<< HEAD
-			
-			//System.out.println("P1: " + p1Score + " P2: " + p2Score);
-=======
->>>>>>> a34c97fb042a7c1542a3182568789476bedc04da
 		}
 	}
 }

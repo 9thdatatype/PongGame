@@ -46,15 +46,11 @@ public class PongGUI {
 		ArrayList<GameObject> objs = new ArrayList<GameObject>();
 
 		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ball.png"));
-		objs.add(new GameObject(new Point(50, cHeight/2-50), new Point(100, cHeight / 2 + 50), "resources\\paddle.png"));
+		objs.add(new GameObject(new Point(50, cHeight/2-100), new Point(100, cHeight / 2 + 100), "resources\\paddle.png"));
 		objs.add(new GameObject(new Point(cWidth-100, cHeight/2-50), new Point(cWidth - 50, cHeight / 2 + 50), "resources\\paddle.png"));
 
 		//Creates a physics object
-<<<<<<< HEAD
-		Physics physics = new Physics(cWidth, cHeight, 25, new Dimension(0, 0), 15);
-=======
-		Physics physics = new Physics(cWidth, cHeight, 25, new Dimension(0,0), 15);
->>>>>>> a34c97fb042a7c1542a3182568789476bedc04da
+		Physics physics = new Physics(cWidth, cHeight, 25, new Dimension(objs.get(1).getWidth(), objs.get(1).getHeight()), 10, 0.4, objs.get(1).getTopLeftCorner(), objs.get(2).getTopLeftCorner(), 30);
 		physics.startSimulation();
 
 		//Creates an Input object
@@ -64,24 +60,27 @@ public class PongGUI {
 		while(running){
 			startTime = System.currentTimeMillis();
 			
-			//TODO: add the code to move paddle one
 			if(in.getInput().contains("w")){
-//				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y - 1));
 				physics.setp1y(-1);
 				objs.get(1).setTLC(new Point(physics.getP1_x(), physics.getP1_y()));
 			}else if(in.getInput().contains("s")){
-//				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y + 1));
 				physics.setp1y(1);
 				objs.get(1).setTLC(new Point(physics.getP1_x(), physics.getP1_y()));
 			}else if(!in.getInput().contains("w") && !in.getInput().contains("s")){
 				physics.setp1y(0);
-				objs.get(0).setTLC(new Point(physics.getP1_x(), physics.getP1_y()));
+				objs.get(1).setTLC(new Point(physics.getP1_x(), physics.getP1_y()));
 			}
 				
-			if(in.getInput().contains("i"))
-				objs.get(2).setTLC(new Point(objs.get(2).getTopLeftCorner().x, objs.get(2).getTopLeftCorner().y - 1));
-			else if(in.getInput().contains("k"))
-				objs.get(2).setTLC(new Point(objs.get(2).getTopLeftCorner().x, objs.get(2).getTopLeftCorner().y + 1));
+			if(in.getInput().contains("i")){
+				physics.setp2y(-1);
+				objs.get(2).setTLC(new Point(physics.getP2_x(), physics.getP2_y()));
+			}else if(in.getInput().contains("k")){
+				physics.setp2y(1);
+				objs.get(2).setTLC(new Point(physics.getP2_x(), physics.getP2_y()));
+			}else if(!in.getInput().contains("i") && !in.getInput().contains("k")){
+				physics.setp2y(0);
+				objs.get(2).setTLC(new Point(physics.getP2_x(), physics.getP2_y()));
+			}
 
 
 			objs.get(0).setTLC(new Point(physics.getBall_x(), physics.getBall_y()));

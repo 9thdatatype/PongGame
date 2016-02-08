@@ -29,8 +29,8 @@ public class GameObject {
 
 		center = new Point(tlc.x + brc.x / 2, tlc.y + brc.y /2);
 		
-		width = brc.x - tlc.x;
-		height = brc.y - tlc.y;
+		oWidth = brc.x - tlc.x;
+		oHeight = brc.y - tlc.y;
 		
 		imgFile = new File(imgFilePath);
 		try {
@@ -52,8 +52,8 @@ public class GameObject {
 
 		center = new Point(tlc.x + brc.x / 2, tlc.y + brc.y /2);
 		
-		width = brc.x - tlc.x;
-		height = brc.y - tlc.y;
+		oWidth = brc.x - tlc.x;
+		oHeight = brc.y - tlc.y;
 		
 		imgFile = new File(imgFilePath);
 		try {
@@ -75,8 +75,8 @@ public class GameObject {
 
 		center = new Point(tlc.x + brc.x / 2, tlc.y + brc.y /2);
 		
-		width = brc.x - tlc.x;
-		height = brc.y - tlc.y;
+		oWidth = brc.x - tlc.x;
+		oHeight = brc.y - tlc.y;
 		
 		imgFile = new File(imgFilePath);
 		try {
@@ -98,8 +98,8 @@ public class GameObject {
 
 		this.center = center;
 		
-		width = brc.x - tlc.x;
-		height = brc.y - tlc.y;
+		oWidth = brc.x - tlc.x;
+		oHeight = brc.y - tlc.y;
 		
 		imgFile = new File(imgFilePath);
 		try {
@@ -109,14 +109,14 @@ public class GameObject {
 		}
 	}
 
-	public GameObject(Point center, int width, int height, String imgFilePath){
-		tlc = new Point(center.x - width, center.y - height);
-		brc = new Point(center.x + width, center.y + height);
+	public GameObject(Point center, int oWidth, int oHeight, String imgFilePath){
+		tlc = new Point(center.x - oWidth, center.y - oHeight);
+		brc = new Point(center.x + oWidth, center.y + oHeight);
 		
 		this.center = center;
 
-		width = brc.x - tlc.x;
-		height = brc.y - tlc.y;
+		oWidth = brc.x - tlc.x;
+		oHeight = brc.y - tlc.y;
 		
 		imgFile = new File(imgFilePath);
 		try {
@@ -129,8 +129,9 @@ public class GameObject {
 	public BufferedImage getImage(){return img;}
 	public Point getTopLeftCorner(){return tlc;}
 	public Point getBottomRightCorner(){return brc;}
-
-	public void setImage(BufferedImage img){this.img = img;}
+	public Point getCenter(){return center;}
+	public int getWidth(){return oWidth;}
+	public int getHeight(){return oHeight;}
 	
 	/**
 	 * 
@@ -138,7 +139,7 @@ public class GameObject {
 	 */
 	public void setTLC(Point newTLC){
 		tlc = newTLC;
-		brc = new Point(tlc.x + width, tlc.y + height);
+		brc = new Point(tlc.x + oWidth, tlc.y + oHeight);
 		
 		center = new Point(tlc.x + brc.x / 2, tlc.y + brc.y /2);
 	}
@@ -146,8 +147,8 @@ public class GameObject {
 	public void setCenter(Point center){
 		this.center = center;
 		
-		tlc = new Point(center.x - width, center.y - height);
-		brc = new Point(center.x + width, center.y + height);
+		tlc = new Point(center.x - oWidth, center.y - oHeight);
+		brc = new Point(center.x + oWidth, center.y + oHeight);
 	}
 
 	/*
@@ -156,11 +157,14 @@ public class GameObject {
 	 * 
 	 */
 
+	//Object position
 	private Point tlc;
 	private Point brc;
 	private Point center;
-	private int width;
-	private int height;
+	private int oWidth;
+	private int oHeight;
+	
+	//Object texture
 	private File imgFile;
 	private BufferedImage img;
 
