@@ -131,6 +131,7 @@ public class PongGUI {
 			Point mpos = input.getMousePos();
 			if(mpos != null){
 				if(button.contains(mpos)){
+<<<<<<< HEAD
 					Communication comm = new Communication("172.20.184.216");
 				}else if(button2.contains(mpos)){
 					Communication comm = new Communication();
@@ -141,6 +142,14 @@ public class PongGUI {
 					for (int i = 0; i< 3; i++ ){
 					System.out.println(a[i].x + "  " + a[i].y);
 					}
+=======
+					Communication comm = new Communication("192.168.43.5");
+					comm.send(15, 53, 0);
+					comm.send(45, 35, 1);
+					comm.send(10, 50, 2);
+				}else if(button2.contains(mpos)){
+					Communication comm = new Communication();
+>>>>>>> 548dfde31564f3d56a2699a7416deb90ed5d212e
 				}
 				input.clearInput();
 			}
