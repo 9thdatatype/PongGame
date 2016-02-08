@@ -5,7 +5,7 @@ public class Pong {
 		PongGUI gui = new PongGUI(960, 720);
 		gui.createAndShowGUI();
 		gui.run();
-		System.out.println("Done");
+		
 	}
 
 }
