@@ -34,7 +34,7 @@ protected static int LEFT_PADDLE = 0, RIGHT_PADDLE = 1, BALL = 2;
  * Returns: communication object
  * Coder: Daniel Thertell
  */
-Communication(String IP){
+public Communication(String IP){
 	try {
 		JOptionPane.showMessageDialog(null, "Connecting to: " + IP);
 		comm = new Socket(IP,8800);
@@ -60,7 +60,7 @@ Communication(String IP){
  * Returns: communication object
  * Coder: Daniel Thertell
  */
-Communication(){
+public Communication(){
 	try {
 		JOptionPane.showMessageDialog(null, "Awaiting connection");
 		ServerSocket in = new ServerSocket(8800);

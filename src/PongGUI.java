@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import Communication.Communication;
 import EngineComponents.Physics;
 import EngineComponents.Renderer;
 import gameObject.GameObject;
@@ -33,6 +34,8 @@ public class PongGUI {
 		jframe.setResizable(true);
 		jframe.setVisible(true);
 
+		startMenu();
+		
 		cWidth = jframe.getContentPane().getWidth();
 		cHeight = jframe.getContentPane().getHeight();
 	}
@@ -117,5 +120,25 @@ public class PongGUI {
 
 	private boolean running = true;
 
+	private void startMenu(){
+		java.awt.Rectangle button = new java.awt.Rectangle(0, 0, width, height/2);
+		java.awt.Rectangle button2 = new java.awt.Rectangle(0, height/2, width, height/2);
+		
+		Input input = new Input(jframe);
+		
+		
+		while(true){
+			Point mpos = input.getMousePos();
+			if(mpos != null){
+				if(button.contains(mpos)){
+					Communication com = new Communication("172.20.184.216");
+				}else if(button2.contains(mpos)){
+					Communication com = new Communication();
+				}
+				input.clearInput();
+			}
+		}
+	}
+	
 }
 // end class
