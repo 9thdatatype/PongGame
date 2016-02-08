@@ -17,6 +17,10 @@ import java.awt.image.BufferedImage;
 public class GameObject implements Serializable{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Creates a GameObject
 	 * @param x top left corner x component
 	 * @param y top left corner y component
