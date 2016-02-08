@@ -50,7 +50,7 @@ public class PongGUI {
 		objs.add(new GameObject(new Point(cWidth-100, cHeight/2-50), new Point(cWidth - 50, cHeight / 2 + 50), "resources\\paddle.png"));
 
 		//Creates a physics object
-		Physics physics = new Physics(cWidth, cHeight, 25, null, 1);
+		Physics physics = new Physics(cWidth, cHeight, 25, new Dimension(0, 0), 15);
 		physics.startSimulation();
 
 		//Creates an Input object
@@ -59,13 +59,21 @@ public class PongGUI {
 		//Main game loop
 		while(running){
 			startTime = System.currentTimeMillis();
-
-			//TODO: add the code to move paddle one
-			if(in.getInput().contains("w"))
-				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y - 1));
-			else if(in.getInput().contains("s"))
-				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y + 1));
 			
+			//TODO: add the code to move paddle one
+			if(in.getInput().contains("w")){
+//				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y - 1));
+				physics.setp1y(-1);
+				objs.get(1).setTLC(new Point(physics.getP1_x(), physics.getP1_y()));
+			}else if(in.getInput().contains("s")){
+//				objs.get(1).setTLC(new Point(objs.get(1).getTopLeftCorner().x, objs.get(1).getTopLeftCorner().y + 1));
+				physics.setp1y(1);
+				objs.get(1).setTLC(new Point(physics.getP1_x(), physics.getP1_y()));
+			}else if(!in.getInput().contains("w") && !in.getInput().contains("s")){
+				physics.setp1y(0);
+				objs.get(0).setTLC(new Point(physics.getP1_x(), physics.getP1_y()));
+			}
+				
 			if(in.getInput().contains("i"))
 				objs.get(2).setTLC(new Point(objs.get(2).getTopLeftCorner().x, objs.get(2).getTopLeftCorner().y - 1));
 			else if(in.getInput().contains("k"))

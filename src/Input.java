@@ -55,7 +55,7 @@ public class Input {
 	 * Coder: Daniel Thertell
 	 */	
 private void InputKeyPress(java.awt.event.KeyEvent evt){
-	if(!output.contains(""+evt.getKeyChar())){	
+	if(!output.contains(""+evt.getKeyChar())){
 	output = output + evt.getKeyChar();
 	}
 	}

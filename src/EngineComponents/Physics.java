@@ -453,7 +453,7 @@ public class Physics
 			ball.move();
 			checkCollision(ball, solids);
 			
-			System.out.println("P1: " + p1Score + " P2: " + p2Score);
+			//System.out.println("P1: " + p1Score + " P2: " + p2Score);
 		}
 	}
 }
