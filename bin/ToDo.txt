@@ -6,7 +6,7 @@
 *	Please format all additions to this file in the following way:
 * 			package_name.class_name:
 *				- comments.
-*	This will allow us to continue working on the program even if 
+*	This will allow us to continue working on the program and make bugfixes on others work.
 *
 *
 *
