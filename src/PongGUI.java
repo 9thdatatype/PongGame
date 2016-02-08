@@ -50,7 +50,7 @@ public class PongGUI {
 		objs.add(new GameObject(new Point(cWidth-100, cHeight/2-50), new Point(cWidth - 50, cHeight / 2 + 50), "resources\\paddle.png"));
 
 		//Creates a physics object
-		Physics physics = new Physics(cWidth, cHeight, 25, null, 1);
+		Physics physics = new Physics(cWidth, cHeight, 25, new Dimension(0,0), 15);
 		physics.startSimulation();
 
 		//Creates an Input object

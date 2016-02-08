@@ -105,7 +105,7 @@ public class Physics
 	 * @param screenHeight Height of the gamespace in pixels
 	 * @param ballSize Size of the side of the ball in pixels
 	 * @param paddleDimensions A Dimension object with the dimensions of the paddles in pixels
-	 * @param updatesPerFrame Represents the perceived game speed
+	 * @param updatesPerRefresh Represents the perceived game speed
 	 */
 	
 	public Physics(int screenWidth, int screenHeight, int ballSize, 
