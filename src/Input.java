@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 import javax.swing.JFrame;
 
 /**
@@ -16,7 +18,7 @@ import javax.swing.JFrame;
 
 public class Input {
 	private String output = "";
-	
+	Point mousePoint = null;
 	
 	
 	
@@ -40,6 +42,12 @@ public class Input {
             public void keyReleased(java.awt.event.KeyEvent evt) {
             	//creates key release listener
                 InputKeyRelease(evt);
+            }
+        });
+		
+		Main.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                myMouseClicked(evt);
             }
         });
 		
@@ -82,6 +90,11 @@ private void InputKeyRelease(java.awt.event.KeyEvent evt){
 		}
 	}
 }
+
+
+private void myMouseClicked(java.awt.event.MouseEvent evt){
+	mousePoint = evt.getPoint();
+}
 /**
  * Method Name: getInput()
  * Date Added: 26/1/2016
@@ -95,16 +108,24 @@ public String getInput(){
 }
 
 /**
- * Method Name: clearInput()
- * Date Added: 31/1/2016
- * Purpose: clears the string buffer
- * Accepts: null
- * Returns: null
- * Coder: Daniel Thertell
+ * Clears string buffer and mouse point
+ * @since 31/1/2016
+ * @author Daniel Thertell
  */	
 
 public void clearInput(){
 	output = "";
+	mousePoint = null;
+}
+
+
+/**
+ * mouse point
+ * @return returns the position of a mouse click
+ * @since 02/08/2016
+ */	
+public Point getMousePos(){
+	return mousePoint;
 }
 
 
