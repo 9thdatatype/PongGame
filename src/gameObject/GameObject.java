@@ -27,7 +27,7 @@ public class GameObject {
 		tlc = new Point(x, y);
 		brc = new Point(x2, y2);
 
-		center = new Point(tlc.x + brc.x / 2, tlc.y + brc.y /2);
+		center = new Point((tlc.x + brc.x) / 2, (tlc.y + brc.y) /2);
 		
 		oWidth = brc.x - tlc.x;
 		oHeight = brc.y - tlc.y;

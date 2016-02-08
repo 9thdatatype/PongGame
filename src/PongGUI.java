@@ -30,7 +30,7 @@ public class PongGUI {
 	public void createAndShowGUI(){
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.setSize(width, height);
-		jframe.setResizable(false);
+		jframe.setResizable(true);
 		jframe.setVisible(true);
 
 		cWidth = jframe.getContentPane().getWidth();
