@@ -21,7 +21,7 @@ public class StartUpManager {
 	
 	public String loadSettings(){
 		String returnMe = null;
-		String configSettings[] = new GenericFileIO(new File("\\resources\\PongConfig.txt")).readEntireFile();
+		String configSettings[] = new GenericFileIO(configFile).readEntireFile();
 		
 		if(configSettings == null)
 			return null;

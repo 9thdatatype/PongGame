@@ -15,4 +15,28 @@
 program wide: 
 	- Please use proper javadocs formatting for the method and class documentation
 	- If editing a source file that was not originally created by you please add a comment with your name and the date you edited
-	- Try to post on slack if you are editing files so that no one tries to edit the same file at the same time
+	and what the edits were and maybe a brief reason why.
+	- Try to post on slack if you are editing files so that no one tries to edit the same files at the same time
+	- It would be nice to incorporate a method or some way of telling what object was clicked on
+		- I don't know if this should be handled by physics or not
+		- Maybe handled by individual GameStates
+	- Please comment out System.out.println(); when you push.
+		- Just so that when other people are debugging it wont clutter the console.
+
+GameStateManagers:
+	- A class needs to be created for the InGameState
+		- this class should hold the main game loop
+		- constructor needs to take a Graphics2D object and the width and height of the screen
+			- this is for rendering
+		- Maybe the game logic should be in this class?
+	
+GameStateManagers.GameMenu:
+	- The draw main menu should be look at by Daniel Thertell
+	- Maybe some better looking buttons :P
+	
+gameObject.GameObject:
+	- This should be made into an abstract class with methods that need to be defined in child classes.
+		- Haven't decided how or what so please don't touch yet
+
+EngineComponents.Physics:
+	- Murilo you know what you need to do

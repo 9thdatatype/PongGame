@@ -1,6 +1,3 @@
-/**
- * 
- */
 package GameStateManagers;
 
 import java.awt.Color;
@@ -37,15 +34,13 @@ public class GameMenu {
 		String multiplayerPath = "resources/multiplayer.png";
 		String exitPath = "resources/exit.png";
 		
-		System.out.println(height);
-		
-		//lots of calculations and stuff. also getting images and making objects
-		GameObject singlePlayer = new GameObject (new Point(width/2,(int)(height*0.1)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),singlePlayerPath);
-		GameObject multiPlayer = new GameObject (new Point(width/2,(int)((height*0.1) + height *0.2 / 3)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),multiplayerPath);
-		GameObject exit = new GameObject (new Point(width/2,(int)((height*0.1) + (height *0.2 / 3)*2)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),exitPath);
-		
-		System.out.println(singlePlayer.getHeight());
-		
+		//Making game objects for the menu buttons
+		// Edits:
+		//		- Fixed some of the sizes and positions not exact and not final
+		// Edited By: Jonathan Spaulding
+		GameObject singlePlayer = new GameObject (new Point(width/2, 200), 175, 95, singlePlayerPath);
+		GameObject multiPlayer = new GameObject (new Point(width/2, 300), 175, 95, multiplayerPath);
+		GameObject exit = new GameObject (new Point(width/2, 400), 175, 95, exitPath);
 		
 		//storing objects in array list
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();

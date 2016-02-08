@@ -114,9 +114,9 @@ public class GameObject implements Serializable{
 		}
 	}
 
-	public GameObject(Point center, int oWidth, int oHeight, String imgFilePath){
-		tlc = new Point(center.x - oWidth, center.y - oHeight);
-		brc = new Point(center.x + oWidth, center.y + oHeight);
+	public GameObject(Point center, int width, int height, String imgFilePath){
+		tlc = new Point(center.x - width/2, center.y - height/2);
+		brc = new Point(center.x + width/2, center.y + height/2);
 		
 		this.center = center;
 
