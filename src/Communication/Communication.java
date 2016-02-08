@@ -21,7 +21,7 @@ private DataInputStream daIn;
 private double x=0, y=0;
 private int type = 0;
 private Point[] Objects = new Point[3];
-protected static int LEFT_PADDLE = 0, RIGHT_PADDLE = 1, BALL = 2;
+public static final int LEFT_PADDLE = 0, RIGHT_PADDLE = 1, BALL = 2;
 
 
 
