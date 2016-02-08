@@ -131,9 +131,12 @@ public class PongGUI {
 			Point mpos = input.getMousePos();
 			if(mpos != null){
 				if(button.contains(mpos)){
-					Communication com = new Communication("172.20.184.216");
+					Communication comm = new Communication("192.168.43.5");
+					comm.send(15, 53, 0);
+					comm.send(45, 35, 1);
+					comm.send(10, 50, 2);
 				}else if(button2.contains(mpos)){
-					Communication com = new Communication();
+					Communication comm = new Communication();
 				}
 				input.clearInput();
 			}
