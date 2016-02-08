@@ -148,8 +148,11 @@ public class PongGUI {
 	
 				}
 				input.clearInput();
+				break;
 			}
 		}
+		
+		run();
 	}
 	
 }
