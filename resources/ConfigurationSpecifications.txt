@@ -1,0 +1,4 @@
+Line 1: resolution Ex. x*y
+Line 2: path to resources Ex. \resources
+Line 3:	player one controls Ex. w:s
+Line 4: player two controls Ex. i:k or UP:DOWN

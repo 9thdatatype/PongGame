@@ -1,0 +1,4 @@
+960*720
+\resources
+w:s
+i:k
