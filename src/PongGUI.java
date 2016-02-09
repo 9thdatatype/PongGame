@@ -68,10 +68,5 @@ public class PongGUI {
 	private int cWidth;
 	//ContentPane height
 	private int cHeight;
-
-	// Game Variables
-
-	//Is the game running?
-	private boolean running = true;
 }
 // end class
