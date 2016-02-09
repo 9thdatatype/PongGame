@@ -56,6 +56,7 @@ public class GameMenu {
 		rend.render(menuItems);
 		
 		Point mouseClick = null;
+		input.clearInput();
 		
 		while((mouseClick = input.getMousePos()) != null);
 		
@@ -82,6 +83,7 @@ public class GameMenu {
 		rend.render(menuItems);
 		
 		Point mouseClick = null;
+		input.clearInput();
 		
 		while((mouseClick = input.getMousePos()) != null);
 		
