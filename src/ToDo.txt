@@ -46,3 +46,4 @@ gameObject.GameObject:
 EngineComponents.Physics:
 	- Murilo you know what you need to do
 	- Also if any objects points are returned it would be nice to work with the centers and not a corner
+	- Add function to check a point and an arraylist of objects.  return the object clicked or null if nothing was clicked
