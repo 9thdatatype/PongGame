@@ -53,6 +53,18 @@ public class Renderer {
 		g2d.drawImage(img, 0, 0, sWidth, sHeight, 0, 0, sWidth, sHeight, null);
 	}
 	
+	/**
+	 * get the width of this render objects graphics context
+	 * @return the width
+	 */
+	public int getWidth(){return sWidth;}
+	
+	/**
+	 * get the height of this render objects graphics context
+	 * @return the height
+	 */
+	public int getHeight(){return sHeight;}
+	
 	/*
 	 * 
 	 * Private portion of code

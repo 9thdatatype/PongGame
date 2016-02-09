@@ -48,7 +48,7 @@ public class PongGUI {
 		//Draw the main menu
 		gmenu.drawMainMenu();
 		
-		InGameManager igm = new InGameManager(cWidth, cHeight, new Renderer((Graphics2D)jframe.getContentPane().getGraphics(), cWidth, cHeight, Color.black), new Input(jframe));
+		InGameManager igm = new InGameManager(new Renderer((Graphics2D)jframe.getContentPane().getGraphics(), cWidth, cHeight, Color.black), new Input(jframe));
 		igm.runGame();
 	}
 

@@ -12,10 +12,10 @@ public class InGameManager {
 
 	public static final int MAX_FPS = 60;
 	
-	public InGameManager(int width, int height, Renderer renderer, Input input){
+	public InGameManager(Renderer renderer, Input input){
 		this.renderer = renderer;
-		this.width = width;
-		this.height = height;
+		this.width = renderer.getWidth();
+		this.height = renderer.getHeight();
 		this.input = input;
 	}
 	
