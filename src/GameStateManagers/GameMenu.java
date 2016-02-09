@@ -58,7 +58,13 @@ public class GameMenu {
 		Point mouseClick = null;
 		input.clearInput();
 		
-		while((mouseClick = input.getMousePos()) != null);
+		while(true){
+			mouseClick = input.getMousePos();
+			if(mouseClick != null){
+				//Physics.newThingy(mouseClick,menuItems);
+				break;
+			}
+		}
 		
 		//Physics.newThingy(mouseClick,menuItems);
 	}
@@ -85,9 +91,15 @@ public class GameMenu {
 		Point mouseClick = null;
 		input.clearInput();
 		
-		while((mouseClick = input.getMousePos()) != null);
+		while(true){
+			mouseClick = input.getMousePos();
+			if(mouseClick != null){
+				//Physics.newThingy(mouseClick,menuItems);
+				break;
+			}
+		}
 		
-		//Physics.newThingy(mouseClick,menuItems);
+
 	}
 	
 	
