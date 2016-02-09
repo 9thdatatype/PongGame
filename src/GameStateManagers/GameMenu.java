@@ -17,7 +17,7 @@ import gameObject.GameObject;
 
 public class GameMenu {
 
-	private int width = 0, height = 0;
+	private int width = 0;
 	private Renderer rend = null;
 	private Input input;
 	
@@ -27,7 +27,6 @@ public class GameMenu {
 		//Edited On: 09/02/2016
 		
 		this.width = width;
-		this.height = height;
 		rend = new Renderer(graphics, width, height, Color.BLUE);
 		input = in;
 	}
@@ -55,6 +54,12 @@ public class GameMenu {
 		
 		//rendering array list
 		rend.render(menuItems);
+		
+		Point mouseClick = null;
+		
+		while((mouseClick = input.getMousePos()) != null);
+		
+		//Physics.newThingy(mouseClick,menuItems);
 	}
 	
 	public void drawMultiplayerMenu() {
@@ -63,9 +68,9 @@ public class GameMenu {
 		String BackPath = "/resources/back.png";
 		
 		
-		GameObject Join = new GameObject (new Point(width/2,(int)(height*0.1)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),JoinPath);
-		GameObject Host = new GameObject (new Point(width/2,(int)((height*0.1) + height *0.2 / 3)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),HostPath);
-		GameObject Back = new GameObject (new Point(width/2,(int)((height*0.1) + (height *0.2 / 3)*2)), (width-(int)(width*0.15))/2, (height-(int)(height*0.2)/3),BackPath);
+		GameObject Join = new GameObject (new Point(width/2, 200), 175, 95, JoinPath);
+		GameObject Host = new GameObject (new Point(width/2, 300), 175, 95, HostPath);
+		GameObject Back = new GameObject (new Point(width/2, 400), 175, 95, BackPath);
 
 		
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();
@@ -76,9 +81,11 @@ public class GameMenu {
 		
 		rend.render(menuItems);
 		
-		for(;;){
-			
-		}
+		Point mouseClick = null;
+		
+		while((mouseClick = input.getMousePos()) != null);
+		
+		//Physics.newThingy(mouseClick,menuItems);
 	}
 	
 	

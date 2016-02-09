@@ -19,7 +19,7 @@ import javax.swing.JFrame;
 
 public class Input {
 	private String output = "";
-	Point mousePoint = null;
+	private Point mousePoint = null;
 	
 	
 	
