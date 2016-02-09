@@ -64,7 +64,16 @@ public class GameMenu {
 				//Physics.newThingy(mouseClick,menuItems);
 				break;
 			}
+			
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		InGameManager igm = new InGameManager(rend, input);
+		igm.runGame();
 		
 		//Physics.newThingy(mouseClick,menuItems);
 	}
@@ -96,6 +105,11 @@ public class GameMenu {
 			if(mouseClick != null){
 				//Physics.newThingy(mouseClick,menuItems);
 				break;
+			}
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 		

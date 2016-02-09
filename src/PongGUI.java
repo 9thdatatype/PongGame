@@ -1,11 +1,8 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 
-import EngineComponents.Renderer;
 import GameStateManagers.GameMenu;
-import GameStateManagers.InGameManager;
 import GameStateManagers.Input;
 
 /**
@@ -47,9 +44,6 @@ public class PongGUI {
 		GameMenu gmenu = new GameMenu((Graphics2D)(jframe.getContentPane().getGraphics()),cWidth,cHeight, new Input(jframe));
 		//Draw the main menu
 		gmenu.drawMainMenu();
-		
-		InGameManager igm = new InGameManager(new Renderer((Graphics2D)jframe.getContentPane().getGraphics(), cWidth, cHeight, Color.black), new Input(jframe));
-		igm.runGame();
 	}
 
 	/*
