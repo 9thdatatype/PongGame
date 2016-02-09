@@ -15,6 +15,7 @@
 *********************
 Known Bugs:
 	- Occasionally one or both of the paddles will randomly jump off the screen
+	- Images are always fully drawn and not only in the rectangle they are given
 *********************
 
 program wide: 
@@ -45,6 +46,7 @@ GameStateManagers.GameMenu:
 gameObject.GameObject:
 	- This should be made into an abstract class with methods that need to be defined in child classes.
 		- Haven't decided how or what so please don't touch yet
+	- Make a couple of constructors that have no image or just a colour for an image
 
 EngineComponents.Physics:
 	- Murilo you know what you need to do
