@@ -28,6 +28,10 @@ public class InGameManager {
 		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ball.png"));
 		objs.add(new GameObject(new Point(50, height/2-100), new Point(100, height / 2 + 100), "resources\\paddle.png"));
 		objs.add(new GameObject(new Point(width-100, height/2-50), new Point(width - 50, height / 2 + 50), "resources\\paddle.png"));
+		objs.add(new GameObject(new Point((width/2), 10), width, 10, "resources/border2.png"));
+		objs.add(new GameObject(new Point((width/2), height-10), width, 10, "resources/border2.png"));
+		objs.add(new GameObject(new Point(10, (height/2)), 10, height, "resources/border1.png"));
+		objs.add(new GameObject(new Point(10, (height/2)), 10, height, "resources/border1.png"));
 
 		//Creates a physics object
 		Physics physics = new Physics(width, height, 25, new Dimension(objs.get(1).getWidth(), objs.get(1).getHeight()), 10, 0.4, objs.get(1).getTopLeftCorner(), objs.get(2).getTopLeftCorner(), 30);

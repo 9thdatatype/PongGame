@@ -64,7 +64,7 @@ public class GameMenu {
 				//Physics.newThingy(mouseClick,menuItems);
 				break;
 			}
-			
+			input.clearInput();
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
@@ -106,6 +106,7 @@ public class GameMenu {
 				//Physics.newThingy(mouseClick,menuItems);
 				break;
 			}
+			input.clearInput();
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
