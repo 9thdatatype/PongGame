@@ -68,14 +68,14 @@ public class InGameManager {
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
-			//System.out.println(timeTaken);
-			if(timeTaken < frameTime){
-				try {
-					Thread.sleep((long) (frameTime - timeTaken));
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
+			System.out.println(1000/timeTaken);
+//			if(timeTaken < frameTime){
+//				try {
+//					Thread.sleep((long) (frameTime - timeTaken));
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
 		}
 	}
 	

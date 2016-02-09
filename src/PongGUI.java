@@ -44,7 +44,7 @@ public class PongGUI {
 		cHeight = jframe.getContentPane().getHeight();
 		
 		//Set up the game menu
-		GameMenu gmenu = new GameMenu((Graphics2D)(jframe.getContentPane().getGraphics()),cWidth,cHeight);
+		GameMenu gmenu = new GameMenu((Graphics2D)(jframe.getContentPane().getGraphics()),cWidth,cHeight, new Input(jframe));
 		//Draw the main menu
 		gmenu.drawMainMenu();
 		

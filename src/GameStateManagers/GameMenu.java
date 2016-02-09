@@ -17,14 +17,19 @@ import gameObject.GameObject;
 
 public class GameMenu {
 
-	int width = 0, height = 0;
-	Renderer rend = null;
+	private int width = 0, height = 0;
+	private Renderer rend = null;
+	private Input input;
 	
-	public GameMenu(Graphics2D graphics, int width, int height){
-
+	public GameMenu(Graphics2D graphics, int width, int height, Input in){
+		//Edited By: Jonathan Spaulding
+		//Edits: added a parameter of type input to the constructor
+		//Edited On: 09/02/2016
+		
 		this.width = width;
 		this.height = height;
-		rend = new Renderer(graphics , width, height, Color.BLUE);
+		rend = new Renderer(graphics, width, height, Color.BLUE);
+		input = in;
 	}
 	
 	public void drawMainMenu(){
@@ -70,6 +75,10 @@ public class GameMenu {
 		
 		
 		rend.render(menuItems);
+		
+		for(;;){
+			
+		}
 	}
 	
 	
