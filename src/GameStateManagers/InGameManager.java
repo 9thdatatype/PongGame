@@ -8,6 +8,11 @@ import EngineComponents.Physics;
 import EngineComponents.Renderer;
 import gameObject.GameObject;
 
+/**
+ * 
+ * @author Jonathan
+ * @since 09/02/2016
+ */
 public class InGameManager {
 
 	public static final int MAX_FPS = 60;
@@ -28,10 +33,10 @@ public class InGameManager {
 		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ball.png"));
 		objs.add(new GameObject(new Point(50, height/2-100), new Point(100, height / 2 + 100), "resources\\paddle.png"));
 		objs.add(new GameObject(new Point(width-100, height/2-50), new Point(width - 50, height / 2 + 50), "resources\\paddle.png"));
-		objs.add(new GameObject(new Point((width/2), 6), width, 1, "resources/border2.png"));
-		objs.add(new GameObject(new Point((width/2), height-26), width, 1, "resources/border2.png"));
-		objs.add(new GameObject(new Point(6, (height/2)), 1, height, "resources/border1.png"));
-		objs.add(new GameObject(new Point(width - 26, (height/2)), 1, height, "resources/border1.png"));
+		objs.add(new GameObject(new Point((width/2), 0), width, 1, "resources/border2.png"));
+		objs.add(new GameObject(new Point((width/2), height-1), width, 1, "resources/border2.png"));
+		objs.add(new GameObject(new Point(0, (height/2)), 1, height, "resources/border1.png"));
+		objs.add(new GameObject(new Point(width-1, (height/2)), 1, height, "resources/border1.png"));
 
 		//Creates a physics object
 		Physics physics = new Physics(width, height, 25, new Dimension(objs.get(1).getWidth(), objs.get(1).getHeight()), 10, 0.4, objs.get(1).getTopLeftCorner(), objs.get(2).getTopLeftCorner(), 30);
