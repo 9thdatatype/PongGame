@@ -55,4 +55,12 @@ EngineComponents.Physics:
 	- CHECK FOR FUCKING STALES
 	- Encapsulate E.V.E.R.Y.T.H.I.N.G
 	- Javadocs
-
+	
+	
+EngineComponents.Renderer:
+	- draw color behind image to allow colored borders
+	- light weight redraw method to redraw minor changes (ex. color behind one box changes)
+	- allow transparent images(if we don't already allow them)
+	
+Resources:
+	-MAKE WHITE PARTS OF IMAGES TRANSPARENT!! (is that possible with paint??)
