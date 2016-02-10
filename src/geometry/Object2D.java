@@ -14,8 +14,8 @@ public class Object2D extends Rectangle
 	public Object2D(Rectangle R)
 	{
 		super(R);
-		this.direction = 0;
-		this.speed = 0;
+		direction = 0;
+		speed = 0;
 	}
 	
 	public Object2D(double tlcx, double tlcy, double brcx, double brcy)
@@ -23,27 +23,27 @@ public class Object2D extends Rectangle
 		this(new Rectangle(tlcx, tlcy, brcx, brcy));
 	}
 	
-	public Object2D(Rectangle R, double speed)
+	public Object2D(Rectangle R, double spd)
 	{
 		this(R);
-		this.speed = speed;
+		speed = spd;
 	}
 	
-	public Object2D(Rectangle R, double speed, double direction)
+	public Object2D(Rectangle R, double spd, double dir)
 	{
-		this(R, speed);
-		this.direction = direction;
+		this(R, spd);
+		direction = dir;
 	}
 	
-	public Object2D(Point center, double width, double height)
+	public Object2D(Point center, double w, double h)
 	{
-		this(new Rectangle(center, width, height));
+		this(new Rectangle(center, w, h));
 	}
 	
 	public String toString()
 	{
-		return super.toString() + "\nspeed: " + this.speed 
-				+ "\ndirection: " + this.direction;
+		return super.toString() + "\nspeed: " + speed 
+				+ "\ndirection: " + direction;
 	}
 
 	public boolean superposes(Object2D O)
@@ -53,51 +53,46 @@ public class Object2D extends Rectangle
 	
 	public boolean equals(Object2D O)
 	{
-		boolean superposes = this.superposes(O);
+		boolean superposes = superposes(O);
 		
-		return (this.speed == O.speed) 
-				&& (this.direction == O.direction)
+		return (speed == O.speed) 
+				&& (direction == O.direction)
 				&& superposes;
 	}
 	
-	public double dPdx()
+	public double xDir()
 	{
-		return speed*Math.cos(Math.toRadians(direction));
+		return Math.cos(Math.toRadians(direction));
 	}
 	
-	public double dPdy()
+	public double yDir()
 	{
-		return speed*Math.sin(Math.toRadians(direction));
+		return Math.sin(Math.toRadians(direction));
 	}
 	
 	public Rectangle top()
 	{
-		return new Rectangle(this.tlc, this.tlc.add(this.width, 1));
+		return new Rectangle(tlc, tlc.add(width, 1));
 	}
 	
 	public Rectangle left()
 	{
-		return new Rectangle(this.tlc, this.tlc.add(1, this.height));
+		return new Rectangle(tlc, tlc.add(1, height));
 	}
 	
 	public Rectangle bottom()
 	{
-		return new Rectangle(this.brc.add(-this.width, -1), this.brc);
+		return new Rectangle(brc.add(-width, -1), brc);
 	}
 	
 	public Rectangle right()
 	{
-		return new Rectangle(this.brc.add(-1, -this.height), this.brc);
+		return new Rectangle(brc.add(-1, -height), brc);
 	}
 	
 	public Rectangle[] sides()
 	{
-		Rectangle[] sides = {this.top(), this.left(), this.bottom(), this.right()};
+		Rectangle[] sides = {top(), left(), bottom(), right()};
 		return sides;
-	}
-	
-	public void move()
-	{
-		this.translate(this.dPdx(), this.dPdy());
 	}
 }

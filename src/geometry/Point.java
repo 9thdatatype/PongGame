@@ -13,8 +13,8 @@ public class Point
 	
 	public Point()
 	{
-		this.x = 0;
-		this.y = 0;
+		x = 0;
+		y = 0;
 	}
 	
 	public Point(double x, double y)
@@ -25,38 +25,38 @@ public class Point
 	
 	public Point(Point cloneable)
 	{
-		this.x = cloneable.x;
-		this.y = cloneable.y;
+		x = cloneable.x;
+		y = cloneable.y;
 	}
 	
 	public int getX()
 	{
-		return (int)Math.round(this.x);
+		return (int)Math.round(x);
 	}
 	
 	public int getY()
 	{
-		return (int)Math.round(this.y);
+		return (int)Math.round(y);
 	}
 	
 	public String toString()
 	{
-		return "(" + this.x + ", " + this.y + ")";
+		return "(" + x + ", " + y + ")";
 	}
 
 	public Point add(double dx, double dy)
 	{
-		return new Point(this.x + dx, this.y + dy);
+		return new Point(x + dx, y + dy);
 	}
 	
 	public Point add(Point P)
 	{
-		return new Point(this.x + P.x, this.y + P.y);
+		return new Point(x + P.x, y + P.y);
 	}
 	
 	public boolean equals(Point P)
 	{
-		if (this.x == P.x && this.y == P.y)
+		if (x == P.x && y == P.y)
 		{
 			return true;
 		}
@@ -78,27 +78,27 @@ public class Point
 
 	public double xDist(Point P)
 	{
-		return P.x - this.x;
+		return P.x - x;
 	}
 	
 	public double yDist (Point P)
 	{
-		return P.y - this.y;
+		return P.y - y;
 	}
 	
 	public double distance(Point P)
 	{
-		return Math.sqrt(Math.pow(this.xDist(P), 2) + Math.pow(this.yDist(P), 2));
+		return Math.sqrt(Math.pow(xDist(P), 2) + Math.pow(yDist(P), 2));
 	}
 	
 	public boolean isContained(Rectangle R)
 	{
-		if (this.x < R.tlc.x || this.x > R.brc.x)
+		if (x < R.tlc.x || x > R.brc.x)
 		{
 			return false;
 		}
 		
-		if (this.y < R.tlc.y || this.y > R.brc.y)
+		if (y < R.tlc.y || y > R.brc.y)
 		{
 			return false;
 		}

@@ -179,6 +179,16 @@ public class GameObject implements Serializable {
 
 		return name;
 	}
+	
+	/**
+	 * Gets the Object2D stored in the object
+	 * @return the physical representation of the object's hitbox
+	 */
+	
+	public Object2D getPhys(){
+		
+		return phys;
+	}
 
 	/**
 	 * Will update the center of the object
@@ -196,10 +206,12 @@ public class GameObject implements Serializable {
 
 
 	private void setImage(String imgFilePath){
+		
 		boolean imgAvailable = true;
 
 		if(imgFilePath == null)
 			imgAvailable = false;
+		
 		else{
 			imgFile = new File(imgFilePath);
 			try {
