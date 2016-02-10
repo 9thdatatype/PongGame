@@ -21,6 +21,7 @@ public class GameMenu {
 	private int width = 0;
 	private Renderer rend = null;
 	private Input input;
+	private int selection = 0;
 	
 	public GameMenu(Graphics2D graphics, int width, int height, Input in){
 		//Edited By: Jonathan Spaulding
@@ -55,10 +56,13 @@ public class GameMenu {
 		
 		Point mouseClick = null;
 		input.clearInput();
-		System.out.println("Waiting for input");
+		
+		String in = "";
 		while(true){
 			
 			mouseClick = input.getMousePos();
+			in = input.getInput();
+			//outer if
 			if(mouseClick != null){
 				tempPhysics = new Physics();
 				
@@ -71,7 +75,24 @@ public class GameMenu {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+				
+			}else if(in != null){
+				//inner if
+				if(in.contains("w") && selection > 0){
+					menuItems.get(selection).setColour(Color.black);
+					selection--;
+					System.out.println("UP");
+				}else if(in.contains("s") && selection < 2){
+					menuItems.get(selection).setColour(Color.black);
+					selection++;
+					System.out.println("DOWN");
+				}//end inner if
+				
+				menuItems.get(selection).setColour(Color.GREEN);
+				rend.render(menuItems);
+			}//end outer if
+			
+			
 			input.clearInput();
 			try {
 				Thread.sleep(2);
