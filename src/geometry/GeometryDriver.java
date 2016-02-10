@@ -12,11 +12,10 @@ public class GeometryDriver
 	{
 		Point C = new Point(20, 20);
 		Rectangle R = new Rectangle (C, 20, 20);
-		
-		System.out.println(R);
-		System.out.println("\n translate by (-5, -5)");
-		R.translate(-5, -5);
-		System.out.println("\n" + R);
+		Solid S1 = new Solid(R, 10, 20);
+		Solid S2 = new Solid(R, 10, 21);
+		System.out.println(S1.superposes(S2));
+		System.out.println(S1.equals(S2));
 
 	}
 }
