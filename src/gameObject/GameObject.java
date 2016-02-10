@@ -22,9 +22,9 @@ public class GameObject implements Serializable {
 	private Object2D phys;
 	
 	//Object texture
-	private File imgFile; // File object of the image
+	private transient File imgFile; // File object of the image
 	private BufferedImage img; // The BufferedImage object of the image
-	private Color colour; //The color to draw the object if there is no supplied image
+	private transient Color colour; //The color to draw the object if there is no supplied image
 	
 	private static final long serialVersionUID = 1L; //Used for network game play
 	
