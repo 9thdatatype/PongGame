@@ -16,26 +16,17 @@ public class Physics
 { 
 	public ArrayList<GameObject> checkClick (Point P, ArrayList<GameObject> array)
 	{
-		ArrayList<GameObject> clickedList = new ArrayList<GameObject>();
-		boolean empty = true;
+		ArrayList<GameObject> clickedList = new ArrayList<GameObject>(0);
 		
 		for (GameObject object : array)
 		{			
 			if (object.getPhys().contains(P))
 			{
 				clickedList.add(object);
-				empty = false;
 			}
 		}
-		
-		if (empty)
-		{
-			return null;
-		}
-		else
-		{
-			return clickedList;
-		}
+
+		return clickedList;
 	}
 	
 	public ArrayList<GameObject> checkClick (double x, double y, ArrayList<GameObject> array)
