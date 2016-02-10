@@ -29,6 +29,16 @@ public class Point
 		this.y = cloneable.y;
 	}
 	
+	public int getX()
+	{
+		return (int)Math.round(this.x);
+	}
+	
+	public int getY()
+	{
+		return (int)Math.round(this.y);
+	}
+	
 	public String toString()
 	{
 		return "(" + this.x + ", " + this.y + ")";

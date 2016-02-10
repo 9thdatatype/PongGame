@@ -30,7 +30,8 @@ program wide:
 		- Just so that when other people are debugging it wont clutter the console.
 	- Should the maximum frames per second be read as a configuration setting?
 	- It would be nice to have all positions relative so the screen can be resized.
-	- Should the background colour be a configuration setting?
+	- Should the background colour be a configuration setting? (M: Yes)
+	- Change all Point class direct field references to the getter methods. 
 
 GameStateManagers.InGameManager:
 	- This class holds the main game loop but should it hold the in game logic? Dan?
@@ -46,9 +47,12 @@ GameStateManagers.GameMenu:
 gameObject.GameObject:
 	- This should be made into an abstract class with methods that need to be defined in child classes.
 		- Haven't decided how or what so please don't touch yet
-	- Make a couple of constructors that have no image or just a colour for an image
+	- Make a couple of constructors that have no image or just a colour for an image 
+	- Complete the game object with new methods and Constuctors
 
 EngineComponents.Physics:
-	- Murilo you know what you need to do
-	- Also if any objects points are returned it would be nice to work with the centers and not a corner
 	- Add function to check a point and an arraylist of objects.  return the object clicked or null if nothing was clicked
+	- CHECK FOR FUCKING STALES
+	- Encapsulate E.V.E.R.Y.T.H.I.N.G
+	- Javadocs
+
