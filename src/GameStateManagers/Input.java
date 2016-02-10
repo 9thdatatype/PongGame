@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 public class Input {
 	private String output = "";
 	private Point mousePoint = null;
+	private boolean autoClear;
 	
 	
 	
@@ -51,7 +52,7 @@ public class Input {
                 myMouseClicked(evt);
             }
         });
-		
+		autoClear = true;
 }
 
 	
@@ -79,15 +80,17 @@ private void InputKeyPress(java.awt.event.KeyEvent evt){
  */	
 
 private void InputKeyRelease(java.awt.event.KeyEvent evt){
-	for(int i=0;i<output.length();i++){
-		if(output.charAt(i) == evt.getKeyChar()){
-			String tmp = output.substring(i+1);
-			String tmp2 = output.substring(0, i);
+	if(autoClear){
+		for(int i=0;i<output.length();i++){
+			if(output.charAt(i) == evt.getKeyChar()){
+				String tmp = output.substring(i+1);
+				String tmp2 = output.substring(0, i);
 			
-			//for debuging
-			//System.out.println(tmp+tmp2);
-			output = tmp + tmp2;
+				//for debuging
+				//System.out.println(tmp+tmp2);
+				output = tmp + tmp2;
 			
+			}
 		}
 	}
 }
@@ -129,6 +132,18 @@ public Point getMousePos(){
 	return mousePoint;
 }
 
-
+/**
+ * 
+ * sets autoClear to the value passed. if false clear() must be called.
+ * to clear input
+ *@author Daniel Thertell
+ *@since Feb 10, 2016
+ *@param boolean value represint autoclear
+ */
+public void setAutoclear(boolean clear){
+	autoClear = clear;
 }
+}
+
+
 
