@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import geometry.*;
 import java.util.ArrayList;
 
+import EngineComponents.Physics;
 import EngineComponents.Renderer;
 import gameObject.GameObject;
 
@@ -16,7 +17,7 @@ import gameObject.GameObject;
  */
 
 public class GameMenu {
-
+	private Physics tempPhysics;
 	private int width = 0;
 	private Renderer rend = null;
 	private Input input;
@@ -58,8 +59,19 @@ public class GameMenu {
 		while(true){
 			mouseClick = input.getMousePos();
 			if(mouseClick != null){
-				//Physics.newThingy(mouseClick,menuItems);
-				break;
+				tempPhysics = new Physics();
+				System.out.println("mouse point " + mouseClick);
+				System.out.println("Physics engine: " +  !(tempPhysics == null));
+				System.out.println("menu items legnth: " + menuItems.size());
+				try {
+					ArrayList<GameObject> crash = tempPhysics.checkClick(mouseClick, menuItems);
+						if(crash.size()<0 && crash.get(0).equals(singlePlayer)){
+							System.out.println("Single Player selected");
+							break;
+						}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			input.clearInput();
 			try {
