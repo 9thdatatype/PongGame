@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import geometry.*;
@@ -23,6 +24,7 @@ public class GameObject implements Serializable {
 	//Object texture
 	private File imgFile; // File object of the image
 	private BufferedImage img; // The BufferedImage object of the image
+	private Color colour; //The color to draw the object if there is no supplied image
 	
 	private static final long serialVersionUID = 1L; //Used for network game play
 	
@@ -37,16 +39,13 @@ public class GameObject implements Serializable {
 	 * @param imgFilePath path to the image file to be loaded
 	 */
 	
-	public GameObject(double x, double y, double x2, double y2, String imgFilePath){
+	public GameObject(double x, double y, double x2, double y2, String imgFilePath, Color colour){
 		
 		this.phys = new Object2D(x, y, x2, y2);
 		
-		imgFile = new File(imgFilePath);
-		try {
-			img = ImageIO.read(imgFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.colour = colour;
+		
+		setImage(imgFilePath);
 	}
 
 	/**
@@ -57,16 +56,14 @@ public class GameObject implements Serializable {
 	 * @param imgFilePath path to the image file
 	 */
 	
-	public GameObject(Point center, double width, double height, String imgFilePath){
+	public GameObject(Point center, double width, double height, String imgFilePath, Color colour){
 		
 		this.phys = new Object2D(center, width, height);
 		
-		imgFile = new File(imgFilePath);
-		try {
-			img = ImageIO.read(imgFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.colour = colour;
+		
+		setImage(imgFilePath);
+		
 	}
 	
 	/**
@@ -76,9 +73,11 @@ public class GameObject implements Serializable {
 	 * @param imgFilePath the path to the image file
 	 */
 	
-	public GameObject(Point center, int size, String imgFilePath){
+	public GameObject(Point center, int size, String imgFilePath, Color colour){
 		
-		this(center, size, size, imgFilePath);
+		this(center, size, size, imgFilePath, colour);
+		
+		setImage(imgFilePath);
 	}
 	
 	/**
@@ -88,10 +87,12 @@ public class GameObject implements Serializable {
 	 * @param imgFilePath path to the image file to be loaded
 	 */
 	
-	public GameObject(double[] topLeftCorner, double bottomRightCorner[], String imgFilePath){
+	public GameObject(double[] topLeftCorner, double bottomRightCorner[], String imgFilePath, Color colour){
 		
 		this(topLeftCorner[0], topLeftCorner[1], 
-			bottomRightCorner[0], bottomRightCorner[1], imgFilePath);
+			bottomRightCorner[0], bottomRightCorner[1], imgFilePath, colour);
+		
+		setImage(imgFilePath);
 	}
 
 	/**
@@ -101,10 +102,12 @@ public class GameObject implements Serializable {
 	 * @param imgFilePath path to the image file to be loaded
 	 */
 	
-	public GameObject(Point topLeftCorner, Point bottomRightCorner, String imgFilePath){
+	public GameObject(Point topLeftCorner, Point bottomRightCorner, String imgFilePath, Color colour){
 		
 		this(topLeftCorner.x, topLeftCorner.y,
-			bottomRightCorner.x, bottomRightCorner.y, imgFilePath);
+			bottomRightCorner.x, bottomRightCorner.y, imgFilePath, colour);
+		
+		setImage(imgFilePath);
 	}
 
 	/**
@@ -186,7 +189,29 @@ public class GameObject implements Serializable {
 		
 		this.phys.reCenter(center);
 	}
+	
+	public void setColour(Color colour){
+		this.colour = colour;
+	}
 
 
-
+	private void setImage(String imgFilePath){
+		boolean imgAvailable = true;
+		imgFile = new File(imgFilePath);
+		try {
+			img = ImageIO.read(imgFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+			imgAvailable = false;
+		}
+		
+		if(!imgAvailable){
+			int w = (int)Math.round(phys.width);
+			int h = (int)Math.round(phys.height);
+			img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+			for(int i = 0; i < w; ++i)
+				for(int j = 0; j < h; ++j)
+					img.setRGB(i, j, colour.getRGB());
+		}
+	}
 }

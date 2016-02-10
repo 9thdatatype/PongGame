@@ -37,8 +37,8 @@ public class Rectangle
 		this.center = center;
 		this.width = width;
 		this.height = height;
-		this.tlc = new Point(center.x - width/2, center.y - width/2);
-		this.brc = new Point(center.x + width/2, center.y + width/2);
+		this.tlc = new Point(center.x - width/2, center.y - height/2);
+		this.brc = new Point(center.x + width/2, center.y + height/2);
 	}
 	
 	public Rectangle(Rectangle cloneable)

@@ -15,7 +15,6 @@
 *********************
 Known Bugs:
 	- Occasionally one or both of the paddles will randomly jump off the screen
-	- When an objects width is changed it changes the height or the center
 *********************
 
 program wide: 
