@@ -22,6 +22,7 @@ public class Physics
 		{			
 			if (object.getPhys().contains(P))
 			{
+				
 				clickedList.add(object);
 			}
 		}

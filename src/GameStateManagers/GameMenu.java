@@ -55,14 +55,16 @@ public class GameMenu {
 		
 		Point mouseClick = null;
 		input.clearInput();
-		
+		System.out.println("Waiting for input");
 		while(true){
+			
 			mouseClick = input.getMousePos();
 			if(mouseClick != null){
 				tempPhysics = new Physics();
+				
 				try {
 					ArrayList<GameObject> crash = tempPhysics.checkClick(mouseClick, menuItems);
-						if(crash.size()<0 && crash.get(0).equals(singlePlayer)){
+						if(crash.size()>0 && crash.get(0).equals(singlePlayer)){
 							System.out.println("Single Player selected");
 							break;
 						}
@@ -72,7 +74,7 @@ public class GameMenu {
 			}
 			input.clearInput();
 			try {
-				Thread.sleep(1);
+				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
