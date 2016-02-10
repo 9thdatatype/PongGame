@@ -38,11 +38,9 @@ public class GameMenu {
 		String exitPath = "resources/exit.png";
 		
 		//Making game objects for the menu buttons
-		// Edits:
-		//		- Fixed some of the sizes and positions not exact and not final
-		// Edited By: Jonathan Spaulding
-		// Edited On: 08/02/2016
+		// Possible bug if you change the width it seems to change the height as well
 		GameObject singlePlayer = new GameObject (new Point(width/2, 200), 175, 95, singlePlayerPath);
+		//GameObject singlePlayer = new GameObject (new Point(width/2, 200), 50, 95, singlePlayerPath);
 		GameObject multiPlayer = new GameObject (new Point(width/2, 300), 175, 95, multiplayerPath);
 		GameObject exit = new GameObject (new Point(width/2, 400), 175, 95, exitPath);
 		

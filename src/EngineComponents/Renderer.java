@@ -48,7 +48,17 @@ public class Renderer {
 		drawer = (Graphics2D) img.getGraphics();
 		
 		for(GameObject obj:objs)
-			drawer.drawImage(obj.getImage(), obj.getTopLeftCorner().getX(), obj.getTopLeftCorner().getY(), null);
+			drawer.drawImage(
+					obj.getImage(),
+					obj.getTopLeftCorner().getX(),
+					obj.getTopLeftCorner().getY(),
+					obj.getBottomRightCorner().getX(),
+					obj.getBottomRightCorner().getY(),
+					0,
+					0, 
+					obj.getWidth(),
+					obj.getHeight(),
+					null);
 		
 		g2d.drawImage(img, 0, 0, sWidth, sHeight, 0, 0, sWidth, sHeight, null);
 	}

@@ -15,7 +15,7 @@
 *********************
 Known Bugs:
 	- Occasionally one or both of the paddles will randomly jump off the screen
-	- Images are always fully drawn and not only in the rectangle they are given
+	- When an objects width is changed it changes the height or the center
 *********************
 
 program wide: 
@@ -35,14 +35,12 @@ program wide:
 
 GameStateManagers.InGameManager:
 	- This class holds the main game loop but should it hold the in game logic? Dan?
-		^ Game logic on a 2nd thread? or maybe called and placed in 2nd class? probably not in main 
 	
 GameStateManagers.GameMenu:
 	- The draw main menu should be looked at by Daniel Thertell
 		^looked at.  looked like a class for a menu.
 	- Maybe some better looking buttons :P -Mike?
 	- This should decide where to go depending on which button was pressed I think - Jonathan
-		^ or game logic could handle it. just a possibility.
 	
 gameObject.GameObject:
 	- This should be made into an abstract class with methods that need to be defined in child classes.

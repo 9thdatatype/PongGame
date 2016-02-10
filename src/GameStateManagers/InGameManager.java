@@ -77,7 +77,7 @@ public class InGameManager {
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
-			System.out.println(1000/timeTaken);
+			//System.out.println(1000/timeTaken);
 //			if(timeTaken < frameTime){
 //				try {
 //					Thread.sleep((long) (frameTime - timeTaken));
