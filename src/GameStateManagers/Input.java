@@ -1,5 +1,5 @@
 package GameStateManagers;
-import java.awt.Point;
+import geometry.*;
 
 import javax.swing.JFrame;
 
@@ -94,7 +94,7 @@ private void InputKeyRelease(java.awt.event.KeyEvent evt){
 
 
 private void myMouseClicked(java.awt.event.MouseEvent evt){
-	mousePoint = evt.getPoint();
+	mousePoint = new Point(evt.getX(),evt.getY());
 }
 /**
  * Method Name: getInput()

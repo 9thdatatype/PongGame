@@ -2,7 +2,7 @@ package GameStateManagers;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import geometry.*;
 import java.util.ArrayList;
 
 import EngineComponents.Renderer;
