@@ -39,10 +39,10 @@ public class GameMenu {
 		
 		//Making game objects for the menu buttons
 		// Possible bug if you change the width it seems to change the height as well
-		GameObject singlePlayer = new GameObject (new Point(width/2, 200), 175, 95, singlePlayerPath);
+		GameObject singlePlayer = new GameObject (new Point(width/2, 200), 175, 95, singlePlayerPath, null);
 		//GameObject singlePlayer = new GameObject (new Point(width/2, 200), 50, 95, singlePlayerPath);
-		GameObject multiPlayer = new GameObject (new Point(width/2, 300), 175, 95, multiplayerPath);
-		GameObject exit = new GameObject (new Point(width/2, 400), 175, 95, exitPath);
+		GameObject multiPlayer = new GameObject (new Point(width/2, 300), 175, 95, multiplayerPath, null);
+		GameObject exit = new GameObject (new Point(width/2, 400), 175, 95, null, Color.white);
 		
 		//storing objects in array list
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();
@@ -82,9 +82,9 @@ public class GameMenu {
 		String BackPath = "/resources/back.png";
 		
 		
-		GameObject Join = new GameObject (new Point(width/2, 200), 175, 95, JoinPath);
-		GameObject Host = new GameObject (new Point(width/2, 300), 175, 95, HostPath);
-		GameObject Back = new GameObject (new Point(width/2, 400), 175, 95, BackPath);
+		GameObject Join = new GameObject (new Point(width/2, 200), 175, 95, JoinPath, null);
+		GameObject Host = new GameObject (new Point(width/2, 300), 175, 95, HostPath, null);
+		GameObject Back = new GameObject (new Point(width/2, 400), 175, 95, BackPath, null);
 
 		
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();
