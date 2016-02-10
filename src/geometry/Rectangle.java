@@ -16,29 +16,29 @@ public class Rectangle
 	
 	public Rectangle()
 	{
-		this.tlc = new Point();
-		this.brc = new Point();
-		this.center = new Point();
-		this.width = 0;
-		this.height = 0;
+		tlc = new Point();
+		brc = new Point();
+		center = new Point();
+		width = 0;
+		height = 0;
 	}
 	
 	public Rectangle(Point topLeftCorner, Point bottomRightCorner)
 	{
-		this.tlc = topLeftCorner;
-		this.brc = bottomRightCorner;
-		this.width = tlc.xDist(brc);
-		this.height = tlc.yDist(brc);
-		this.center = new Point(tlc.x + width/2, tlc.y + height/2);
+		tlc = topLeftCorner;
+		brc = bottomRightCorner;
+		width = tlc.xDist(brc);
+		height = tlc.yDist(brc);
+		center = tlc.add(width/2, height/2);
 	}
 	
-	public Rectangle(Point center, double width, double height)
+	public Rectangle(Point P, double w, double h)
 	{
-		this.center = center;
-		this.width = width;
-		this.height = height;
-		this.tlc = new Point(center.x - width/2, center.y - height/2);
-		this.brc = new Point(center.x + width/2, center.y + height/2);
+		center = P;
+		width = w;
+		height = h;
+		tlc = center.add(-width/2, -height/2);
+		brc = center.add(width/2, height/2);
 	}
 	
 	public Rectangle(Rectangle cloneable)
@@ -63,33 +63,33 @@ public class Rectangle
 	
 	public String toString()
 	{
-		return "tlc = " + this.tlc + "\nbrc = " + this.brc + "\ncenter = " + this.center 
-						+ "\nwidth = " + this.width + "\nheight = " + this.height;
+		return "tlc = " + tlc + "\nbrc = " + brc + "\ncenter = " + center 
+						+ "\nwidth = " + width + "\nheight = " + height;
 	}
 	
 	public boolean equals(Rectangle R)
 	{
-		if (!this.tlc.equals(R.tlc))
+		if (!tlc.equals(R.tlc))
 		{
 			return false;
 		}
 		
-		if (!this.brc.equals(R.brc))
+		if (!brc.equals(R.brc))
 		{
 			return false;
 		}
 		
-		if (!this.center.equals(R.center))
+		if (!center.equals(R.center))
 		{
 			return false;
 		}
 		
-		if (this.width != R.width)
+		if (width != R.width)
 		{
 			return false;
 		}
 		
-		if (this.height != R.height)
+		if (height != R.height)
 		{
 			return false;
 		}
@@ -99,12 +99,12 @@ public class Rectangle
 	
 	public boolean contains(Point P)
 	{
-		if (P.x < this.tlc.x || P.x > this.brc.x)
+		if (P.x < tlc.x || P.x > brc.x)
 		{
 			return false;
 		}
 		
-		if (P.y < this.tlc.y || P.y > this.tlc.y)
+		if (P.y < tlc.y || P.y > tlc.y)
 		{
 			return false;
 		}
@@ -114,7 +114,7 @@ public class Rectangle
 	
 	public boolean contains(double x, double y)
 	{
-		return this.contains(new Point(x, y));
+		return contains(new Point(x, y));
 	}
 	
 	public double area()
@@ -129,7 +129,7 @@ public class Rectangle
 		
 		Rectangle lowX = R;
 		Rectangle highX = this;
-		if (this.tlc.x < R.tlc.x)
+		if (tlc.x < R.tlc.x)
 		{
 			lowX = this;
 			highX = R;
@@ -142,7 +142,7 @@ public class Rectangle
 		
 		Rectangle lowY = R;
 		Rectangle highY = this;
-		if (this.tlc.y < R.tlc.y)
+		if (tlc.y < R.tlc.y)
 		{
 			lowY = this;
 			highY = R;
@@ -158,18 +158,38 @@ public class Rectangle
 	
 	public void reCenter(Point P)
 	{
-		this.tlc = P.add(-width/2, -height/2);
-		this.brc = P.add(width/2, height/2);
-		this.center = P;
+		tlc = P.add(-width/2, -height/2);
+		brc = P.add(width/2, height/2);
+		center = P;
 	}
 	
 	public void reCenter(double x, double y)
 	{
-		this.reCenter(new Point(x, y));
+		reCenter(new Point(x, y));
+	}
+	
+	public void setTLC(Point P)
+	{
+		reCenter(P.add(width/2, height/2));
+	}
+	
+	public void setTLC(double x, double y)
+	{
+		setTLC(new Point(x, y));
+	}
+	
+	public void setBRC(Point P)
+	{
+		reCenter(P.add(-width/2, -height/2));
+	}
+	
+	public void setBRC(double x, double y)
+	{
+		setBRC(new Point(x, y));
 	}
 	
 	public void translate(double dx, double dy)
 	{
-		this.reCenter(this.center.add(dx, dy));
+		reCenter(center.add(dx, dy));
 	}
 }
