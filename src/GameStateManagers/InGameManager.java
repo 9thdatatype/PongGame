@@ -1,7 +1,7 @@
 package GameStateManagers;
 
 import java.awt.Dimension;
-import java.awt.Point;
+import geometry.*;
 import java.util.ArrayList;
 
 import EngineComponents.Physics;
