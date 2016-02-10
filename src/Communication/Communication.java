@@ -10,17 +10,26 @@ import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+
+import gameObject.GameObject;
 
 
 public class Communication {
 private Socket comm = null;
 private DataOutputStream dOut;
 private DataInputStream daIn;
+private ObjectOutputStream OOut;
+private ObjectInputStream OIn;
 private double x=0, y=0;
 private int type = 0;
 private Point[] Objects = new Point[3];
+private ArrayList<GameObject> gameObjects;
 public static final int LEFT_PADDLE = 0, RIGHT_PADDLE = 1, BALL = 2;
 
 
@@ -40,6 +49,8 @@ public Communication(String IP){
 		comm = new Socket(IP,8800);
 		dOut = new DataOutputStream(comm.getOutputStream());
 		daIn = new DataInputStream(comm.getInputStream());
+		OOut = new ObjectOutputStream(comm.getOutputStream());
+		OIn = new ObjectInputStream(comm.getInputStream());
 		
 		initilize();
 		
@@ -67,6 +78,8 @@ public Communication(){
 		comm = in.accept();
 		dOut = new DataOutputStream(comm.getOutputStream());
 		daIn = new DataInputStream(comm.getInputStream());
+		OOut = new ObjectOutputStream(comm.getOutputStream());
+		OIn = new ObjectInputStream(comm.getInputStream());
 		
 		System.out.println("Connected to: " + comm.getInetAddress());
 		
@@ -88,6 +101,7 @@ private void initilize(){
 }
 
 /**
+ * @deprecated
  * Method Name: send()
  * Date Added: 26/1/2016
  * Purpose: tries to send 2 doubles representing xpos and ypos
@@ -114,7 +128,77 @@ public void send(double x, double y, int type){
 	}
 }
 
+
+
+
 /**
+ * 
+ * 
+ *@author Daniel Thertell
+ *@since Feb 10, 2016
+ *@param Game object 
+ */
+public boolean sendObject(GameObject object){
+	try {
+		OOut.writeObject(object);
+		OOut.flush();
+		return true;
+	} catch (IOException e) {
+		e.printStackTrace();
+		return false;
+	}
+}
+
+/**
+ * 
+ * 
+ *@author Daniel Thertell
+ *@since Feb 10, 2016
+ *@param
+ */
+public boolean checkObject(){
+	try {
+		gameObjects.add((GameObject)OIn.readObject());
+		return true;
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+		return false;
+	} catch (IOException e) {
+		e.printStackTrace();
+		return false;
+	}
+}
+/**
+ * 
+ * 
+ *@author Daniel Thertell
+ *@since Feb 10, 2016
+ *@param
+ */
+public GameObject getObject(){
+	checkObject();
+	if(gameObjects.size()>0){
+	GameObject temp = gameObjects.get(0);
+	gameObjects.remove(0);
+	return temp;
+	}
+	return null;
+}
+
+public ArrayList<GameObject> getAllObjects(){
+	boolean valid = true;
+	while(valid){
+		valid = checkObject();
+	}
+	ArrayList<GameObject> temp = new ArrayList<GameObject>(gameObjects);
+	for(int i = 0; i < temp.size(); i++){
+		gameObjects.remove(i);
+	}
+	return temp;
+}
+
+/**
+ * @deprecated
  * Method Name: check()
  * Date Added: 26/1/2016
  * Purpose: checks to see if a x and y pos exist and stores them
@@ -156,6 +240,7 @@ public boolean check(){
 
 
 /**
+ * @deprecated
  * Method Name: getX()
  * Date Added: 26/1/2016
  * Purpose: returns the last x value read
@@ -169,6 +254,7 @@ public double getX(){
 
 
 /**
+ * @deprecated
  * Method Name: getY()
  * Date Added: 26/1/2016
  * Purpose: returns the last y value read
@@ -181,6 +267,7 @@ public double getY(){
 }
 
 /**
+ * @deprecated
  * Method Name: getType()
  * Date Added: 26/1/2016
  * Purpose: gets Object type
@@ -219,6 +306,7 @@ public boolean close(){
 }
 
 /**
+ * @deprecated
  * Method Name: getObjects()
  * Date Added: 03/2/2016
  * Purpose: grabbs as many objects as it can and puts them in a rectangle array
