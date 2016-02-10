@@ -60,9 +60,6 @@ public class GameMenu {
 			mouseClick = input.getMousePos();
 			if(mouseClick != null){
 				tempPhysics = new Physics();
-				System.out.println("mouse point " + mouseClick);
-				System.out.println("Physics engine: " +  !(tempPhysics == null));
-				System.out.println("menu items legnth: " + menuItems.size());
 				try {
 					ArrayList<GameObject> crash = tempPhysics.checkClick(mouseClick, menuItems);
 						if(crash.size()<0 && crash.get(0).equals(singlePlayer)){

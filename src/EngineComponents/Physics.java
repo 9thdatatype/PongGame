@@ -18,13 +18,11 @@ public class Physics
 	{
 		ArrayList<GameObject> clickedList = new ArrayList<GameObject>();
 		boolean empty = true;
-		System.out.println("Checking collision on array with a size of " + array.size());
+		
 		for (GameObject object : array)
-		{
-			System.out.println("on object " + object.getName() + " with center of " + object.getPhys().center);
+		{			
 			if (object.getPhys().contains(P))
 			{
-				System.out.println("collision with mouse and " + object.getName());
 				clickedList.add(object);
 				empty = false;
 			}
