@@ -73,7 +73,7 @@ public class GameObject implements Serializable {
 	 * @param imgFilePath the path to the image file
 	 */
 
-	public GameObject(Point center, int size, String imgFilePath, Color colour){
+	public GameObject(Point center, double size, String imgFilePath, Color colour){
 
 		this(center, size, size, imgFilePath, colour);
 
@@ -202,6 +202,7 @@ public class GameObject implements Serializable {
 
 	public void setColour(Color colour){
 		this.colour = colour;
+		drawColour();
 	}
 
 
@@ -223,12 +224,16 @@ public class GameObject implements Serializable {
 		}
 
 		if(!imgAvailable){
-			int w = (int)Math.round(phys.width);
-			int h = (int)Math.round(phys.height);
-			img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-			for(int i = 0; i < w; ++i)
-				for(int j = 0; j < h; ++j)
-					img.setRGB(i, j, colour.getRGB());
+			drawColour();
 		}
+	}
+	
+	private void drawColour(){
+		int w = (int)Math.round(phys.width);
+		int h = (int)Math.round(phys.height);
+		img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		for(int i = 0; i < w; ++i)
+			for(int j = 0; j < h; ++j)
+				img.setRGB(i, j, colour.getRGB());
 	}
 }
