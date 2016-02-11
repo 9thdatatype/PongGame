@@ -57,6 +57,8 @@ public class GameMenu {
 		Point mouseClick = null;
 		input.clearInput();
 		
+		input.setAutoclear(true);
+		
 		String in = "";
 		while(true){
 			
@@ -100,6 +102,8 @@ public class GameMenu {
 				e.printStackTrace();
 			}
 		}
+		
+		input.setAutoclear(false);
 		
 		InGameManager igm = new InGameManager(rend, input);
 		igm.runGame();
