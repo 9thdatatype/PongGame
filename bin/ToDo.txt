@@ -15,7 +15,6 @@
 *********************
 Known Bugs:
 	- Occasionally one or both of the paddles will randomly jump off the screen
-	- Images are always fully drawn and not only in the rectangle they are given
 *********************
 
 program wide: 
@@ -30,12 +29,7 @@ program wide:
 		- Just so that when other people are debugging it wont clutter the console.
 	- Should the maximum frames per second be read as a configuration setting?
 	- It would be nice to have all positions relative so the screen can be resized.
-	- Should the background colour be a configuration setting? (M: Yes) - Yes(Dan)
-	- Change all Point class direct field references to the getter methods. 
-
-GameStateManagers.InGameManager:
-	- This class holds the main game loop but should it hold the in game logic? Dan?
-		^ Game logic on a 2nd thread? or maybe called and placed in 2nd class? probably not in main 
+	- Change all Point class direct field references to the getter methods.
 	
 GameStateManagers.GameMenu:
 	- The draw main menu should be looked at by Daniel Thertell
@@ -55,12 +49,6 @@ EngineComponents.Physics:
 	- CHECK FOR FUCKING STALES
 	- Encapsulate E.V.E.R.Y.T.H.I.N.G
 	- Javadocs
-	
-	
-EngineComponents.Renderer:
-	- draw color behind image to allow colored borders
-	- light weight redraw method to redraw minor changes (ex. color behind one box changes)
-	- allow transparent images(if we don't already allow them)
 	
 Resources:
 	-MAKE WHITE PARTS OF IMAGES TRANSPARENT!! (is that possible with paint??)
