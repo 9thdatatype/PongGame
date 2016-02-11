@@ -91,11 +91,11 @@ public class GameMenu {
 				if(in.contains("w") && selection > 0){
 					menuItems.get(selection).setColour(Color.black);
 					selection--;
-					System.out.println("UP");
+					//System.out.println("UP");
 				}else if(in.contains("s") && selection < 2){
 					menuItems.get(selection).setColour(Color.black);
 					selection++;
-					System.out.println("DOWN");
+					//System.out.println("DOWN");
 				}else if(in.contains("\n")){
 					String select = menuItems.get(selection).getName();
 					
