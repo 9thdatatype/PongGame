@@ -215,7 +215,6 @@ public class GameObject implements Serializable {
 		else{
 			imgFile = new File(imgFilePath);
 			try {
-				//img = ImageIO.read(imgFile);
 				img = drawBackground(ImageIO.read(imgFile));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -248,7 +247,7 @@ public class GameObject implements Serializable {
 		
 		for(int i = 0; i < w; ++i)
 			for(int j = 0; j < h; ++j)
-				temp.setRGB(i, j, imgOverlay.getRGB(i, j) | temp.getRGB(i, j));
+				temp.setRGB(i, j, (imgOverlay.getRGB(i, j) & (255 << 24)) < 0 ? imgOverlay.getRGB(i, j) : temp.getRGB(i, j));
 		
 		return temp;
 	}
