@@ -108,6 +108,7 @@ private void myMouseClicked(java.awt.event.MouseEvent evt){
  * Coder: Daniel Thertell
  */	
 public String getInput(){
+	System.out.println(output);
 	return output;
 }
 

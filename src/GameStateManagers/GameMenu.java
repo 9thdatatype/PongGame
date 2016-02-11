@@ -45,6 +45,11 @@ public class GameMenu {
 		GameObject multiPlayer = new GameObject (new Point(width/2, 300), 175, 95, multiplayerPath, Color.black);
 		GameObject exit = new GameObject (new Point(width/2, 400), 175, 95, exitPath, Color.black);
 		
+		singlePlayer.setName("singlePlayer");
+		multiPlayer.setName("multiPlayer");
+		exit.setName("exit");
+		
+		
 		//storing objects in array list
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();
 		menuItems.add(singlePlayer);
@@ -70,8 +75,10 @@ public class GameMenu {
 				
 				try {
 					ArrayList<GameObject> crash = tempPhysics.checkClick(mouseClick, menuItems);
-						if(crash.size()>0 && crash.get(0).equals(singlePlayer)){
-							System.out.println("Single Player selected");
+						if(crash.size()>0){
+							
+							menuProcess(crash.get(0).getName());
+							
 							break;
 						}
 				} catch (Exception e) {
@@ -89,6 +96,12 @@ public class GameMenu {
 					menuItems.get(selection).setColour(Color.black);
 					selection++;
 					System.out.println("DOWN");
+				}else if(in.contains("\n")){
+					String select = menuItems.get(selection).getName();
+					
+					menuProcess(select);// checks the input
+					
+					break; // defaults to single player using break
 				}//end inner if
 				
 				menuItems.get(selection).setColour(Color.GREEN);
@@ -150,6 +163,15 @@ public class GameMenu {
 		}
 		
 
+	}
+	
+	private void menuProcess(String choice){
+		if(choice.equals("multiPlayer")){
+			drawMultiplayerMenu();
+		}
+		else if (choice.equals("exit")){
+			System.exit(0);
+		}
 	}
 	
 	

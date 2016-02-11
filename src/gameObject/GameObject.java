@@ -200,9 +200,16 @@ public class GameObject implements Serializable {
 		this.phys.reCenter(center);
 	}
 
+	
+	
 	public void setColour(Color colour){
 		this.colour = colour;
 		setImage(imgFile.getAbsolutePath());
+	}
+	
+	
+	public void setName(String name){
+		this.name = name;
 	}
 
 	private void setImage(String imgFilePath){
