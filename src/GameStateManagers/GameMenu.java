@@ -55,10 +55,8 @@ public class GameMenu {
 		rend.render(menuItems);
 		
 		Point mouseClick = null;
-		
-		
+				
 		input.setAutoclear(false);
-		long time = System.nanoTime();
 		
 		String in = "";
 		while(true){
@@ -66,17 +64,14 @@ public class GameMenu {
 			mouseClick = input.getMousePos();
 			in = input.getInput();
 			input.clearInput();
-			System.out.println(in);
 			//outer if
-			//System.out.println("Checking: " + (System.nanoTime()-time));
 			if(mouseClick != null){
 				tempPhysics = new Physics();
-				//System.out.println("click: " + (System.nanoTime()-time));
+				
 				try {
 					ArrayList<GameObject> crash = tempPhysics.checkClick(mouseClick, menuItems);
 						if(crash.size()>0 && crash.get(0).equals(singlePlayer)){
 							System.out.println("Single Player selected");
-							System.out.println("Breakpoint: " + (System.nanoTime()-time));
 							break;
 						}
 				} catch (Exception e) {
@@ -97,10 +92,8 @@ public class GameMenu {
 				}//end inner if
 				
 				menuItems.get(selection).setColour(Color.GREEN);
-				//System.out.println("colour changed: " + (System.nanoTime()-time));
+				
 				rend.render(menuItems);
-				//System.out.println("done drawing: " + (System.nanoTime()-time));
-				time = System.nanoTime();
 			}//end outer if
 			
 			

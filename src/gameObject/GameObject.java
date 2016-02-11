@@ -202,9 +202,8 @@ public class GameObject implements Serializable {
 
 	public void setColour(Color colour){
 		this.colour = colour;
-		drawColour();
+		setImage(imgFile.getAbsolutePath());
 	}
-
 
 	private void setImage(String imgFilePath){
 		
@@ -216,7 +215,8 @@ public class GameObject implements Serializable {
 		else{
 			imgFile = new File(imgFilePath);
 			try {
-				img = ImageIO.read(imgFile);
+				//img = ImageIO.read(imgFile);
+				img = drawBackground(ImageIO.read(imgFile));
 			} catch (IOException e) {
 				e.printStackTrace();
 				imgAvailable = false;
@@ -235,5 +235,21 @@ public class GameObject implements Serializable {
 		for(int i = 0; i < w; ++i)
 			for(int j = 0; j < h; ++j)
 				img.setRGB(i, j, colour.getRGB());
+	}
+	
+	private BufferedImage drawBackground(BufferedImage imgOverlay){
+		int w = (int)Math.round(phys.width);
+		int h = (int)Math.round(phys.height);
+		BufferedImage temp = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		
+		for(int i = 0; i < w; ++i)
+			for(int j = 0; j < h; ++j)
+				temp.setRGB(i, j, colour.getRGB());
+		
+		for(int i = 0; i < w; ++i)
+			for(int j = 0; j < h; ++j)
+				temp.setRGB(i, j, imgOverlay.getRGB(i, j) | temp.getRGB(i, j));
+		
+		return temp;
 	}
 }
