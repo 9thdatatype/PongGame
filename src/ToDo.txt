@@ -31,7 +31,8 @@ program wide:
 		- Just so that when other people are debugging it wont clutter the console.
 	- It would be nice to have all positions relative so the screen can be resized.
 	- Change all Point class direct field references to the getter methods.
-   *- Put * beside new additions to ToDO list to make them easier to find? -Dan
+   *- Put * beside new additions to ToDo list to make them easier to find? -Dan
+   		*- will do - Jonathan
 	
 GameStateManagers.GameMenu:
 	- If Dan is creating a physics object maybe it should be passed to the constructor of the InGameManager
@@ -40,7 +41,7 @@ GameStateManagers.GameMenu:
 gameObject.GameObject:
 	- This should be made into an abstract class with methods that need to be defined in child classes.
 		- Haven't decided how or what so please don't touch yet
-	- Complete the game object with new methods and Constuctors
+	- Complete the game object with new methods and Constructors
 
 EngineComponents.Physics:
 	- Add function to check a point and an arraylist of objects.  return the object clicked or null if nothing was clicked
@@ -50,4 +51,5 @@ EngineComponents.Physics:
    *- Use A HashMap? or HashList? -Dan
 	
 Resources:
-	-MAKE WHITE PARTS OF IMAGES TRANSPARENT!! (is that possible with paint??)
+	-MAKE WHITE PARTS OF IMAGES TRANSPARENT!!
+	*- I like the new button style! definitely want the others like that as well - Jonathan
