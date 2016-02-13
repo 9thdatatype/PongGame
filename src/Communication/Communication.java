@@ -93,7 +93,13 @@ public Communication(){
 	}
 }
 
-
+/**
+ * @deprecated
+ * 
+ *@author Daniel Thertell
+ *@since Feb 13, 2016
+ *@param
+ */
 private void initilize(){
 	Objects[0] = new Point(0,0);
 	Objects[1] = new Point(0,0);
@@ -132,7 +138,7 @@ public void send(double x, double y, int type){
 
 
 /**
- * 
+ * attempts to send a game object;
  * 
  *@author Daniel Thertell
  *@since Feb 10, 2016
@@ -150,7 +156,7 @@ public boolean sendObject(GameObject object){
 }
 
 /**
- * 
+ * tries to grab an object
  * 
  *@author Daniel Thertell
  *@since Feb 10, 2016
@@ -170,7 +176,7 @@ public boolean checkObject(){
 }
 /**
  * 
- * 
+ * takes the object at the top of the list and removes it from the list
  *@author Daniel Thertell
  *@since Feb 10, 2016
  *@param
@@ -185,6 +191,14 @@ public GameObject getObject(){
 	return null;
 }
 
+
+/**
+ * takes all objects in the list and clears the list
+ * 
+ *@author Daniel Thertell
+ *@since Feb 13, 2016
+ *@param
+ */
 public ArrayList<GameObject> getAllObjects(){
 	boolean valid = true;
 	while(valid){

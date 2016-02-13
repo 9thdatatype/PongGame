@@ -127,14 +127,14 @@ public class GameMenu {
 	}
 	
 	public void drawMultiplayerMenu() {
-		String JoinPath = "/resources/join.png";
-		String HostPath = "/resources/host.png";
-		String BackPath = "/resources/back.png";
+		String JoinPath = "resources/Join.png";
+		String HostPath = "resources/Host.png";
+		String BackPath = "resources/Back.png";
 		
 		
-		GameObject Join = new GameObject (new Point(width/2, 200), 175, 95, JoinPath, null);
-		GameObject Host = new GameObject (new Point(width/2, 300), 175, 95, HostPath, null);
-		GameObject Back = new GameObject (new Point(width/2, 400), 175, 95, BackPath, null);
+		GameObject Join = new GameObject (new Point(width/2, 200), 175, 95, JoinPath, Color.black);
+		GameObject Host = new GameObject (new Point(width/2, 300), 175, 95, HostPath, Color.black);
+		GameObject Back = new GameObject (new Point(width/2, 400), 175, 95, BackPath, Color.black);
 
 		
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();
@@ -147,22 +147,54 @@ public class GameMenu {
 		
 		Point mouseClick = null;
 		input.clearInput();
+		String in = "";	
 		
 		while(true){
+			
 			mouseClick = input.getMousePos();
-			if(mouseClick != null){
-				//Physics.newThingy(mouseClick,menuItems);
-				break;
-			}
+			in = input.getInput();
 			input.clearInput();
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			//outer if
+			if(mouseClick != null){
+				tempPhysics = new Physics();
+				
+				try {
+					ArrayList<GameObject> crash = tempPhysics.checkClick(mouseClick, menuItems);
+						if(crash.size()>0){
+							
+							menuProcess(crash.get(0).getName());
+							
+							break;
+						}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}else if(in != null){
+				//System.out.println("Key Found: " + (System.nanoTime()-time));
+				//inner if
+				if(in.contains("w") && selection > 0){
+					menuItems.get(selection).setColour(Color.black);
+					selection--;
+					//System.out.println("UP");
+				}else if(in.contains("s") && selection < 2){
+					menuItems.get(selection).setColour(Color.black);
+					selection++;
+					//System.out.println("DOWN");
+				}else if(in.contains("\n")){
+					String select = menuItems.get(selection).getName();
+					
+					menuProcess(select);// checks the input
+					
+					break; // defaults to single player using break
+				}//end inner if
+				
+				menuItems.get(selection).setColour(Color.GREEN);
+				
+				rend.render(menuItems);
 			}
-		}
 		
-
+		}
 	}
 	
 	private void menuProcess(String choice){
