@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import geometry.*;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import EngineComponents.Physics;
 import EngineComponents.Renderer;
 import gameObject.GameObject;
@@ -137,6 +139,11 @@ public class GameMenu {
 		GameObject Back = new GameObject (new Point(width/2, 400), 175, 95, BackPath, Color.black);
 
 		
+		Join.setName("Join");
+		Host.setName("Host");
+		Back.setName("Back");
+		
+		
 		ArrayList<GameObject> menuItems = new ArrayList<GameObject>();
 		menuItems.add(Join);
 		menuItems.add(Host);
@@ -162,7 +169,7 @@ public class GameMenu {
 					ArrayList<GameObject> crash = tempPhysics.checkClick(mouseClick, menuItems);
 						if(crash.size()>0){
 							
-							menuProcess(crash.get(0).getName());
+							multiplayerMenuProcess(crash.get(0).getName());
 							
 							break;
 						}
@@ -184,7 +191,7 @@ public class GameMenu {
 				}else if(in.contains("\n")){
 					String select = menuItems.get(selection).getName();
 					
-					menuProcess(select);// checks the input
+					multiplayerMenuProcess(select);// checks the input
 					
 					break; // defaults to single player using break
 				}//end inner if
@@ -204,6 +211,19 @@ public class GameMenu {
 		else if (choice.equals("exit")){
 			System.exit(0);
 		}
+	}
+	
+	private void multiplayerMenuProcess(String choice){
+		OnlineMultiplayerState online = null;
+		if(choice.equals("Join")){
+			String IP = JOptionPane.showInputDialog("Enter IP Address");
+			online = new OnlineMultiplayerState(rend, input, IP);
+		}else if (choice.equals("Host")){
+			online = new OnlineMultiplayerState(rend, input);
+		}else if (choice.equals("Back")){
+			drawMainMenu();
+		}
+		online.startGame();
 	}
 	
 	
