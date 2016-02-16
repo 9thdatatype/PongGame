@@ -4,8 +4,10 @@
 package GameStateManagers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Communication.Communication;
+import EngineComponents.Physics;
 import EngineComponents.Renderer;
 import gameObject.GameObject;
 import geometry.Point;
@@ -21,6 +23,8 @@ public class OnlineMultiplayerState {
 	private Input input = null;
 	private Communication comm = null;
 	private boolean host = false;
+	private Physics phys = new Physics();
+	private HashMap<GameObject, ArrayList<GameObject> > crashedObjects = new HashMap<GameObject, ArrayList<GameObject>>();
 	
 	//this constructor waits for connection
 	public OnlineMultiplayerState(Renderer rend, Input in){
@@ -71,7 +75,14 @@ public class OnlineMultiplayerState {
 	
 	
 	private void runHost(ArrayList<GameObject> objs, ArrayList<GameObject> transfer){
-		//waiting on compleation of physics engine
+		GameObject ball = objs.get(0);
+		ArrayList<GameObject> collisions;
+		while(true){
+		
+		crashedObjects = phys.checkCollision(objs);
+		collisions = crashedObjects.get(ball);
+		
+		}
 	}
 	
 	
