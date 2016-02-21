@@ -121,33 +121,33 @@ public class GameObject implements Serializable {
 	}
 
 	/**
-	 * Gets the top left corner of the current object
+	 * Gets a copy of top left corner of the current object
 	 * @return a point representation of the objects top left corner
 	 */
 
 	public Point getTopLeftCorner(){
 
-		return this.phys.tlc;
+		return new Point(phys.tlc);
 	}
 
 	/**
-	 * Gets the bottom right corner of the current object
+	 * Gets a copy of the bottom right corner of the current object
 	 * @return a point representation of the objects bottom right corner
 	 */
 
 	public Point getBottomRightCorner(){
 
-		return this.phys.brc;
+		return new Point(phys.brc);
 	}
 
 	/**
-	 * Gets the center of the current object
+	 * Gets a copy of the center of the current object
 	 * @return a point representation of the objects center point
 	 */
 
 	public Point getCenter(){
 
-		return this.phys.center;
+		return new Point(phys.center);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class GameObject implements Serializable {
 
 	public int getWidth(){
 
-		return (int)Math.round(this.phys.width);
+		return (int)Math.round(phys.width);
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class GameObject implements Serializable {
 
 	public int getHeight(){
 
-		return (int)Math.round(this.phys.height);
+		return (int)Math.round(phys.height);
 	}
 
 	/**
@@ -179,19 +179,10 @@ public class GameObject implements Serializable {
 
 		return name;
 	}
-	
-	/**
-	 * Gets the Object2D stored in the object
-	 * @return the physical representation of the object's hitbox
-	 */
-	
-	public Object2D getPhys(){
-		
-		return phys;
-	}
 
 	/**
-	 * Will update the center of the object
+	 * Will update the state of the Object2D undernearth GameObject
+	 * as if it had a different center
 	 * @param center the new center point of the object
 	 */
 
@@ -199,9 +190,29 @@ public class GameObject implements Serializable {
 
 		this.phys.reCenter(center);
 	}
+	
+	/**
+	 * Will update the state of the Object2D undernearth GameObject
+	 * as if it had a different top left corner
+	 * @param center the new center point of the object
+	 */
 
+	public void setTopLeftCorner(Point center){
+
+		phys.setTLC(center);
+	}
 	
-	
+	/**
+	 * Will update the state of the Object2D undernearth GameObject
+	 * as if it had a different bottom right corner
+	 * @param center the new center point of the object
+	 */
+
+	public void setBottomRightCorner(Point center){
+
+		phys.setBRC(center);
+	}
+
 	public void setColour(Color colour){
 		this.colour = colour;
 		setImage(imgFile.getAbsolutePath());
