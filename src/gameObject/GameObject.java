@@ -121,6 +121,16 @@ public class GameObject implements Serializable {
 	}
 
 	/**
+	 * Gets a copy of the physical state of the object
+	 * @return a point representation of the objects center point
+	 */
+
+	public Object2D getPhys(){
+
+		return new Object2D(phys);
+	}
+	
+	/**
 	 * Gets a copy of top left corner of the current object
 	 * @return a point representation of the objects top left corner
 	 */
@@ -212,6 +222,8 @@ public class GameObject implements Serializable {
 
 		phys.setBRC(center);
 	}
+	
+	
 
 	public void setColour(Color colour){
 		this.colour = colour;
