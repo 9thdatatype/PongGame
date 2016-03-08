@@ -75,6 +75,11 @@ public class Object2D extends Rectangle
 		return Math.sin(Math.toRadians(direction));
 	}
 	
+	public void reflectHorizontal()
+	{
+		direction = Math.toDegrees(Math.atan2(yDir(), -xDir()));
+	}
+	
 	public Rectangle top()
 	{
 		return new Rectangle(tlc, tlc.add(width, 1));
