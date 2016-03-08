@@ -38,7 +38,9 @@ public class InGameManager {
 		objs.add(new GameObject(new Point(width-1, (height/2)), 1, height, "resources/border1.png", null));
 		
 		objs.get(1).setDirection(90);
+		System.out.println("Paddle 1 Dir: " + objs.get(1).getPhys().direction);
 		objs.get(2).setDirection(90);
+		System.out.println("Paddle 2 Dir: " + objs.get(2).getPhys().direction);
 		objs.get(0).setDirection(-20);
 		objs.get(0).setSpeed(10);
 		//TODO: Add the physics engine in here
