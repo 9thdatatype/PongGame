@@ -130,6 +130,17 @@ public class GameObject implements Serializable {
 		return new Object2D(phys);
 	}
 	
+	public void setSpeed(double spd)
+	{
+		phys.speed = spd;
+	}
+	
+	public void setDirection(double dir)
+	{
+		phys.direction = dir;
+	}
+	
+	
 	/**
 	 * Gets a copy of top left corner of the current object
 	 * @return a point representation of the objects top left corner
