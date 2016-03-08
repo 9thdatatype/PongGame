@@ -139,6 +139,11 @@ public class GameObject implements Serializable {
 		phys.direction = dir;
 	}
 	
+	public void bouncehorizontal()
+	{
+		phys.reflectHorizontal();
+	}
+	
 	
 	/**
 	 * Gets a copy of top left corner of the current object
