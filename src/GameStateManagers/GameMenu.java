@@ -122,7 +122,7 @@ public class GameMenu {
 		
 		input.setAutoclear(true);
 		
-		InGameManager igm = new InGameManager(rend, input);
+		InGameManager igm = new InGameManager(rend, input, tempPhysics);
 		igm.runGame();
 		
 		//Physics.newThingy(mouseClick,menuItems);

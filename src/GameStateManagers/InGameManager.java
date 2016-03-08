@@ -36,26 +36,31 @@ public class InGameManager {
 		objs.add(new GameObject(new Point((width/2), height-1), width, 1, "resources/border2.png", null));
 		objs.add(new GameObject(new Point(0, (height/2)), 1, height, "resources/border1.png", null));
 		objs.add(new GameObject(new Point(width-1, (height/2)), 1, height, "resources/border1.png", null));
-
+		
+		objs.get(1).setDirection(90);
+		objs.get(2).setDirection(90);
+		objs.get(0).setDirection(-20);
+		objs.get(0).setSpeed(10);
 		//TODO: Add the physics engine in here
 
 		//Main game loop
 		while(running){
 			startTime = System.currentTimeMillis();
-			
+			objs.get(1).setSpeed(0);
+			objs.get(2).setSpeed(0);
 			if(input.getInput().contains("w")){
 //				objs.get(0).getBottomRightCorner().translate(1, 1);
 //				objs.get(0).getCenter().translate(1, 1);
 //				objs.get(0).setCenter(new Point(objs.get(0).getCenter().x+1, objs.get(0).getCenter().y+1));
-				
+				objs.get(1).setSpeed(5);
 			}else if(input.getInput().contains("s")){
-				
+				objs.get(1).setSpeed(-5);
 			}
 				
 			if(input.getInput().contains("i")){
-				
+				objs.get(2).setSpeed(5);
 			}else if(input.getInput().contains("k")){
-				
+				objs.get(2).setSpeed(-5);
 			}
 
 			phys.update(objs);
