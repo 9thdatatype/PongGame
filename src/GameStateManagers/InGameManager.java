@@ -16,11 +16,12 @@ import gameObject.GameObject;
  */
 public class InGameManager {
 	
-	public InGameManager(Renderer renderer, Input input){
+	public InGameManager(Renderer renderer, Input input, Physics phys){
 		this.renderer = renderer;
 		this.width = renderer.getWidth();
 		this.height = renderer.getHeight();
 		this.input = input;
+		this.phys = phys;
 	}
 	
 	public void runGame(){
@@ -46,6 +47,7 @@ public class InGameManager {
 //				objs.get(0).getBottomRightCorner().translate(1, 1);
 //				objs.get(0).getCenter().translate(1, 1);
 //				objs.get(0).setCenter(new Point(objs.get(0).getCenter().x+1, objs.get(0).getCenter().y+1));
+				
 			}else if(input.getInput().contains("s")){
 				
 			}
@@ -56,12 +58,13 @@ public class InGameManager {
 				
 			}
 
+			phys.update(objs);
 			renderer.render(objs);
 
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
-//			System.out.println(1000/timeTaken);
+			System.out.println(1000/timeTaken);
 		}
 	}
 	
@@ -70,4 +73,5 @@ public class InGameManager {
 	private Renderer renderer;
 	private Input input;
 	private boolean running = true;
+	private Physics phys;
 }
