@@ -14,12 +14,6 @@
 
 *********************
 Known Bugs:
-	- Tried to use GameObject.translate(dx, dy) and it did nothing
-		- This might be causing inconsistencies with the actual center and the center between the tlc and brc
-			- Update: it is most certainly causing inconsistencies
-			- uncomment line 46 in InGameManager and run the program and hit w
-			- then do the same thing with line 47 but re-comment line 46
-			- also line 48 is the intent of what line 47 should result in
 *********************
 
 program wide: 
@@ -31,25 +25,14 @@ program wide:
 		- Just so that when other people are debugging it wont clutter the console.
 	- It would be nice to have all positions relative so the screen can be resized.
 	- Change all Point class direct field references to the getter methods.
-   *- Put * beside new additions to ToDo list to make them easier to find? -Dan
-   		*- will do - Jonathan
+   *- Put * beside new additions to ToDo list to make them easier to find?
 	
 GameStateManagers.GameMenu:
-	- If Dan is creating a physics object maybe it should be passed to the constructor of the InGameManager
-		- To avoid having multiple objects taking up ram
 	
 gameObject.GameObject:
-	- This should be made into an abstract class with methods that need to be defined in child classes.
-		- Haven't decided how or what so please don't touch yet
-	- Complete the game object with new methods and Constructors
 
 EngineComponents.Physics:
-	- Add function to check a point and an arraylist of objects.  return the object clicked or null if nothing was clicked
-	- CHECK FOR FUCKING STALES
-	- Encapsulate E.V.E.R.Y.T.H.I.N.G
-	- Javadocs
-   *- Use A HashMap? or HashList? -Dan
+   - Use A HashMap? or HashList? -Dan
 	
 Resources:
-	-MAKE WHITE PARTS OF IMAGES TRANSPARENT!!
 	*- I like the new button style! definitely want the others like that as well - Jonathan
