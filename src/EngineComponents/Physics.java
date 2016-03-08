@@ -17,11 +17,23 @@ import gameObject.*;
 public class Physics
 { 
 	
-	public ArrayList<GameObject> checkClick (Point P, ArrayList<GameObject> array)
+	public static ArrayList<GameObject> update (ArrayList<GameObject> list)
+	{
+		ArrayList<GameObject> nextFrameList = new ArrayList<GameObject>(list); 
+		for (GameObject O : nextFrameList)
+		{
+			O.setCenter(O.getPhys().move()); // .move() is being called at a copy of the actual 2D Object, 
+										     // but it nonetheless returns the Point that is the center we want
+		}
+		
+		return nextFrameList;
+	}
+	
+	public static ArrayList<GameObject> checkClick (Point P, ArrayList<GameObject> list)
 	{
 		ArrayList<GameObject> clickedList = new ArrayList<GameObject>(0);
 		
-		for (GameObject object : array)
+		for (GameObject object : list)
 		{			
 			if (object.getPhys().contains(P))
 			{
@@ -32,19 +44,18 @@ public class Physics
 		return clickedList;
 	}
 	
-	public ArrayList<GameObject> checkClick (double x, double y, ArrayList<GameObject> array)
+	
+	public static ArrayList<GameObject> checkClick (double x, double y, ArrayList<GameObject> list)
 	{
-		return checkClick(new Point(x, y), array);
+		return checkClick(new Point(x, y), list);
 	}
 	
 	
-	
-	
-	public ArrayList<GameObject> checkCollisionOneToMany (GameObject A, ArrayList<GameObject> array)
+	public static ArrayList<GameObject> checkCollisionOneToMany (GameObject A, ArrayList<GameObject> list)
 	{
 		ArrayList<GameObject> inCollision = new ArrayList<GameObject>(0);
 		
-		for (GameObject O : array)
+		for (GameObject O : list)
 		{
 			if (A.getPhys().intersects(O.getPhys()))
 			{
@@ -53,18 +64,16 @@ public class Physics
 		}
 		
 		return inCollision;
-		
-		
 	}
 	
 	
-	public HashMap<GameObject, ArrayList<GameObject>> checkCollision(ArrayList<GameObject> array)
+	public static HashMap<GameObject, ArrayList<GameObject>> checkCollision(ArrayList<GameObject> list)
 	{
 		HashMap<GameObject, ArrayList<GameObject>> collisionTable = new HashMap<GameObject, ArrayList<GameObject>>(0);
 
-		for (GameObject A : array )
+		for (GameObject A : list )
 		{
-			collisionTable.put(A, checkCollisionOneToMany(A, array));
+			collisionTable.put(A, checkCollisionOneToMany(A, list));
 		}
 		
 		return collisionTable;
