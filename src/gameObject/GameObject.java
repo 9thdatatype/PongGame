@@ -126,7 +126,6 @@ public class GameObject implements Serializable {
 	 */
 
 	public Object2D getPhys(){
-
 		return new Object2D(phys);
 	}
 	
