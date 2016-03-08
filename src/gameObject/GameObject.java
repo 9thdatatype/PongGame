@@ -139,9 +139,14 @@ public class GameObject implements Serializable {
 		phys.direction = dir;
 	}
 	
-	public void bouncehorizontal()
+	public void bounceHorizontal()
 	{
 		phys.reflectHorizontal();
+	}
+	
+	public void bounceVertical()
+	{
+		phys.reflectVertical();
 	}
 	
 	
