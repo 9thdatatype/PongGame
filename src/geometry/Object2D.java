@@ -95,4 +95,10 @@ public class Object2D extends Rectangle
 		Rectangle[] sides = {top(), left(), bottom(), right()};
 		return sides;
 	}
+	
+	public Point move()
+	{
+		translate(xDir(), yDir());
+		return center;
+	}
 }
