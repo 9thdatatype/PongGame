@@ -54,7 +54,7 @@ public class InGameManager {
 		objs.get(2).setDirection(-90);
 		System.out.println("Paddle 2 Dir: " + objs.get(2).getPhys().direction);
 		objs.get(0).setDirection(20);
-		objs.get(0).setSpeed(10);
+		objs.get(0).setSpeed(ballSpeed);
 		//TODO: Add the physics engine in here
 		//A Change
 		//Main game loop
@@ -66,15 +66,15 @@ public class InGameManager {
 //				objs.get(0).getBottomRightCorner().translate(1, 1);
 //				objs.get(0).getCenter().translate(1, 1);
 //				objs.get(0).setCenter(new Point(objs.get(0).getCenter().x+1, objs.get(0).getCenter().y+1));
-				objs.get(1).setSpeed(5);
+				objs.get(1).setSpeed(speed);
 			}else if(input.getInput().contains("s")){
-				objs.get(1).setSpeed(-5);
+				objs.get(1).setSpeed(-speed);
 			}
 				
 			if(input.getInput().contains("i")){
-				objs.get(2).setSpeed(5);
+				objs.get(2).setSpeed(speed);
 			}else if(input.getInput().contains("k")){
-				objs.get(2).setSpeed(-5);
+				objs.get(2).setSpeed(-speed);
 			}
 			
 			
@@ -101,9 +101,25 @@ public class InGameManager {
 				//BALL COLLISION
 				if(key.getName().equals("Ball") && stuff.size()>1){
 					for(GameObject crash : stuff){
+						
 						if(crash.getName().equals("Paddle 1")){
-							
+							System.out.println("Ball hit Left Paddle");
+						}else if(crash.getName().equals("Paddle 2")){
+							System.out.println("Ball hit Right Paddle");
+							ballSpeed++;
+							ballSpeed *= -1;
+							System.out.println("Speed: " + ballSpeed);
+							objs.get(0).setSpeed(ballSpeed);
+						}else if(crash.getName().equals("Side 1")){
+							System.out.println("Ball hit Bottom?");
+						}else if(crash.getName().equals("Side 2")){
+							System.out.println("Ball hit Top?");
+						}else if(crash.getName().equals("Side 3")){
+							System.out.println("Ball hit Left Side!");
+						}else if(crash.getName().equals("Side 4")){
+							System.out.println("Ball hit Right Side!");
 						}
+						
 					}
 				}//BALL COLLISION DONE
 				
@@ -123,4 +139,6 @@ public class InGameManager {
 	private boolean running = true;
 	private Physics phys;
 	private HashMap collisions;
+	private  int speed = 5;
+	private int ballSpeed = speed * 2;
 }
