@@ -18,6 +18,11 @@ public class Object2D extends Rectangle
 		speed = 0;
 	}
 	
+	public Object2D(Object2D cloneable)
+	{
+		this(new Rectangle(cloneable.tlc, cloneable.brc), cloneable.speed, cloneable.direction);
+	}
+	
 	public Object2D(double tlcx, double tlcy, double brcx, double brcy)
 	{
 		this(new Rectangle(tlcx, tlcy, brcx, brcy));
@@ -98,7 +103,7 @@ public class Object2D extends Rectangle
 	
 	public Point move()
 	{
-		translate(xDir(), yDir());
+		translate(xDir()*speed, yDir()*speed);
 		return center;
 	}
 }
