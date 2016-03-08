@@ -24,6 +24,7 @@ public class Physics
 		{
 			O.setCenter(O.getPhys().move()); // .move() is being called at a copy of the actual 2D Object, 
 										     // but it nonetheless returns the Point that is the center we want
+			System.out.println("Object speed: " + O.getPhys().speed + " direction: " + O.getPhys().direction);
 		}
 		
 		return nextFrameList;
