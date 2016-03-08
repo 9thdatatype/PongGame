@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import geometry.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import EngineComponents.Physics;
 import EngineComponents.Renderer;
@@ -67,7 +68,11 @@ public class InGameManager {
 
 			phys.update(objs);
 			renderer.render(objs);
-
+			//checking and storing collisions
+			collisions = phys.checkCollision(objs);
+			
+			
+			
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
@@ -81,4 +86,5 @@ public class InGameManager {
 	private Input input;
 	private boolean running = true;
 	private Physics phys;
+	private HashMap collisions;
 }
