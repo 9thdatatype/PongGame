@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import geometry.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import EngineComponents.Physics;
 import EngineComponents.Renderer;
@@ -38,6 +41,14 @@ public class InGameManager {
 		objs.add(new GameObject(new Point(0, (height/2)), 1, height, "resources/border1.png", null));
 		objs.add(new GameObject(new Point(width-1, (height/2)), 1, height, "resources/border1.png", null));
 		
+		objs.get(0).setName("Ball");
+		objs.get(1).setName("Paddle 1");
+		objs.get(2).setName("Paddle 2");
+		objs.get(3).setName("Side 1");
+		objs.get(4).setName("side 2");
+		objs.get(5).setName("Side 3");
+		objs.get(6).setName("Side 4");
+		
 		objs.get(1).setDirection(-90);
 		System.out.println("Paddle 1 Dir: " + objs.get(1).getPhys().direction);
 		objs.get(2).setDirection(-90);
@@ -65,13 +76,38 @@ public class InGameManager {
 			}else if(input.getInput().contains("k")){
 				objs.get(2).setSpeed(-5);
 			}
-
+			
+			
 			phys.update(objs);
 			renderer.render(objs);
+			
+			
 			//checking and storing collisions
 			collisions = phys.checkCollision(objs);
-			
-			
+			// calculations
+			@SuppressWarnings("rawtypes")
+			Set collisionSet = collisions.entrySet();
+			@SuppressWarnings("rawtypes")
+			Iterator colIterator = collisionSet.iterator();
+			//Looping through all collisions
+			while (colIterator.hasNext()){
+				@SuppressWarnings("rawtypes")
+				Map.Entry entry = (Map.Entry)colIterator.next();
+				
+				GameObject key = (GameObject)entry.getKey();
+
+				ArrayList<GameObject> stuff = (ArrayList<GameObject>)(entry.getValue());
+				
+				//BALL COLLISION
+				if(key.getName().equals("Ball") && stuff.size()>1){
+					for(GameObject crash : stuff){
+						if(crash.getName().equals("Paddle 1")){
+							
+						}
+					}
+				}//BALL COLLISION DONE
+				
+			}
 			
 			endTime = System.currentTimeMillis();
 
