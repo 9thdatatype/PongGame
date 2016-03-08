@@ -69,7 +69,7 @@ public class InGameManager {
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
-			System.out.println(1000/timeTaken);
+			//System.out.println(1000/timeTaken);
 		}
 	}
 	
