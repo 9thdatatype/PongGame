@@ -1,6 +1,8 @@
 package GameStateManagers;
 
 import geometry.*;
+
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,8 +33,8 @@ public class InGameManager {
 
 		ArrayList<GameObject> objs = new ArrayList<GameObject>();
 
-		objs.add(new GameObject(new Point(0, 0), new Point(width, height), "resources/pongCourt.png", null));
-		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ball.png", null));
+		objs.add(new GameObject(new Point(0, 0), new Point(width, height), "resources/pongCourt.png", Color.BLUE));
+		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ballYellow.png", new Color(255, 255, 255, 255)));
 		objs.add(new GameObject(new Point(50, height/2), 50, 200, "resources\\paddle.png", null));
 		objs.add(new GameObject(new Point(width-100, height/2), 50, 200, "resources\\paddle.png", null));
 		objs.add(new GameObject(new Point((width/2), 0), width, 1, "resources/border2.png", null));
@@ -139,7 +141,7 @@ public class InGameManager {
 			endTime = System.currentTimeMillis();
 
 			timeTaken = endTime - startTime;
-			//System.out.println(1000/timeTaken);
+			System.out.println("FPS: " + 1000/timeTaken);
 		}
 	}
 	

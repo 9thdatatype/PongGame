@@ -296,7 +296,7 @@ public class GameObject implements Serializable {
 		
 		for(int i = 0; i < w; ++i)
 			for(int j = 0; j < h; ++j)
-				temp.setRGB(i, j, colour.getRGB());
+				temp.setRGB(i, j, colour.getRGB() + colour.getAlpha());
 		
 		w = imgOverlay.getWidth() < w ? imgOverlay.getWidth() : w;
 		h = imgOverlay.getHeight() < h ? imgOverlay.getHeight() : h;
