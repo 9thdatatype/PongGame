@@ -1,7 +1,5 @@
 package GameStateManagers;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import geometry.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +38,7 @@ public class InGameManager {
 		objs.add(new GameObject(new Point((width/2), height-1), width, 1, "resources/border2.png", null));
 		objs.add(new GameObject(new Point(0, (height/2)), 1, height, "resources/border1.png", null));
 		objs.add(new GameObject(new Point(width-1, (height/2)), 1, height, "resources/border1.png", null));
+		//objs.add(new GameObject(new Point(0, 0), new Point(width, height), "resources/pongCourt.png", null));
 		
 		objs.get(0).setName("Ball");
 		objs.get(1).setName("Paddle 1");
@@ -80,6 +79,7 @@ public class InGameManager {
 			
 			phys.update(objs);
 			renderer.render(objs);
+			renderer.render("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s, 300, 25);
 			
 			
 			//checking and storing collisions
@@ -125,19 +125,14 @@ public class InGameManager {
 							ballSpeed = 10;
 							objs.get(0).bounceHorizontal();
 							objs.get(0).setSpeed(ballSpeed);
-							//System.out.println("Ball hit Left Side!");
 						}else if(crash.getName().equals("Side 4")){
-							//System.out.println("Ball hit Right Side!");
 							p1s++;
 							objs.get(0).setCenter(new Point(width/2,height/2));
 							ballSpeed = 10;
 							objs.get(0).bounceHorizontal();
 							objs.get(0).setSpeed(ballSpeed);
 						}
-						//System.out.println("\nDone\n");
-						System.out.println("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s);
 					}
-					
 				}//BALL COLLISION DONE
 				
 			}

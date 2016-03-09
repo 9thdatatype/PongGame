@@ -1,6 +1,7 @@
 package GameStateManagers;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import geometry.*;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class GameMenu {
 		//Edited On: 09/02/2016
 		
 		this.width = width;
-		rend = new Renderer(graphics, width, height, Color.BLUE);
+		rend = new Renderer(graphics, width, height, Color.BLUE, new Font(Font.SERIF, 12, 22));
 		input = in;
 	}
 	

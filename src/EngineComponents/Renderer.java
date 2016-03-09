@@ -1,6 +1,7 @@
 package EngineComponents;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -23,10 +24,12 @@ public class Renderer {
 	 * @param height the total height of the graphics to be drawn to
 	 * @param background the colour that the system should clear the screen to
 	 */
-	public Renderer(Graphics2D g2d, int width, int height, Color background){
+	public Renderer(Graphics2D g2d, int width, int height, Color background, Font font){
 		this.g2d = g2d;
 		sWidth = width;
 		sHeight = height;
+		
+		g2d.setFont(font);
 		
 		img = new BufferedImage(sWidth, sHeight, BufferedImage.TYPE_INT_ARGB);
 		backgroundImg = new BufferedImage(sWidth, sHeight, BufferedImage.TYPE_INT_ARGB);
@@ -61,6 +64,10 @@ public class Renderer {
 					null);
 		
 		g2d.drawImage(img, 0, 0, sWidth, sHeight, 0, 0, sWidth, sHeight, null);
+	}
+	
+	public void render(String text, int x, int y){
+		g2d.drawString(text, x, y);
 	}
 	
 	/**

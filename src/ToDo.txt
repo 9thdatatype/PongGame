@@ -36,3 +36,9 @@ EngineComponents.Physics:
 	
 Resources:
 	*- I like the new button style! definitely want the others like that as well - Jonathan
+	
+EngineComponents.Renderer:
+	*- Added the ability to draw text but there is a buffering problem to be looked at another time
+	
+PongGUI:
+	*- Does not display properly when changing from full screen to window

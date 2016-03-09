@@ -1,4 +1,6 @@
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -21,25 +23,37 @@ public class PongGUI {
 		sWidth = width;
 		sHeight = height;
 	}
-	
+
 	/**
 	 * Will create and show the window
 	 */
 	public void createAndShowGUI(){
 		//You want the jframe to close everything when it is closed
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//Sets the size of the jframe
-		jframe.setSize(sWidth, sHeight);
-		//Makes it a set size 
-		jframe.setResizable(false);
-		//Makes the jframe visible
-		jframe.setVisible(true);
-		
-		//Set the content width
-		cWidth = jframe.getContentPane().getWidth();
-		//Set the content height
-		cHeight = jframe.getContentPane().getHeight();
-		
+
+		if(maximized){
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			sWidth = (int)screenSize.getWidth();
+			sHeight = (int)screenSize.getHeight();
+			jframe.setSize(sWidth, sHeight);
+			jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			jframe.setUndecorated(true);
+			jframe.setResizable(true);
+			jframe.setVisible(true);
+			cWidth = sWidth;
+			cHeight = sHeight;
+		}else{
+			jframe.setResizable(false);
+			//Makes the jframe visible
+			jframe.setVisible(true);
+			//Sets the size of the jframe
+			jframe.setSize(sWidth, sHeight);
+			//Set the content width
+			cWidth = sWidth; //jframe.getContentPane().getWidth();
+			//Set the content height
+			cHeight = sHeight; //jframe.getContentPane().getHeight();
+		}
+
 		//Set up the game menu
 		GameMenu gmenu = new GameMenu((Graphics2D)(jframe.getContentPane().getGraphics()),cWidth,cHeight, new Input(jframe));
 		//Draw the main menu
@@ -62,5 +76,7 @@ public class PongGUI {
 	private int cWidth;
 	//ContentPane height
 	private int cHeight;
+	//Is the screen maximized
+	private boolean maximized = false;
 }
 // end class
