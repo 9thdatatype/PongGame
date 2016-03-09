@@ -45,7 +45,7 @@ public class InGameManager {
 		objs.get(1).setName("Paddle 1");
 		objs.get(2).setName("Paddle 2");
 		objs.get(3).setName("Side 1");
-		objs.get(4).setName("side 2");
+		objs.get(4).setName("Side 2");
 		objs.get(5).setName("Side 3");
 		objs.get(6).setName("Side 4");
 		
@@ -101,26 +101,43 @@ public class InGameManager {
 				//BALL COLLISION
 				if(key.getName().equals("Ball") && stuff.size()>1){
 					for(GameObject crash : stuff){
+						//System.out.println("Ball Crashed With: " + crash.getName());
 						
 						if(crash.getName().equals("Paddle 1")){
-							System.out.println("Ball hit Left Paddle");
-						}else if(crash.getName().equals("Paddle 2")){
-							System.out.println("Ball hit Right Paddle");
+							//System.out.println("Ball hit Left Paddle");
 							ballSpeed++;
-							ballSpeed *= -1;
-							System.out.println("Speed: " + ballSpeed);
+							objs.get(0).bounceHorizontal();
+							objs.get(0).setSpeed(ballSpeed);
+						}else if(crash.getName().equals("Paddle 2")){
+							//System.out.println("Ball hit Right Paddle");
+							ballSpeed++;
+							objs.get(0).bounceHorizontal();
 							objs.get(0).setSpeed(ballSpeed);
 						}else if(crash.getName().equals("Side 1")){
-							System.out.println("Ball hit Bottom?");
+							objs.get(0).bounceVertical();
+							//System.out.println("Ball hit Top");
 						}else if(crash.getName().equals("Side 2")){
-							System.out.println("Ball hit Top?");
+							objs.get(0).bounceVertical();
+							//System.out.println("Ball hit Bottom!");
 						}else if(crash.getName().equals("Side 3")){
-							System.out.println("Ball hit Left Side!");
+							p2s++;
+							objs.get(0).setCenter(new Point(width/2,height/2));
+							ballSpeed = 10;
+							objs.get(0).bounceHorizontal();
+							objs.get(0).setSpeed(ballSpeed);
+							//System.out.println("Ball hit Left Side!");
 						}else if(crash.getName().equals("Side 4")){
-							System.out.println("Ball hit Right Side!");
+							//System.out.println("Ball hit Right Side!");
+							p1s++;
+							objs.get(0).setCenter(new Point(width/2,height/2));
+							ballSpeed = 10;
+							objs.get(0).bounceHorizontal();
+							objs.get(0).setSpeed(ballSpeed);
 						}
-						
+						//System.out.println("\nDone\n");
+						System.out.println("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s);
 					}
+					
 				}//BALL COLLISION DONE
 				
 			}
@@ -141,4 +158,6 @@ public class InGameManager {
 	private HashMap collisions;
 	private  int speed = 5;
 	private int ballSpeed = speed * 2;
+	private int p1s = 0;
+	private int p2s = 0;
 }
