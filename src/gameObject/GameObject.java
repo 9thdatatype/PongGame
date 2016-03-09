@@ -28,7 +28,7 @@ public class GameObject implements Serializable {
 
 	private static final long serialVersionUID = 1L; //Used for network game play
 
-	private String name; //Name of the object
+	private String name = ""; //Name of the object
 
 	/**
 	 * Creates a GameObject based on two corners

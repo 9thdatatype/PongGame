@@ -38,7 +38,7 @@ public class InGameManager {
 		objs.add(new GameObject(new Point((width/2), height-1), width, 1, "resources/border2.png", null));
 		objs.add(new GameObject(new Point(0, (height/2)), 1, height, "resources/border1.png", null));
 		objs.add(new GameObject(new Point(width-1, (height/2)), 1, height, "resources/border1.png", null));
-		//objs.add(new GameObject(new Point(0, 0), new Point(width, height), "resources/pongCourt.png", null));
+		objs.add(new GameObject(new Point(0, 0), new Point(width, height), "resources/pongCourt.png", null));
 		
 		objs.get(0).setName("Ball");
 		objs.get(1).setName("Paddle 1");
