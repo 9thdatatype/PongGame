@@ -80,16 +80,16 @@ public class Physics
 		return collisionTable;
 	}
 	
-	public static void simpleBounce(Object2D thisOneMoves, Object2D thisOneDoesnt)
+	public static void simpleBounce(GameObject thisOneMoves, GameObject thisOneDoesnt)
 	{
-		if (thisOneMoves.intersects(thisOneDoesnt.left()) || thisOneMoves.intersects(thisOneDoesnt.right()))
+		if (thisOneMoves.getPhys().intersects(thisOneDoesnt.getPhys().left()) || thisOneMoves.getPhys().intersects(thisOneDoesnt.getPhys().right()))
 		{
-			thisOneMoves.reflectHorizontal();
+			thisOneMoves.bounceHorizontal();
 		}
 		
-		if (thisOneMoves.intersects(thisOneDoesnt.top()) || thisOneMoves.intersects(thisOneDoesnt.bottom()))
+		if (thisOneMoves.getPhys().intersects(thisOneDoesnt.getPhys().top()) || thisOneMoves.getPhys().intersects(thisOneDoesnt.getPhys().bottom()))
 		{
-			thisOneMoves.reflectVertical();
+			thisOneMoves.bounceVertical();
 		}
 	}
 	
