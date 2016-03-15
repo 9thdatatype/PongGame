@@ -60,7 +60,7 @@ public class GameMenu {
 		menuItems.add(exit);
 		
 		//rendering array list
-		rend.render(menuItems);
+		rend.render(menuItems, null, null);
 		
 		Point mouseClick = null;
 				
@@ -109,7 +109,7 @@ public class GameMenu {
 				
 				menuItems.get(selection).setColour(Color.GREEN);
 				
-				rend.render(menuItems);
+				rend.render(menuItems, null, null);
 			}//end outer if
 			
 			
@@ -151,7 +151,7 @@ public class GameMenu {
 		menuItems.add(Back);
 		
 		
-		rend.render(menuItems);
+		rend.render(menuItems, null, null);
 		
 		Point mouseClick = null;
 		input.clearInput();
@@ -199,7 +199,7 @@ public class GameMenu {
 				
 				menuItems.get(selection).setColour(Color.GREEN);
 				
-				rend.render(menuItems);
+				rend.render(menuItems, null, null);
 			}
 		
 		}

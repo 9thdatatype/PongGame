@@ -32,6 +32,11 @@ public class InGameManager {
 		long startTime, endTime, timeTaken;
 
 		ArrayList<GameObject> objs = new ArrayList<GameObject>();
+		ArrayList<String> text = new ArrayList<String>();
+		ArrayList<Point> textPositions = new ArrayList<Point>();
+		
+		text.add("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s);
+		textPositions.add(new Point(300, 25));
 
 		objs.add(new GameObject(new Point(0, 0), new Point(width, height), "resources/pongCourt.png", Color.BLUE));
 		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ballYellow.png", new Color(255, 255, 255, 255)));
@@ -56,6 +61,7 @@ public class InGameManager {
 		System.out.println("Paddle 2 Dir: " + objs.get(3).getPhys().direction);
 		objs.get(1).setDirection(20);
 		objs.get(1).setSpeed(ballSpeed);
+		
 		//TODO: Add the physics engine in here
 		//A Change
 		//Main game loop
@@ -80,9 +86,8 @@ public class InGameManager {
 			
 			
 			phys.update(objs);
-			renderer.render(objs);
-			renderer.render("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s, 300, 25);
-			
+			renderer.render(objs, text, textPositions);
+			//renderer.render("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s, 300, 25);
 			
 			//checking and storing collisions
 			collisions = phys.checkCollision(objs);

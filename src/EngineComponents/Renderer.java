@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gameObject.GameObject;
+import geometry.Point;
 
 /**
  * 
@@ -28,28 +29,26 @@ public class Renderer {
 		this.g2d = g2d;
 		sWidth = width;
 		sHeight = height;
-		
+
 		g2d.setFont(font);
-		
+
 		img = new BufferedImage(sWidth, sHeight, BufferedImage.TYPE_INT_ARGB);
 		backgroundImg = new BufferedImage(sWidth, sHeight, BufferedImage.TYPE_INT_ARGB);
-		
+
 		for(int i = 0; i < sWidth; ++i)
 			for(int j = 0; j < sHeight; ++j)
 				backgroundImg.setRGB(i, j, background.getRGB());
-		
+
 		g2d.setBackground(background);
 	}
-	
+
 	/**
 	 * Will draw the objects in the array list to the screen
 	 * @param objs an arrayList of GameObjects
 	 */
-	public void render(ArrayList<GameObject> objs){
-		img.setData(backgroundImg.getRaster());
-		
+	public void render(ArrayList<GameObject> objs, ArrayList<String> strings, ArrayList<Point> points){
 		drawer = (Graphics2D) img.getGraphics();
-		
+
 		for(GameObject obj:objs)
 			drawer.drawImage(
 					obj.getImage(),
@@ -62,32 +61,37 @@ public class Renderer {
 					obj.getWidth(),
 					obj.getHeight(),
 					null);
-		
+
+		if(strings != null)
+			for(int i = 0; i < strings.size(); ++i)
+				((Graphics2D)(img.getGraphics())).drawString(strings.get(i), points.get(i).getX(), points.get(i).getY());
+
 		g2d.drawImage(img, 0, 0, sWidth, sHeight, 0, 0, sWidth, sHeight, null);
 	}
-	
+
 	public void render(String text, int x, int y){
-		g2d.drawString(text, x, y);
+		((Graphics2D)(img.getGraphics())).drawString(text, x, y);
+
 	}
-	
+
 	/**
 	 * get the width of this render objects graphics context
 	 * @return the width
 	 */
 	public int getWidth(){return sWidth;}
-	
+
 	/**
 	 * get the height of this render objects graphics context
 	 * @return the height
 	 */
 	public int getHeight(){return sHeight;}
-	
+
 	/*
 	 * 
 	 * Private portion of code
 	 * 
 	 */
-	
+
 	private Graphics2D g2d;
 	private Graphics2D drawer;
 	private	BufferedImage img;

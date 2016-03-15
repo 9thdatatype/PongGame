@@ -25,7 +25,7 @@ program wide:
 		- Just so that when other people are debugging it wont clutter the console.
 	- It would be nice to have all positions relative so the screen can be resized.
 	- Change all Point class direct field references to the getter methods.
-   *- Put * beside new additions to ToDo list to make them easier to find?
+   *- You always need some sort of background image
 	
 GameStateManagers.GameMenu:
 	
@@ -34,11 +34,5 @@ gameObject.GameObject:
 EngineComponents.Physics:
    - Use A HashMap? or HashList? -Dan
 	
-Resources:
-	*- I like the new button style! definitely want the others like that as well - Jonathan
-	
 EngineComponents.Renderer:
 	*- Added the ability to draw text but there is a buffering problem to be looked at another time
-	
-PongGUI:
-	*- Does not display properly when changing from full screen to window
