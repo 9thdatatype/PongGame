@@ -36,7 +36,7 @@ public class InGameManager {
 		ArrayList<Point> textPositions = new ArrayList<Point>();
 		
 		text.add("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s);
-		textPositions.add(new Point(300, 25));
+		textPositions.add(new Point(200, 25));
 
 		objs.add(new GameObject(new Point(0, 0), new Point(width, height), "resources/pongCourt.png", Color.BLUE));
 		objs.add(new GameObject(new Point(50, 50), new Point(75, 75), "resources\\ballYellow.png", new Color(255, 255, 255, 255)));
@@ -83,8 +83,8 @@ public class InGameManager {
 			}else if(input.getInput().contains("k")){
 				objs.get(3).setSpeed(-speed);
 			}
-			
-			
+			text.remove(0);
+			text.add("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s);
 			phys.update(objs);
 			renderer.render(objs, text, textPositions);
 			//renderer.render("Player 1 Score: " + p1s + "\t Player 2 Score: " + p2s, 300, 25);
@@ -152,10 +152,10 @@ public class InGameManager {
 	
 	private void randomAngle(ArrayList<GameObject> objs, int pos){
 		int angle = (int)(Math.random() * 359);
-		System.out.println("----------Angle: " + (angle % 90));
+		//System.out.println("----------Angle: " + (angle % 90));
 		while((angle % 90) < 20 || (angle % 90) > 70){
 			angle = (int)(Math.random() * 359);
-			System.out.println("\n-----INVALID ANGLE: " + angle + "-----\n");
+			//System.out.println("\n-----INVALID ANGLE: " + angle + "-----\n");
 		}
 		objs.get(pos).setDirection(angle);
 	}

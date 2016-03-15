@@ -85,6 +85,6 @@ public class PongGUI {
 	//ContentPane height
 	private int cHeight;
 	//Is the screen maximized
-	private boolean maximized = false;
+	private boolean maximized = true;
 }
 // end class
