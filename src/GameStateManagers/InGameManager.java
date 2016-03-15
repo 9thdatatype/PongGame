@@ -108,30 +108,30 @@ public class InGameManager {
 						if(crash.getName().equals("Paddle 1")){
 							//System.out.println("Ball hit Left Paddle");
 							ballSpeed++;
-							objs.get(1).bounceHorizontal();
+							phys.simpleBounce(key, crash);
 							objs.get(1).setSpeed(ballSpeed);
 						}else if(crash.getName().equals("Paddle 2")){
 							//System.out.println("Ball hit Right Paddle");
 							ballSpeed++;
-							objs.get(1).bounceHorizontal();
+							phys.simpleBounce(key, crash);
 							objs.get(1).setSpeed(ballSpeed);
 						}else if(crash.getName().equals("Side 1")){
-							objs.get(1).bounceVertical();
+							phys.simpleBounce(key, crash);
 							//System.out.println("Ball hit Top");
 						}else if(crash.getName().equals("Side 2")){
-							objs.get(1).bounceVertical();
+							phys.simpleBounce(key, crash);
 							//System.out.println("Ball hit Bottom!");
 						}else if(crash.getName().equals("Side 3")){
 							p2s++;
 							objs.get(1).setCenter(new Point(width/2,height/2));
 							ballSpeed = 10;
-							objs.get(1).bounceHorizontal();
+							randomAngle(objs, 1);
 							objs.get(1).setSpeed(ballSpeed);
 						}else if(crash.getName().equals("Side 4")){
 							p1s++;
 							objs.get(1).setCenter(new Point(width/2,height/2));
 							ballSpeed = 10;
-							objs.get(1).bounceHorizontal();
+							randomAngle(objs, 1);
 							objs.get(1).setSpeed(ballSpeed);
 						}
 					}
@@ -143,6 +143,16 @@ public class InGameManager {
 			timeTaken = endTime - startTime;
 			System.out.println("FPS: " + 1000/timeTaken);
 		}
+	}
+	
+	private void randomAngle(ArrayList<GameObject> objs, int pos){
+		int angle = (int)(Math.random() * 359);
+		System.out.println("----------Angle: " + (angle % 90));
+		while((angle % 90) < 20 || (angle % 90) > 70){
+			angle = (int)(Math.random() * 359);
+			System.out.println("\n-----INVALID ANGLE: " + angle + "-----\n");
+		}
+		objs.get(pos).setDirection(angle);
 	}
 	
 	private int width;
