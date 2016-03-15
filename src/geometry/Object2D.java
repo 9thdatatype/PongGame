@@ -111,19 +111,6 @@ public class Object2D extends Rectangle
 		return sides;
 	}
 	
-	public void simpleBounce(Object2D thisOneMoves, Object2D thisOneDoesnt)
-	{
-		if (thisOneMoves.intersects(thisOneDoesnt.left()) || thisOneMoves.intersects(thisOneDoesnt.right()))
-		{
-			thisOneMoves.reflectHorizontal();
-		}
-		
-		if (thisOneMoves.intersects(thisOneDoesnt.top()) || thisOneMoves.intersects(thisOneDoesnt.bottom()))
-		{
-			thisOneMoves.reflectVertical();
-		}
-	}
-	
 	public Point move()
 	{
 		translate(xDir()*speed, yDir()*speed);

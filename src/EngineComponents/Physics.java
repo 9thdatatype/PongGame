@@ -80,4 +80,17 @@ public class Physics
 		return collisionTable;
 	}
 	
+	public static void simpleBounce(Object2D thisOneMoves, Object2D thisOneDoesnt)
+	{
+		if (thisOneMoves.intersects(thisOneDoesnt.left()) || thisOneMoves.intersects(thisOneDoesnt.right()))
+		{
+			thisOneMoves.reflectHorizontal();
+		}
+		
+		if (thisOneMoves.intersects(thisOneDoesnt.top()) || thisOneMoves.intersects(thisOneDoesnt.bottom()))
+		{
+			thisOneMoves.reflectVertical();
+		}
+	}
+	
 }
