@@ -48,10 +48,18 @@ public class PongGUI {
 			jframe.setVisible(true);
 			//Sets the size of the jframe
 			jframe.setSize(sWidth, sHeight);
+			
+			//I have no fucking idea why it needs this but it does
+			try{
+				Thread.sleep(100);
+			}catch(Exception e){
+				
+			}
+			
 			//Set the content width
-			cWidth = sWidth; //jframe.getContentPane().getWidth();
+			cWidth = jframe.getContentPane().getWidth();
 			//Set the content height
-			cHeight = sHeight; //jframe.getContentPane().getHeight();
+			cHeight = jframe.getContentPane().getHeight();
 		}
 
 		//Set up the game menu
